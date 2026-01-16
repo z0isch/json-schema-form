@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Schema Form - Development</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    
+    h1 {
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-section h2 {
+      margin-top: 0;
+      color: #374151;
+      font-size: 1.25rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
+    
+    .output {
+      background: #1f2937;
+      color: #10b981;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.875rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+    
+    .output-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Custom Schema Section Styles */
+    .custom-schema-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .custom-schema-section h2 {
+      color: white;
+      border-bottom-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .section-description {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1rem;
+    }
+    
+    .schema-input-container {
+      margin-bottom: 1rem;
+    }
+    
+    #custom-schema-input {
+      width: 100%;
+      height: 200px;
+      padding: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      color: #e0e7ff;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.875rem;
+      resize: vertical;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    
+    #custom-schema-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    #custom-schema-input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .schema-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+      padding: 0.625rem 1.25rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: white;
+      color: #764ba2;
+    }
+    
+    .btn-primary:hover {
+      background: #f0f0f0;
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .schema-error {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      border-radius: 6px;
+      color: #fecaca;
+      font-size: 0.875rem;
+      display: none;
+    }
+    
+    .schema-error.visible {
+      display: block;
+    }
+    
+    .custom-form-container {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      min-height: 100px;
+    }
+    
+    .custom-form-container:empty::before {
+      content: "Your generated form will appear here...";
+      color: #9ca3af;
+      font-style: italic;
+    }
+    
+    .custom-schema-section .output {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .custom-schema-section .output-label {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <h1>JSON Schema Form</h1>
+  <p class="subtitle">A web component for generating forms from JSON Schema</p>
+  
+  <!-- Custom Schema Test -->
+  <div class="demo-section custom-schema-section">
+    <h2>🧪 Test Your Own Schema</h2>
+    <p class="section-description">Paste a JSON Schema below and click "Generate Form" to test it</p>
+    <div class="schema-input-container">
+      <textarea id="custom-schema-input" placeholder='{"type": "object", "properties": {...}}'></textarea>
+      <div class="schema-actions">
+        <button id="generate-btn" class="btn-primary">Generate Form</button>
+        <button id="clear-btn" class="btn-secondary">Clear</button>
+        <button id="load-example-btn" class="btn-secondary">Load Example</button>
+      </div>
+      <div id="schema-error" class="schema-error"></div>
+    </div>
+    <div id="custom-form-container" class="custom-form-container">
+      <json-schema-form 
+        id="custom-form"
+        validate-on-change
+      ></json-schema-form>
+    </div>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="custom-output">{}</div>
+  </div>
+  
+  <!-- Basic Example -->
+  <div class="demo-section">
+    <h2>Basic Example - User Registration</h2>
+    <json-schema-form 
+      id="basic-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="basic-output">{}</div>
+  </div>
+  
+  <!-- Complex Example -->
+  <div class="demo-section">
+    <h2>Complex Example - Product Configuration</h2>
+    <json-schema-form 
+      id="complex-form"
+      submit-text="Save Configuration"
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="complex-output">{}</div>
+  </div>
+  
+  <!-- oneOf Example -->
+  <div class="demo-section">
+    <h2>oneOf Example - Payment Method</h2>
+    <json-schema-form 
+      id="oneof-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="oneof-output">{}</div>
+  </div>
+  
+  <!-- if/then/else Example -->
+  <div class="demo-section">
+    <h2>Conditional Example - Shipping Options</h2>
+    <json-schema-form 
+      id="conditional-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="conditional-output">{}</div>
+  </div>
+  
+  <!-- dependentSchemas Example -->
+  <div class="demo-section">
+    <h2>Dependent Schemas - Credit Application</h2>
+    <json-schema-form 
+      id="dependent-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="dependent-output">{}</div>
+  </div>
+  
+  <!-- Additional Properties Example -->
+  <div class="demo-section">
+    <h2>Additional Properties - Custom Metadata</h2>
+    <json-schema-form 
+      id="additional-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="additional-output">{}</div>
+  </div>
+  
+  <!-- Tuple (prefixItems) Example -->
+  <div class="demo-section">
+    <h2>Tuple Validation - Address Components</h2>
+    <json-schema-form 
+      id="tuple-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="tuple-output">{}</div>
+  </div>
+  
+  <!-- Pattern Properties Example -->
+  <div class="demo-section">
+    <h2>Pattern Properties - Environment Variables</h2>
+    <json-schema-form 
+      id="pattern-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="pattern-output">{}</div>
+  </div>
+  
+  <!-- Format Validation Example -->
+  <div class="demo-section">
+    <h2>Format Validation - All Standard Formats</h2>
+    <json-schema-form 
+      id="format-form"
+      validate-on-change
+    ></json-schema-form>
+    <div class="output-label">Form Value:</div>
+    <div class="output" id="format-output">{}</div>
+  </div>
+
+  <script type="module">
+    import './src/index.ts';
+    
+    // Basic schema example
+    const basicSchema = {
+      title: "User Registration",
+      type: "object",
+      required: ["username", "email", "password"],
+      properties: {
+        username: {
+          type: "string",
+          title: "Username",
+          description: "Choose a unique username",
+          minLength: 3,
+          maxLength: 20,
+          pattern: "^[a-zA-Z0-9_]+$"
+        },
+        email: {
+          type: "string",
+          title: "Email Address",
+          format: "email",
+          description: "We'll never share your email"
+        },
+        password: {
+          type: "string",
+          title: "Password",
+          description: "Must be at least 8 characters",
+          minLength: 8,
+          writeOnly: true
+        },
+        age: {
+          type: "integer",
+          title: "Age",
+          minimum: 13,
+          maximum: 120
+        },
+        newsletter: {
+          type: "boolean",
+          title: "Subscribe to newsletter",
+          default: true
+        },
+        role: {
+          type: "string",
+          title: "Account Type",
+          enum: ["user", "admin", "moderator"],
+          default: "user"
+        }
+      }
+    };
+    
+    // Complex schema example
+    const complexSchema = {
+      title: "Product Configuration",
+      type: "object",
+      required: ["name", "price"],
+      properties: {
+        name: {
+          type: "string",
+          title: "Product Name",
+          minLength: 1,
+          maxLength: 100
+        },
+        description: {
+          type: "string",
+          title: "Description",
+          description: "Detailed product description",
+          maxLength: 500
+        },
+        price: {
+          type: "number",
+          title: "Price",
+          minimum: 0,
+          multipleOf: 0.01
+        },
+        inStock: {
+          type: "boolean",
+          title: "In Stock",
+          default: true
+        },
+        category: {
+          type: "string",
+          title: "Category",
+          enum: ["electronics", "clothing", "food", "books", "other"]
+        },
+        tags: {
+          type: "array",
+          title: "Tags",
+          items: {
+            type: "string",
+            minLength: 1
+          },
+          minItems: 0,
+          maxItems: 5
+        },
+        specifications: {
+          type: "object",
+          title: "Specifications",
+          properties: {
+            weight: {
+              type: "number",
+              title: "Weight (kg)",
+              minimum: 0
+            },
+            dimensions: {
+              type: "string",
+              title: "Dimensions",
+              description: "Format: LxWxH in cm"
+            },
+            color: {
+              type: "string",
+              title: "Color",
+              enum: ["red", "blue", "green", "black", "white"]
+            }
+          }
+        }
+      }
+    };
+    
+    // oneOf schema example - Payment Method
+    const oneOfSchema = {
+      title: "Payment Method",
+      description: "Select and configure your payment method",
+      oneOf: [
+        {
+          title: "Credit Card",
+          type: "object",
+          properties: {
+            cardNumber: {
+              type: "string",
+              title: "Card Number",
+              pattern: "^[0-9]{16}$",
+              description: "16-digit card number"
+            },
+            expiryDate: {
+              type: "string",
+              title: "Expiry Date",
+              pattern: "^(0[1-9]|1[0-2])/[0-9]{2}$",
+              description: "MM/YY format"
+            },
+            cvv: {
+              type: "string",
+              title: "CVV",
+              pattern: "^[0-9]{3,4}$"
+            }
+          },
+          required: ["cardNumber", "expiryDate", "cvv"]
+        },
+        {
+          title: "Bank Transfer",
+          type: "object",
+          properties: {
+            bankName: {
+              type: "string",
+              title: "Bank Name"
+            },
+            accountNumber: {
+              type: "string",
+              title: "Account Number"
+            },
+            routingNumber: {
+              type: "string",
+              title: "Routing Number"
+            }
+          },
+          required: ["bankName", "accountNumber"]
+        },
+        {
+          title: "PayPal",
+          type: "object",
+          properties: {
+            email: {
+              type: "string",
+              title: "PayPal Email",
+              format: "email"
+            }
+          },
+          required: ["email"]
+        }
+      ]
+    };
+    
+    // if/then/else conditional schema
+    const conditionalSchema = {
+      title: "Shipping Options",
+      type: "object",
+      properties: {
+        country: {
+          type: "string",
+          title: "Country",
+          enum: ["US", "CA", "UK", "Other"]
+        },
+        shippingMethod: {
+          type: "string",
+          title: "Shipping Method",
+          enum: ["standard", "express", "overnight"]
+        }
+      },
+      required: ["country", "shippingMethod"],
+      if: {
+        properties: {
+          country: { const: "US" }
+        }
+      },
+      then: {
+        properties: {
+          zipCode: {
+            type: "string",
+            title: "ZIP Code",
+            pattern: "^[0-9]{5}(-[0-9]{4})?$",
+            description: "US ZIP code (12345 or 12345-6789)"
+          },
+          state: {
+            type: "string",
+            title: "State",
+            enum: ["CA", "NY", "TX", "FL", "WA", "Other"]
+          }
+        },
+        required: ["zipCode", "state"]
+      },
+      else: {
+        properties: {
+          postalCode: {
+            type: "string",
+            title: "Postal Code",
+            description: "Enter your postal/ZIP code"
+          },
+          province: {
+            type: "string",
+            title: "Province/Region"
+          }
+        }
+      }
+    };
+    
+    // dependentSchemas example
+    const dependentSchema = {
+      title: "Credit Application",
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+          title: "Full Name"
+        },
+        creditCheck: {
+          type: "boolean",
+          title: "Authorize Credit Check",
+          description: "Check this to provide additional financial information"
+        }
+      },
+      required: ["name"],
+      dependentSchemas: {
+        creditCheck: {
+          properties: {
+            ssn: {
+              type: "string",
+              title: "Social Security Number",
+              pattern: "^[0-9]{3}-[0-9]{2}-[0-9]{4}$",
+              description: "Format: XXX-XX-XXXX"
+            },
+            annualIncome: {
+              type: "number",
+              title: "Annual Income",
+              minimum: 0
+            },
+            employmentStatus: {
+              type: "string",
+              title: "Employment Status",
+              enum: ["employed", "self-employed", "unemployed", "retired", "student"]
+            }
+          },
+          required: ["ssn", "annualIncome"]
+        }
+      },
+      dependentRequired: {
+        creditCheck: ["ssn"]
+      }
+    };
+    
+    // Additional Properties example
+    const additionalSchema = {
+      title: "Custom Metadata",
+      description: "Add custom key-value pairs to your resource",
+      type: "object",
+      properties: {
+        resourceName: {
+          type: "string",
+          title: "Resource Name",
+          description: "The name of your resource"
+        },
+        resourceType: {
+          type: "string",
+          title: "Resource Type",
+          enum: ["document", "image", "video", "other"]
+        }
+      },
+      required: ["resourceName"],
+      additionalProperties: {
+        type: "string",
+        description: "Custom metadata value"
+      },
+      maxProperties: 10
+    };
+    
+    // Tuple (prefixItems) example
+    const tupleSchema = {
+      title: "Location Data",
+      description: "Structured address with fixed components",
+      type: "object",
+      properties: {
+        coordinates: {
+          title: "GPS Coordinates",
+          description: "Latitude and Longitude as a tuple",
+          type: "array",
+          prefixItems: [
+            {
+              type: "number",
+              title: "Latitude",
+              minimum: -90,
+              maximum: 90
+            },
+            {
+              type: "number",
+              title: "Longitude",
+              minimum: -180,
+              maximum: 180
+            }
+          ],
+          items: false,
+          minItems: 2,
+          maxItems: 2
+        },
+        addressComponents: {
+          title: "Address Parts",
+          description: "Street, City, State, ZIP as ordered tuple",
+          type: "array",
+          prefixItems: [
+            { type: "string", title: "Street" },
+            { type: "string", title: "City" },
+            { type: "string", title: "State" },
+            { type: "string", title: "ZIP Code", pattern: "^[0-9]{5}$" }
+          ],
+          items: {
+            type: "string",
+            title: "Additional Info"
+          }
+        }
+      }
+    };
+    
+    // Pattern Properties example
+    const patternSchema = {
+      title: "Configuration",
+      description: "Environment variables and settings",
+      type: "object",
+      properties: {
+        appName: {
+          type: "string",
+          title: "Application Name"
+        }
+      },
+      patternProperties: {
+        "^ENV_": {
+          type: "string",
+          title: "Environment Variable",
+          description: "Environment variable (starts with ENV_)"
+        },
+        "^[A-Z_]+$": {
+          type: "string",
+          title: "Constant",
+          description: "Uppercase constant value"
+        },
+        "_url$": {
+          type: "string",
+          title: "URL Setting",
+          format: "uri",
+          description: "URL endpoint (ends with _url)"
+        }
+      },
+      propertyNames: {
+        pattern: "^[a-zA-Z_][a-zA-Z0-9_]*$",
+        minLength: 2,
+        maxLength: 50
+      },
+      additionalProperties: {
+        type: "string"
+      }
+    };
+    
+    // Format Validation example - showcasing all standard formats
+    const formatSchema = {
+      title: "Format Validation Demo",
+      description: "Demonstrating all JSON Schema standard formats",
+      type: "object",
+      properties: {
+        // Date/Time formats
+        dateField: {
+          type: "string",
+          title: "Date",
+          description: "RFC 3339 full-date (YYYY-MM-DD)",
+          format: "date"
+        },
+        timeField: {
+          type: "string",
+          title: "Time",
+          description: "RFC 3339 full-time (HH:MM:SS)",
+          format: "time"
+        },
+        dateTimeField: {
+          type: "string",
+          title: "Date-Time",
+          description: "RFC 3339 date-time",
+          format: "date-time"
+        },
+        durationField: {
+          type: "string",
+          title: "Duration",
+          description: "ISO 8601 duration (e.g., P1Y2M3DT4H5M6S)",
+          format: "duration"
+        },
+        
+        // Email formats
+        emailField: {
+          type: "string",
+          title: "Email",
+          description: "RFC 5321 email address",
+          format: "email"
+        },
+        
+        // URI formats
+        uriField: {
+          type: "string",
+          title: "URI",
+          description: "RFC 3986 URI (absolute)",
+          format: "uri"
+        },
+        uriRefField: {
+          type: "string",
+          title: "URI Reference",
+          description: "RFC 3986 URI reference (can be relative)",
+          format: "uri-reference"
+        },
+        
+        // Identifiers
+        uuidField: {
+          type: "string",
+          title: "UUID",
+          description: "RFC 4122 UUID (click refresh to generate)",
+          format: "uuid"
+        },
+        
+        // Network formats
+        ipv4Field: {
+          type: "string",
+          title: "IPv4 Address",
+          description: "RFC 2673 IPv4 address",
+          format: "ipv4"
+        },
+        ipv6Field: {
+          type: "string",
+          title: "IPv6 Address",
+          description: "RFC 4291 IPv6 address",
+          format: "ipv6"
+        },
+        hostnameField: {
+          type: "string",
+          title: "Hostname",
+          description: "RFC 1123 hostname",
+          format: "hostname"
+        },
+        
+        // Code formats
+        regexField: {
+          type: "string",
+          title: "Regular Expression",
+          description: "ECMA-262 regular expression",
+          format: "regex"
+        },
+        jsonPointerField: {
+          type: "string",
+          title: "JSON Pointer",
+          description: "RFC 6901 JSON Pointer",
+          format: "json-pointer"
+        }
+      }
+    };
+    
+    // Wait for the custom element to be defined
+    await customElements.whenDefined('json-schema-form');
+    
+    // Custom Schema Testing Setup
+    const customSchemaInput = document.getElementById('custom-schema-input');
+    const generateBtn = document.getElementById('generate-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const loadExampleBtn = document.getElementById('load-example-btn');
+    const schemaError = document.getElementById('schema-error');
+    const customForm = document.getElementById('custom-form');
+    const customOutput = document.getElementById('custom-output');
+    
+    // Example schema to load
+    const exampleSchema = {
+      title: "Contact Form",
+      description: "A simple contact form example",
+      type: "object",
+      required: ["name", "email", "message"],
+      properties: {
+        name: {
+          type: "string",
+          title: "Your Name",
+          minLength: 2,
+          maxLength: 100
+        },
+        email: {
+          type: "string",
+          title: "Email Address",
+          format: "email"
+        },
+        phone: {
+          type: "string",
+          title: "Phone Number",
+          pattern: "^[+]?[(]?[0-9]{1,4}[)]?[-\\s./0-9]*$"
+        },
+        subject: {
+          type: "string",
+          title: "Subject",
+          enum: ["General Inquiry", "Support", "Feedback", "Partnership"]
+        },
+        message: {
+          type: "string",
+          title: "Message",
+          minLength: 10,
+          maxLength: 1000
+        },
+        newsletter: {
+          type: "boolean",
+          title: "Subscribe to newsletter",
+          default: false
+        }
+      }
+    };
+    
+    function showError(message) {
+      schemaError.textContent = message;
+      schemaError.classList.add('visible');
+    }
+    
+    function hideError() {
+      schemaError.classList.remove('visible');
+    }
+    
+    function generateForm() {
+      hideError();
+      const schemaText = customSchemaInput.value.trim();
+      
+      if (!schemaText) {
+        showError('Please enter a JSON Schema');
+        return;
+      }
+      
+      try {
+        const schema = JSON.parse(schemaText);
+        customForm.setAttribute('schema', JSON.stringify(schema));
+        customOutput.textContent = JSON.stringify(customForm.value || {}, null, 2);
+      } catch (e) {
+        showError(`Invalid JSON: ${e.message}`);
+      }
+    }
+    
+    generateBtn.addEventListener('click', generateForm);
+    
+    clearBtn.addEventListener('click', () => {
+      customSchemaInput.value = '';
+      customForm.value = undefined;  // Reset value first
+      customForm.setAttribute('schema', '');  // Clear schema (empty string clears the form)
+      customOutput.textContent = '{}';
+      hideError();
+    });
+    
+    loadExampleBtn.addEventListener('click', () => {
+      customSchemaInput.value = JSON.stringify(exampleSchema, null, 2);
+      hideError();
+    });
+    
+    // Allow Ctrl/Cmd+Enter to generate form
+    customSchemaInput.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        generateForm();
+      }
+    });
+    
+    // Setup custom form events
+    customForm.addEventListener('json-schema-form-change', (e) => {
+      customOutput.textContent = JSON.stringify(e.detail.value, null, 2);
+    });
+    
+    customForm.addEventListener('json-schema-form-submit', (e) => {
+      console.log('Custom form submitted:', e.detail.value);
+      alert('Form submitted! Check console for data.');
+    });
+    
+    // Initialize forms
+    const basicForm = document.getElementById('basic-form');
+    const complexForm = document.getElementById('complex-form');
+    const oneofForm = document.getElementById('oneof-form');
+    const conditionalForm = document.getElementById('conditional-form');
+    const dependentForm = document.getElementById('dependent-form');
+    const additionalForm = document.getElementById('additional-form');
+    const tupleForm = document.getElementById('tuple-form');
+    const patternForm = document.getElementById('pattern-form');
+    const formatForm = document.getElementById('format-form');
+    
+    const basicOutput = document.getElementById('basic-output');
+    const complexOutput = document.getElementById('complex-output');
+    const oneofOutput = document.getElementById('oneof-output');
+    const conditionalOutput = document.getElementById('conditional-output');
+    const dependentOutput = document.getElementById('dependent-output');
+    const additionalOutput = document.getElementById('additional-output');
+    const tupleOutput = document.getElementById('tuple-output');
+    const patternOutput = document.getElementById('pattern-output');
+    const formatOutput = document.getElementById('format-output');
+    
+    // Set schemas via attribute (triggers the reactive property)
+    basicForm.setAttribute('schema', JSON.stringify(basicSchema));
+    complexForm.setAttribute('schema', JSON.stringify(complexSchema));
+    oneofForm.setAttribute('schema', JSON.stringify(oneOfSchema));
+    conditionalForm.setAttribute('schema', JSON.stringify(conditionalSchema));
+    dependentForm.setAttribute('schema', JSON.stringify(dependentSchema));
+    additionalForm.setAttribute('schema', JSON.stringify(additionalSchema));
+    tupleForm.setAttribute('schema', JSON.stringify(tupleSchema));
+    patternForm.setAttribute('schema', JSON.stringify(patternSchema));
+    formatForm.setAttribute('schema', JSON.stringify(formatSchema));
+    
+    // Helper to setup form events
+    function setupForm(form, output) {
+      form.addEventListener('json-schema-form-ready', () => {
+        output.textContent = JSON.stringify(form.value, null, 2);
+      });
+      form.addEventListener('json-schema-form-change', (e) => {
+        output.textContent = JSON.stringify(e.detail.value, null, 2);
+      });
+      form.addEventListener('json-schema-form-submit', (e) => {
+        console.log('Form submitted:', e.detail.value);
+        alert('Form submitted! Check console for data.');
+      });
+      form.addEventListener('json-schema-form-error', (e) => {
+        console.log('Validation errors:', e.detail.errors);
+      });
+    }
+    
+    // Setup all forms
+    setupForm(basicForm, basicOutput);
+    setupForm(complexForm, complexOutput);
+    setupForm(oneofForm, oneofOutput);
+    setupForm(conditionalForm, conditionalOutput);
+    setupForm(dependentForm, dependentOutput);
+    setupForm(additionalForm, additionalOutput);
+    setupForm(tupleForm, tupleOutput);
+    setupForm(patternForm, patternOutput);
+    setupForm(formatForm, formatOutput);
+  </script>
+</body>
+</html>
+
