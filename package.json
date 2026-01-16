@@ -17,8 +17,10 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "BUILD_MODE=lib tsc && BUILD_MODE=lib vite build",
+    "build:site": "vite build",
     "preview": "vite preview",
+    "preview:site": "vite preview --outDir dist-site",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
@@ -32,6 +34,7 @@
   "license": "MIT",
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
+    "@types/node": "^25.0.9",
     "typescript": "^5.3.3",
     "vite": "^5.4.2"
   },

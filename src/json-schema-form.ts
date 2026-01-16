@@ -504,6 +504,9 @@ export class JsonSchemaForm extends LitElement {
     // Get errors for this path
     const fieldErrors = this._errors.filter((e) => e.instancePath === path);
 
+    // Get field label (title or derived from field name)
+    const fieldLabel = this._getFieldLabel(schema, path);
+
     return html`
       <div
         class="jsf-field ${schema.deprecated
@@ -511,7 +514,7 @@ export class JsonSchemaForm extends LitElement {
           : ""} ${schema.readOnly ? "jsf-readonly" : ""}"
         part="field"
       >
-        ${schema.title
+        ${fieldLabel
           ? html`
               <label
                 class="jsf-label ${schema.required?.length
@@ -519,7 +522,7 @@ export class JsonSchemaForm extends LitElement {
                   : ""}"
                 part="label"
               >
-                ${schema.title}
+                ${fieldLabel}
               </label>
             `
           : ""}
@@ -690,8 +693,11 @@ export class JsonSchemaForm extends LitElement {
     formatErrorMessage?: string
   ): unknown {
     const format = schema.format;
+    const examplePlaceholder = schema.examples?.[0];
     const placeholder =
-      schema.examples?.[0] ?? this._getFormatPlaceholder(format);
+      typeof examplePlaceholder === "string"
+        ? examplePlaceholder
+        : this._getFormatPlaceholder(format);
 
     switch (format) {
       case "date":
@@ -2429,6 +2435,9 @@ export class JsonSchemaForm extends LitElement {
     // Get errors for this path
     const fieldErrors = this._errors.filter((e) => e.instancePath === path);
 
+    // Get field label (title or derived from field name)
+    const fieldLabel = this._getFieldLabel(schema, path);
+
     return html`
       <div
         class="jsf-field ${schema.deprecated
@@ -2436,7 +2445,7 @@ export class JsonSchemaForm extends LitElement {
           : ""} ${schema.readOnly ? "jsf-readonly" : ""}"
         part="field"
       >
-        ${schema.title
+        ${fieldLabel
           ? html`
               <label
                 class="jsf-label ${schema.required?.length
@@ -2444,7 +2453,7 @@ export class JsonSchemaForm extends LitElement {
                   : ""}"
                 part="label"
               >
-                ${schema.title}
+                ${fieldLabel}
               </label>
             `
           : ""}
@@ -2545,6 +2554,50 @@ export class JsonSchemaForm extends LitElement {
     }
 
     return false;
+  }
+
+  /**
+   * Get the label for a field - uses title if available, otherwise derives from path
+   */
+  private _getFieldLabel(schema: JSONSchema, path: string): string | null {
+    // Use title if available
+    if (schema.title) {
+      return schema.title;
+    }
+
+    // Extract field name from path
+    const parts = path.split("/").filter((p) => p !== "");
+    if (parts.length === 0) {
+      return null;
+    }
+
+    const fieldName = parts[parts.length - 1];
+
+    // Skip numeric indices (array items)
+    if (/^\d+$/.test(fieldName)) {
+      return null;
+    }
+
+    // Convert field name to human-readable label
+    return this._fieldNameToLabel(fieldName);
+  }
+
+  /**
+   * Convert a field name to a human-readable label
+   * e.g., "firstName" -> "First Name", "user_email" -> "User Email"
+   */
+  private _fieldNameToLabel(fieldName: string): string {
+    return (
+      fieldName
+        // Insert space before uppercase letters (camelCase)
+        .replace(/([a-z])([A-Z])/g, "$1 $2")
+        // Replace underscores and hyphens with spaces
+        .replace(/[_-]/g, " ")
+        // Capitalize first letter of each word
+        .replace(/\b\w/g, (char) => char.toUpperCase())
+        // Trim whitespace
+        .trim()
+    );
   }
 }
 
