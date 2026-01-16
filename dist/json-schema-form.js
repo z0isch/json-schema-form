@@ -2032,11 +2032,13 @@ const Ke = ve`
   }
 
   /* Valid format indicator */
-  .jsf-format-input .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid {
+  .jsf-format-input
+    .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid {
     border-color: var(--jsf-color-success);
   }
 
-  .jsf-format-input .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid:focus {
+  .jsf-format-input
+    .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid:focus {
     box-shadow: 0 0 0 3px rgb(34 197 94 / 0.2);
   }
 
@@ -3190,24 +3192,41 @@ let j = class extends q {
       if (_e) {
         const _ = p in i && S !== void 0, we = m.title || this._fieldNameToLabel(p);
         return d`
-              <div class="jsf-optional-field ${_ ? "jsf-optional-field--enabled" : ""}">
-                <label class="jsf-optional-toggle ${_ ? "jsf-optional-toggle--enabled" : ""}">
+              <div
+                class="jsf-optional-field ${_ ? "jsf-optional-field--enabled" : ""}"
+              >
+                <label
+                  class="jsf-optional-toggle ${_ ? "jsf-optional-toggle--enabled" : ""}"
+                >
                   <input
                     type="checkbox"
                     class="jsf-optional-toggle-checkbox"
                     .checked=${_}
                     @change=${(Se) => {
           const Ae = Se.target.checked;
-          this._toggleOptionalProperty(e, p, m, Ae);
+          this._toggleOptionalProperty(
+            e,
+            p,
+            m,
+            Ae
+          );
         }}
                   />
                   <span class="jsf-optional-toggle-label">${we}</span>
-                  <span class="jsf-optional-toggle-hint">${_ ? "" : "(optional, not set)"}</span>
+                  <span class="jsf-optional-toggle-hint"
+                    >${_ ? "" : "(optional, not set)"}</span
+                  >
                 </label>
                 <div class="jsf-optional-field-content">
-                  ${_ ? this._renderSchema({ ...Z, title: void 0 }, b, S) : ""}
+                  ${_ ? this._renderSchema(
+          { ...Z, title: void 0 },
+          b,
+          S
+        ) : ""}
                 </div>
-                ${m.description && !_ ? d`<p class="jsf-description">${m.description}</p>` : ""}
+                ${m.description && !_ ? d`<p class="jsf-description">
+                      ${m.description}
+                    </p>` : ""}
               </div>
             `;
       }
@@ -3621,10 +3640,7 @@ let j = class extends q {
       const h = this._getDefaultValue(a.schema);
       setTimeout(() => this._handleValueChange(i, h), 0), s = h;
     }
-    const u = n.map((h, g) => {
-      var p;
-      return typeof h.schema == "boolean" ? `Option ${g + 1}` : h.schema.title || ((p = h.schema.description) == null ? void 0 : p.slice(0, 30)) || this._getSchemaTypeLabel(h.schema) || `Option ${g + 1}`;
-    }), c = this._errors.some((h) => h.instancePath === i);
+    const u = n.map((h, g) => `Option ${g + 1}`), c = this._errors.some((h) => h.instancePath === i);
     return d`
       <div class="jsf-composition">
         ${r.title ? d`<label class="jsf-label">${r.title}</label>` : ""}
