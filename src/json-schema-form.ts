@@ -1640,30 +1640,55 @@ export class JsonSchemaForm extends LitElement {
 
           // For optional fields, wrap with toggle
           if (isOptional) {
-            const isEnabled = propName in currentValue && propValue !== undefined;
-            const fieldLabel = propSchema.title || this._fieldNameToLabel(propName);
-            
+            const isEnabled =
+              propName in currentValue && propValue !== undefined;
+            const fieldLabel =
+              propSchema.title || this._fieldNameToLabel(propName);
+
             return html`
-              <div class="jsf-optional-field ${isEnabled ? 'jsf-optional-field--enabled' : ''}">
-                <label class="jsf-optional-toggle ${isEnabled ? 'jsf-optional-toggle--enabled' : ''}">
+              <div
+                class="jsf-optional-field ${isEnabled
+                  ? "jsf-optional-field--enabled"
+                  : ""}"
+              >
+                <label
+                  class="jsf-optional-toggle ${isEnabled
+                    ? "jsf-optional-toggle--enabled"
+                    : ""}"
+                >
                   <input
                     type="checkbox"
                     class="jsf-optional-toggle-checkbox"
                     .checked=${isEnabled}
                     @change=${(e: Event) => {
                       const checked = (e.target as HTMLInputElement).checked;
-                      this._toggleOptionalProperty(path, propName, propSchema, checked);
+                      this._toggleOptionalProperty(
+                        path,
+                        propName,
+                        propSchema,
+                        checked
+                      );
                     }}
                   />
                   <span class="jsf-optional-toggle-label">${fieldLabel}</span>
-                  <span class="jsf-optional-toggle-hint">${isEnabled ? '' : '(optional, not set)'}</span>
+                  <span class="jsf-optional-toggle-hint"
+                    >${isEnabled ? "" : "(optional, not set)"}</span
+                  >
                 </label>
                 <div class="jsf-optional-field-content">
-                  ${isEnabled ? this._renderSchema({ ...schemaWithRequired, title: undefined }, propPath, propValue) : ''}
+                  ${isEnabled
+                    ? this._renderSchema(
+                        { ...schemaWithRequired, title: undefined },
+                        propPath,
+                        propValue
+                      )
+                    : ""}
                 </div>
                 ${propSchema.description && !isEnabled
-                  ? html`<p class="jsf-description">${propSchema.description}</p>`
-                  : ''}
+                  ? html`<p class="jsf-description">
+                      ${propSchema.description}
+                    </p>`
+                  : ""}
               </div>
             `;
           }
@@ -2140,10 +2165,9 @@ export class JsonSchemaForm extends LitElement {
     enabled: boolean
   ): void {
     const currentValue =
-      ((parentPath ? this._getNestedValue(this.value, parentPath) : this.value) as Record<
-        string,
-        unknown
-      >) || {};
+      ((parentPath
+        ? this._getNestedValue(this.value, parentPath)
+        : this.value) as Record<string, unknown>) || {};
 
     if (enabled) {
       // Enable: add property with default value
@@ -2391,17 +2415,7 @@ export class JsonSchemaForm extends LitElement {
     }
 
     // Get labels for options
-    const optionLabels = validSchemas.map((opt, idx) => {
-      if (typeof opt.schema === "boolean") {
-        return `Option ${idx + 1}`;
-      }
-      return (
-        opt.schema.title ||
-        opt.schema.description?.slice(0, 30) ||
-        this._getSchemaTypeLabel(opt.schema) ||
-        `Option ${idx + 1}`
-      );
-    });
+    const optionLabels = validSchemas.map((_, idx) => `Option ${idx + 1}`);
 
     const hasError = this._errors.some((e) => e.instancePath === path);
 
