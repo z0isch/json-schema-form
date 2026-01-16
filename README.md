@@ -22,7 +22,7 @@ yarn add github:YOUR_USERNAME/json-schema-form
 ```html
 <script
   type="module"
-  src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/json-schema-form@v0.1.0/dist/json-schema-form.js"
+  src="https://cdn.jsdelivr.net/gh/z0isch/json-schema-form@v0.1.0/dist/json-schema-form.js"
 ></script>
 ```
 
@@ -205,67 +205,6 @@ json-schema-form::part(error) {
 }
 json-schema-form::part(actions) {
   /* button container */
-}
-```
-
-## Example Schemas
-
-### User Registration
-
-```json
-{
-  "title": "User Registration",
-  "type": "object",
-  "required": ["username", "email", "password"],
-  "properties": {
-    "username": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 20,
-      "pattern": "^[a-zA-Z0-9_]+$"
-    },
-    "email": {
-      "type": "string",
-      "format": "email"
-    },
-    "password": {
-      "type": "string",
-      "minLength": 8
-    },
-    "role": {
-      "type": "string",
-      "enum": ["user", "admin", "moderator"],
-      "default": "user"
-    }
-  }
-}
-```
-
-### Payment Method (oneOf)
-
-```json
-{
-  "title": "Payment Method",
-  "oneOf": [
-    {
-      "title": "Credit Card",
-      "type": "object",
-      "properties": {
-        "cardNumber": { "type": "string", "pattern": "^[0-9]{16}$" },
-        "expiry": { "type": "string", "pattern": "^(0[1-9]|1[0-2])/[0-9]{2}$" },
-        "cvv": { "type": "string", "pattern": "^[0-9]{3,4}$" }
-      },
-      "required": ["cardNumber", "expiry", "cvv"]
-    },
-    {
-      "title": "PayPal",
-      "type": "object",
-      "properties": {
-        "email": { "type": "string", "format": "email" }
-      },
-      "required": ["email"]
-    }
-  ]
 }
 ```
 
