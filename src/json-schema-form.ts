@@ -86,6 +86,12 @@ export class JsonSchemaForm extends LitElement {
   submitText = "Submit";
 
   /**
+   * Initial data as a JSON string to populate the form
+   */
+  @property({ type: String, attribute: "initial-data" })
+  initialData = "";
+
+  /**
    * Parsed schema object
    */
   @state()
@@ -122,6 +128,17 @@ export class JsonSchemaForm extends LitElement {
   private _collapsedSections: Set<string> = new Set();
 
   /**
+   * Parsed initial data object
+   */
+  private _parsedInitialData: unknown = undefined;
+
+  /**
+   * Initial data parsing error
+   */
+  @state()
+  private _initialDataError: string | null = null;
+
+  /**
    * Schema parser instance
    */
   private _parser: SchemaParser | null = null;
@@ -152,6 +169,13 @@ export class JsonSchemaForm extends LitElement {
     return this._parsedSchema;
   }
 
+  /**
+   * Get the parsed initial data
+   */
+  getInitialData(): unknown {
+    return this._parsedInitialData;
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
     this._parseSchema();
@@ -160,6 +184,12 @@ export class JsonSchemaForm extends LitElement {
   override updated(changedProperties: PropertyValues): void {
     if (changedProperties.has("schema")) {
       this._parseSchema();
+    } else if (changedProperties.has("initialData")) {
+      // When initialData changes (but not schema), update the value
+      this._parseInitialData();
+      if (this._parsedInitialData !== undefined) {
+        this.value = JSON.parse(JSON.stringify(this._parsedInitialData));
+      }
     }
 
     if (changedProperties.has("value") && this.validateOnChange) {
@@ -183,9 +213,17 @@ export class JsonSchemaForm extends LitElement {
       this._validator = new SchemaValidator(this._parsedSchema);
       this._parseError = null;
 
-      // Initialize value with defaults if not set
+      // Parse initial data if provided
+      this._parseInitialData();
+
+      // Initialize value: use initial data if provided, otherwise defaults
       if (this.value === undefined) {
-        this.value = this._getDefaultValue(this._parsedSchema);
+        if (this._parsedInitialData !== undefined) {
+          // Deep clone to prevent mutations to the original initial data
+          this.value = JSON.parse(JSON.stringify(this._parsedInitialData));
+        } else {
+          this.value = this._getDefaultValue(this._parsedSchema);
+        }
       }
 
       this._dispatchEvent("json-schema-form-ready", {
@@ -197,6 +235,26 @@ export class JsonSchemaForm extends LitElement {
       this._parsedSchema = null;
       this._parser = null;
       this._validator = null;
+    }
+  }
+
+  /**
+   * Parse the initial data string
+   */
+  private _parseInitialData(): void {
+    if (!this.initialData) {
+      this._parsedInitialData = undefined;
+      this._initialDataError = null;
+      return;
+    }
+
+    try {
+      this._parsedInitialData = JSON.parse(this.initialData);
+      this._initialDataError = null;
+    } catch (e) {
+      this._initialDataError =
+        e instanceof Error ? e.message : "Failed to parse initial data";
+      this._parsedInitialData = undefined;
     }
   }
 
@@ -322,10 +380,13 @@ export class JsonSchemaForm extends LitElement {
   }
 
   /**
-   * Reset the form to default values
+   * Reset the form to initial data or default values
    */
   reset(): void {
-    if (this._parsedSchema) {
+    if (this._parsedInitialData !== undefined) {
+      // Reset to initial data if provided
+      this.value = JSON.parse(JSON.stringify(this._parsedInitialData));
+    } else if (this._parsedSchema) {
       this.value = this._getDefaultValue(this._parsedSchema);
     } else {
       this.value = undefined;
@@ -439,6 +500,14 @@ export class JsonSchemaForm extends LitElement {
       return html`
         <div class="jsf-error-container" role="alert">
           <strong>Schema Error:</strong> ${this._parseError}
+        </div>
+      `;
+    }
+
+    if (this._initialDataError) {
+      return html`
+        <div class="jsf-error-container" role="alert">
+          <strong>Initial Data Error:</strong> ${this._initialDataError}
         </div>
       `;
     }

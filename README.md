@@ -79,6 +79,36 @@ Download `dist/json-schema-form.js` from this repository and include it in your 
 </html>
 ```
 
+### With Initial Data
+
+Pre-populate the form with existing data:
+
+```html
+<json-schema-form id="edit-form"></json-schema-form>
+
+<script type="module">
+  const schema = {
+    type: "object",
+    properties: {
+      name: { type: "string" },
+      email: { type: "string", format: "email" },
+    },
+  };
+
+  const initialData = {
+    name: "John Doe",
+    email: "john@example.com",
+  };
+
+  const form = document.getElementById("edit-form");
+  form.setAttribute("schema", JSON.stringify(schema));
+  form.setAttribute("initial-data", JSON.stringify(initialData));
+
+  // Calling reset() will restore the form to initial data
+  // form.reset();
+</script>
+```
+
 ### With a JavaScript Module Bundler
 
 ```javascript
@@ -101,6 +131,7 @@ document.querySelector("json-schema-form").schema = JSON.stringify(schema);
 | Attribute            | Property           | Type      | Default     | Description                        |
 | -------------------- | ------------------ | --------- | ----------- | ---------------------------------- |
 | `schema`             | `schema`           | `string`  | `""`        | JSON Schema as a JSON string       |
+| `initial-data`       | `initialData`      | `string`  | `""`        | Initial form data as a JSON string |
 | `validate-on-change` | `validateOnChange` | `boolean` | `false`     | Validate on every input change     |
 | `show-submit`        | `showSubmit`       | `boolean` | `true`      | Show the submit button             |
 | `submit-text`        | `submitText`       | `string`  | `"Submit"`  | Text for the submit button         |
@@ -117,12 +148,13 @@ document.querySelector("json-schema-form").schema = JSON.stringify(schema);
 
 ## Methods
 
-| Method        | Description                                    |
-| ------------- | ---------------------------------------------- |
-| `validate()`  | Manually trigger validation, returns `boolean` |
-| `reset()`     | Reset form to default values                   |
-| `submit()`    | Programmatically submit the form               |
-| `getSchema()` | Get the parsed schema object                   |
+| Method             | Description                                                |
+| ------------------ | ---------------------------------------------------------- |
+| `validate()`       | Manually trigger validation, returns `boolean`             |
+| `reset()`          | Reset form to initial data (if provided) or default values |
+| `submit()`         | Programmatically submit the form                           |
+| `getSchema()`      | Get the parsed schema object                               |
+| `getInitialData()` | Get the parsed initial data object                         |
 
 ## Supported JSON Schema Features
 
