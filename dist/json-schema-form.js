@@ -5,16 +5,16 @@
  */
 const L = globalThis, G = L.ShadowRoot && (L.ShadyCSS === void 0 || L.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, Q = Symbol(), se = /* @__PURE__ */ new WeakMap();
 let me = class {
-  constructor(e, t, r) {
-    if (this._$cssResult$ = !0, r !== Q) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
+  constructor(e, t, s) {
+    if (this._$cssResult$ = !0, s !== Q) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
     this.cssText = e, this.t = t;
   }
   get styleSheet() {
     let e = this.o;
     const t = this.t;
     if (G && e === void 0) {
-      const r = t !== void 0 && t.length === 1;
-      r && (e = se.get(t)), e === void 0 && ((this.o = e = new CSSStyleSheet()).replaceSync(this.cssText), r && se.set(t, e));
+      const s = t !== void 0 && t.length === 1;
+      s && (e = se.get(t)), e === void 0 && ((this.o = e = new CSSStyleSheet()).replaceSync(this.cssText), s && se.set(t, e));
     }
     return e;
   }
@@ -22,58 +22,58 @@ let me = class {
     return this.cssText;
   }
 };
-const _e = (s) => new me(typeof s == "string" ? s : s + "", void 0, Q), ge = (s, ...e) => {
-  const t = s.length === 1 ? s[0] : e.reduce((r, i, n) => r + ((o) => {
+const _e = (r) => new me(typeof r == "string" ? r : r + "", void 0, Q), ge = (r, ...e) => {
+  const t = r.length === 1 ? r[0] : e.reduce((s, i, n) => s + ((o) => {
     if (o._$cssResult$ === !0) return o.cssText;
     if (typeof o == "number") return o;
     throw Error("Value passed to 'css' function must be a 'css' function result: " + o + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
-  })(i) + s[n + 1], s[0]);
-  return new me(t, s, Q);
-}, we = (s, e) => {
-  if (G) s.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
+  })(i) + r[n + 1], r[0]);
+  return new me(t, r, Q);
+}, we = (r, e) => {
+  if (G) r.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
   else for (const t of e) {
-    const r = document.createElement("style"), i = L.litNonce;
-    i !== void 0 && r.setAttribute("nonce", i), r.textContent = t.cssText, s.appendChild(r);
+    const s = document.createElement("style"), i = L.litNonce;
+    i !== void 0 && s.setAttribute("nonce", i), s.textContent = t.cssText, r.appendChild(s);
   }
-}, ie = G ? (s) => s : (s) => s instanceof CSSStyleSheet ? ((e) => {
+}, ie = G ? (r) => r : (r) => r instanceof CSSStyleSheet ? ((e) => {
   let t = "";
-  for (const r of e.cssRules) t += r.cssText;
+  for (const s of e.cssRules) t += s.cssText;
   return _e(t);
-})(s) : s;
+})(r) : r;
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: Se, defineProperty: Ae, getOwnPropertyDescriptor: Oe, getOwnPropertyNames: Ce, getOwnPropertySymbols: Ee, getPrototypeOf: Me } = Object, _ = globalThis, ne = _.trustedTypes, Ie = ne ? ne.emptyScript : "", J = _.reactiveElementPolyfillSupport, R = (s, e) => s, D = { toAttribute(s, e) {
+const { is: Se, defineProperty: Ae, getOwnPropertyDescriptor: Oe, getOwnPropertyNames: Ce, getOwnPropertySymbols: Ee, getPrototypeOf: Me } = Object, _ = globalThis, ne = _.trustedTypes, Ie = ne ? ne.emptyScript : "", J = _.reactiveElementPolyfillSupport, R = (r, e) => r, D = { toAttribute(r, e) {
   switch (e) {
     case Boolean:
-      s = s ? Ie : null;
+      r = r ? Ie : null;
       break;
     case Object:
     case Array:
-      s = s == null ? s : JSON.stringify(s);
+      r = r == null ? r : JSON.stringify(r);
   }
-  return s;
-}, fromAttribute(s, e) {
-  let t = s;
+  return r;
+}, fromAttribute(r, e) {
+  let t = r;
   switch (e) {
     case Boolean:
-      t = s !== null;
+      t = r !== null;
       break;
     case Number:
-      t = s === null ? null : Number(s);
+      t = r === null ? null : Number(r);
       break;
     case Object:
     case Array:
       try {
-        t = JSON.parse(s);
+        t = JSON.parse(r);
       } catch {
         t = null;
       }
   }
   return t;
-} }, X = (s, e) => !Se(s, e), oe = { attribute: !0, type: String, converter: D, reflect: !1, useDefault: !1, hasChanged: X };
+} }, X = (r, e) => !Se(r, e), oe = { attribute: !0, type: String, converter: D, reflect: !1, useDefault: !1, hasChanged: X };
 Symbol.metadata ?? (Symbol.metadata = Symbol("metadata")), _.litPropertyMetadata ?? (_.litPropertyMetadata = /* @__PURE__ */ new WeakMap());
 let C = class extends HTMLElement {
   static addInitializer(e) {
@@ -84,11 +84,11 @@ let C = class extends HTMLElement {
   }
   static createProperty(e, t = oe) {
     if (t.state && (t.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(e) && ((t = Object.create(t)).wrapped = !0), this.elementProperties.set(e, t), !t.noAccessor) {
-      const r = Symbol(), i = this.getPropertyDescriptor(e, r, t);
+      const s = Symbol(), i = this.getPropertyDescriptor(e, s, t);
       i !== void 0 && Ae(this.prototype, e, i);
     }
   }
-  static getPropertyDescriptor(e, t, r) {
+  static getPropertyDescriptor(e, t, s) {
     const { get: i, set: n } = Oe(this.prototype, e) ?? { get() {
       return this[t];
     }, set(o) {
@@ -96,7 +96,7 @@ let C = class extends HTMLElement {
     } };
     return { get: i, set(o) {
       const a = i == null ? void 0 : i.call(this);
-      n == null || n.call(this, o), this.requestUpdate(e, a, r);
+      n == null || n.call(this, o), this.requestUpdate(e, a, s);
     }, configurable: !0, enumerable: !0 };
   }
   static getPropertyOptions(e) {
@@ -110,17 +110,17 @@ let C = class extends HTMLElement {
   static finalize() {
     if (this.hasOwnProperty(R("finalized"))) return;
     if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(R("properties"))) {
-      const t = this.properties, r = [...Ce(t), ...Ee(t)];
-      for (const i of r) this.createProperty(i, t[i]);
+      const t = this.properties, s = [...Ce(t), ...Ee(t)];
+      for (const i of s) this.createProperty(i, t[i]);
     }
     const e = this[Symbol.metadata];
     if (e !== null) {
       const t = litPropertyMetadata.get(e);
-      if (t !== void 0) for (const [r, i] of t) this.elementProperties.set(r, i);
+      if (t !== void 0) for (const [s, i] of t) this.elementProperties.set(s, i);
     }
     this._$Eh = /* @__PURE__ */ new Map();
-    for (const [t, r] of this.elementProperties) {
-      const i = this._$Eu(t, r);
+    for (const [t, s] of this.elementProperties) {
+      const i = this._$Eu(t, s);
       i !== void 0 && this._$Eh.set(i, t);
     }
     this.elementStyles = this.finalizeStyles(this.styles);
@@ -128,14 +128,14 @@ let C = class extends HTMLElement {
   static finalizeStyles(e) {
     const t = [];
     if (Array.isArray(e)) {
-      const r = new Set(e.flat(1 / 0).reverse());
-      for (const i of r) t.unshift(ie(i));
+      const s = new Set(e.flat(1 / 0).reverse());
+      for (const i of s) t.unshift(ie(i));
     } else e !== void 0 && t.push(ie(e));
     return t;
   }
   static _$Eu(e, t) {
-    const r = t.attribute;
-    return r === !1 ? void 0 : typeof r == "string" ? r : typeof e == "string" ? e.toLowerCase() : void 0;
+    const s = t.attribute;
+    return s === !1 ? void 0 : typeof s == "string" ? s : typeof e == "string" ? e.toLowerCase() : void 0;
   }
   constructor() {
     super(), this._$Ep = void 0, this.isUpdatePending = !1, this.hasUpdated = !1, this._$Em = null, this._$Ev();
@@ -154,7 +154,7 @@ let C = class extends HTMLElement {
   }
   _$E_() {
     const e = /* @__PURE__ */ new Map(), t = this.constructor.elementProperties;
-    for (const r of t.keys()) this.hasOwnProperty(r) && (e.set(r, this[r]), delete this[r]);
+    for (const s of t.keys()) this.hasOwnProperty(s) && (e.set(s, this[s]), delete this[s]);
     e.size > 0 && (this._$Ep = e);
   }
   createRenderRoot() {
@@ -164,8 +164,8 @@ let C = class extends HTMLElement {
   connectedCallback() {
     var e;
     this.renderRoot ?? (this.renderRoot = this.createRenderRoot()), this.enableUpdating(!0), (e = this._$EO) == null || e.forEach((t) => {
-      var r;
-      return (r = t.hostConnected) == null ? void 0 : r.call(t);
+      var s;
+      return (s = t.hostConnected) == null ? void 0 : s.call(t);
     });
   }
   enableUpdating(e) {
@@ -173,42 +173,42 @@ let C = class extends HTMLElement {
   disconnectedCallback() {
     var e;
     (e = this._$EO) == null || e.forEach((t) => {
-      var r;
-      return (r = t.hostDisconnected) == null ? void 0 : r.call(t);
+      var s;
+      return (s = t.hostDisconnected) == null ? void 0 : s.call(t);
     });
   }
-  attributeChangedCallback(e, t, r) {
-    this._$AK(e, r);
+  attributeChangedCallback(e, t, s) {
+    this._$AK(e, s);
   }
   _$ET(e, t) {
     var n;
-    const r = this.constructor.elementProperties.get(e), i = this.constructor._$Eu(e, r);
-    if (i !== void 0 && r.reflect === !0) {
-      const o = (((n = r.converter) == null ? void 0 : n.toAttribute) !== void 0 ? r.converter : D).toAttribute(t, r.type);
+    const s = this.constructor.elementProperties.get(e), i = this.constructor._$Eu(e, s);
+    if (i !== void 0 && s.reflect === !0) {
+      const o = (((n = s.converter) == null ? void 0 : n.toAttribute) !== void 0 ? s.converter : D).toAttribute(t, s.type);
       this._$Em = e, o == null ? this.removeAttribute(i) : this.setAttribute(i, o), this._$Em = null;
     }
   }
   _$AK(e, t) {
     var n, o;
-    const r = this.constructor, i = r._$Eh.get(e);
+    const s = this.constructor, i = s._$Eh.get(e);
     if (i !== void 0 && this._$Em !== i) {
-      const a = r.getPropertyOptions(i), l = typeof a.converter == "function" ? { fromAttribute: a.converter } : ((n = a.converter) == null ? void 0 : n.fromAttribute) !== void 0 ? a.converter : D;
+      const a = s.getPropertyOptions(i), l = typeof a.converter == "function" ? { fromAttribute: a.converter } : ((n = a.converter) == null ? void 0 : n.fromAttribute) !== void 0 ? a.converter : D;
       this._$Em = i;
       const f = l.fromAttribute(t, a.type);
       this[i] = f ?? ((o = this._$Ej) == null ? void 0 : o.get(i)) ?? f, this._$Em = null;
     }
   }
-  requestUpdate(e, t, r, i = !1, n) {
+  requestUpdate(e, t, s, i = !1, n) {
     var o;
     if (e !== void 0) {
       const a = this.constructor;
-      if (i === !1 && (n = this[e]), r ?? (r = a.getPropertyOptions(e)), !((r.hasChanged ?? X)(n, t) || r.useDefault && r.reflect && n === ((o = this._$Ej) == null ? void 0 : o.get(e)) && !this.hasAttribute(a._$Eu(e, r)))) return;
-      this.C(e, t, r);
+      if (i === !1 && (n = this[e]), s ?? (s = a.getPropertyOptions(e)), !((s.hasChanged ?? X)(n, t) || s.useDefault && s.reflect && n === ((o = this._$Ej) == null ? void 0 : o.get(e)) && !this.hasAttribute(a._$Eu(e, s)))) return;
+      this.C(e, t, s);
     }
     this.isUpdatePending === !1 && (this._$ES = this._$EP());
   }
-  C(e, t, { useDefault: r, reflect: i, wrapped: n }, o) {
-    r && !(this._$Ej ?? (this._$Ej = /* @__PURE__ */ new Map())).has(e) && (this._$Ej.set(e, o ?? t ?? this[e]), n !== !0 || o !== void 0) || (this._$AL.has(e) || (this.hasUpdated || r || (t = void 0), this._$AL.set(e, t)), i === !0 && this._$Em !== e && (this._$Eq ?? (this._$Eq = /* @__PURE__ */ new Set())).add(e));
+  C(e, t, { useDefault: s, reflect: i, wrapped: n }, o) {
+    s && !(this._$Ej ?? (this._$Ej = /* @__PURE__ */ new Map())).has(e) && (this._$Ej.set(e, o ?? t ?? this[e]), n !== !0 || o !== void 0) || (this._$AL.has(e) || (this.hasUpdated || s || (t = void 0), this._$AL.set(e, t)), i === !0 && this._$Em !== e && (this._$Eq ?? (this._$Eq = /* @__PURE__ */ new Set())).add(e));
   }
   async _$EP() {
     this.isUpdatePending = !0;
@@ -224,7 +224,7 @@ let C = class extends HTMLElement {
     return this.performUpdate();
   }
   performUpdate() {
-    var r;
+    var s;
     if (!this.isUpdatePending) return;
     if (!this.hasUpdated) {
       if (this.renderRoot ?? (this.renderRoot = this.createRenderRoot()), this._$Ep) {
@@ -240,7 +240,7 @@ let C = class extends HTMLElement {
     let e = !1;
     const t = this._$AL;
     try {
-      e = this.shouldUpdate(t), e ? (this.willUpdate(t), (r = this._$EO) == null || r.forEach((i) => {
+      e = this.shouldUpdate(t), e ? (this.willUpdate(t), (s = this._$EO) == null || s.forEach((i) => {
         var n;
         return (n = i.hostUpdate) == null ? void 0 : n.call(i);
       }), this.update(t)) : this._$EM();
@@ -253,9 +253,9 @@ let C = class extends HTMLElement {
   }
   _$AE(e) {
     var t;
-    (t = this._$EO) == null || t.forEach((r) => {
+    (t = this._$EO) == null || t.forEach((s) => {
       var i;
-      return (i = r.hostUpdated) == null ? void 0 : i.call(r);
+      return (i = s.hostUpdated) == null ? void 0 : i.call(s);
     }), this.hasUpdated || (this.hasUpdated = !0, this.firstUpdated(e)), this.updated(e);
   }
   _$EM() {
@@ -284,32 +284,32 @@ C.elementStyles = [], C.shadowRootOptions = { mode: "open" }, C[R("elementProper
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const z = globalThis, ae = (s) => s, B = z.trustedTypes, le = B ? B.createPolicy("lit-html", { createHTML: (s) => s }) : void 0, ve = "$lit$", x = `lit$${Math.random().toFixed(9).slice(2)}$`, je = "?" + x, ke = `<${je}>`, O = document, q = () => O.createComment(""), F = (s) => s === null || typeof s != "object" && typeof s != "function", ee = Array.isArray, Pe = (s) => ee(s) || typeof (s == null ? void 0 : s[Symbol.iterator]) == "function", Z = `[ 	
-\f\r]`, V = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, de = /-->/g, fe = />/g, w = RegExp(`>|${Z}(?:([^\\s"'>=/]+)(${Z}*=${Z}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), ue = /'/g, ce = /"/g, ye = /^(?:script|style|textarea|title)$/i, Ve = (s) => (e, ...t) => ({ _$litType$: s, strings: e, values: t }), d = Ve(1), E = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), pe = /* @__PURE__ */ new WeakMap(), S = O.createTreeWalker(O, 129);
-function be(s, e) {
-  if (!ee(s) || !s.hasOwnProperty("raw")) throw Error("invalid template strings array");
+const z = globalThis, ae = (r) => r, B = z.trustedTypes, le = B ? B.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, ve = "$lit$", x = `lit$${Math.random().toFixed(9).slice(2)}$`, je = "?" + x, ke = `<${je}>`, O = document, q = () => O.createComment(""), F = (r) => r === null || typeof r != "object" && typeof r != "function", ee = Array.isArray, Ve = (r) => ee(r) || typeof (r == null ? void 0 : r[Symbol.iterator]) == "function", Z = `[ 	
+\f\r]`, P = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, de = /-->/g, fe = />/g, w = RegExp(`>|${Z}(?:([^\\s"'>=/]+)(${Z}*=${Z}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`, "g"), ue = /'/g, ce = /"/g, ye = /^(?:script|style|textarea|title)$/i, Pe = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), d = Pe(1), E = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), pe = /* @__PURE__ */ new WeakMap(), S = O.createTreeWalker(O, 129);
+function be(r, e) {
+  if (!ee(r) || !r.hasOwnProperty("raw")) throw Error("invalid template strings array");
   return le !== void 0 ? le.createHTML(e) : e;
 }
-const Re = (s, e) => {
-  const t = s.length - 1, r = [];
-  let i, n = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", o = V;
+const Re = (r, e) => {
+  const t = r.length - 1, s = [];
+  let i, n = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", o = P;
   for (let a = 0; a < t; a++) {
-    const l = s[a];
+    const l = r[a];
     let f, c, u = -1, h = 0;
-    for (; h < l.length && (o.lastIndex = h, c = o.exec(l), c !== null); ) h = o.lastIndex, o === V ? c[1] === "!--" ? o = de : c[1] !== void 0 ? o = fe : c[2] !== void 0 ? (ye.test(c[2]) && (i = RegExp("</" + c[2], "g")), o = w) : c[3] !== void 0 && (o = w) : o === w ? c[0] === ">" ? (o = i ?? V, u = -1) : c[1] === void 0 ? u = -2 : (u = o.lastIndex - c[2].length, f = c[1], o = c[3] === void 0 ? w : c[3] === '"' ? ce : ue) : o === ce || o === ue ? o = w : o === de || o === fe ? o = V : (o = w, i = void 0);
-    const j = o === w && s[a + 1].startsWith("/>") ? " " : "";
-    n += o === V ? l + ke : u >= 0 ? (r.push(f), l.slice(0, u) + ve + l.slice(u) + x + j) : l + x + (u === -2 ? a : j);
+    for (; h < l.length && (o.lastIndex = h, c = o.exec(l), c !== null); ) h = o.lastIndex, o === P ? c[1] === "!--" ? o = de : c[1] !== void 0 ? o = fe : c[2] !== void 0 ? (ye.test(c[2]) && (i = RegExp("</" + c[2], "g")), o = w) : c[3] !== void 0 && (o = w) : o === w ? c[0] === ">" ? (o = i ?? P, u = -1) : c[1] === void 0 ? u = -2 : (u = o.lastIndex - c[2].length, f = c[1], o = c[3] === void 0 ? w : c[3] === '"' ? ce : ue) : o === ce || o === ue ? o = w : o === de || o === fe ? o = P : (o = w, i = void 0);
+    const j = o === w && r[a + 1].startsWith("/>") ? " " : "";
+    n += o === P ? l + ke : u >= 0 ? (s.push(f), l.slice(0, u) + ve + l.slice(u) + x + j) : l + x + (u === -2 ? a : j);
   }
-  return [be(s, n + (s[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), r];
+  return [be(r, n + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), s];
 };
 class U {
-  constructor({ strings: e, _$litType$: t }, r) {
+  constructor({ strings: e, _$litType$: t }, s) {
     let i;
     this.parts = [];
     let n = 0, o = 0;
     const a = e.length - 1, l = this.parts, [f, c] = Re(e, t);
-    if (this.el = U.createElement(f, r), S.currentNode = this.el.content, t === 2 || t === 3) {
+    if (this.el = U.createElement(f, s), S.currentNode = this.el.content, t === 2 || t === 3) {
       const u = this.el.content.firstChild;
       u.replaceWith(...u.childNodes);
     }
@@ -336,16 +336,16 @@ class U {
     }
   }
   static createElement(e, t) {
-    const r = O.createElement("template");
-    return r.innerHTML = e, r;
+    const s = O.createElement("template");
+    return s.innerHTML = e, s;
   }
 }
-function M(s, e, t = s, r) {
+function M(r, e, t = r, s) {
   var o, a;
   if (e === E) return e;
-  let i = r !== void 0 ? (o = t._$Co) == null ? void 0 : o[r] : t._$Cl;
+  let i = s !== void 0 ? (o = t._$Co) == null ? void 0 : o[s] : t._$Cl;
   const n = F(e) ? void 0 : e._$litDirective$;
-  return (i == null ? void 0 : i.constructor) !== n && ((a = i == null ? void 0 : i._$AO) == null || a.call(i, !1), n === void 0 ? i = void 0 : (i = new n(s), i._$AT(s, t, r)), r !== void 0 ? (t._$Co ?? (t._$Co = []))[r] = i : t._$Cl = i), i !== void 0 && (e = M(s, i._$AS(s, e.values), i, r)), e;
+  return (i == null ? void 0 : i.constructor) !== n && ((a = i == null ? void 0 : i._$AO) == null || a.call(i, !1), n === void 0 ? i = void 0 : (i = new n(r), i._$AT(r, t, s)), s !== void 0 ? (t._$Co ?? (t._$Co = []))[s] = i : t._$Cl = i), i !== void 0 && (e = M(r, i._$AS(r, e.values), i, s)), e;
 }
 class ze {
   constructor(e, t) {
@@ -358,13 +358,13 @@ class ze {
     return this._$AM._$AU;
   }
   u(e) {
-    const { el: { content: t }, parts: r } = this._$AD, i = ((e == null ? void 0 : e.creationScope) ?? O).importNode(t, !0);
+    const { el: { content: t }, parts: s } = this._$AD, i = ((e == null ? void 0 : e.creationScope) ?? O).importNode(t, !0);
     S.currentNode = i;
-    let n = S.nextNode(), o = 0, a = 0, l = r[0];
+    let n = S.nextNode(), o = 0, a = 0, l = s[0];
     for (; l !== void 0; ) {
       if (o === l.index) {
         let f;
-        l.type === 2 ? f = new N(n, n.nextSibling, this, e) : l.type === 1 ? f = new l.ctor(n, l.name, l.strings, this, e) : l.type === 6 && (f = new Ue(n, this, e)), this._$AV.push(f), l = r[++a];
+        l.type === 2 ? f = new N(n, n.nextSibling, this, e) : l.type === 1 ? f = new l.ctor(n, l.name, l.strings, this, e) : l.type === 6 && (f = new Ue(n, this, e)), this._$AV.push(f), l = s[++a];
       }
       o !== (l == null ? void 0 : l.index) && (n = S.nextNode(), o++);
     }
@@ -372,7 +372,7 @@ class ze {
   }
   p(e) {
     let t = 0;
-    for (const r of this._$AV) r !== void 0 && (r.strings !== void 0 ? (r._$AI(e, r, t), t += r.strings.length - 2) : r._$AI(e[t])), t++;
+    for (const s of this._$AV) s !== void 0 && (s.strings !== void 0 ? (s._$AI(e, s, t), t += s.strings.length - 2) : s._$AI(e[t])), t++;
   }
 }
 class N {
@@ -380,8 +380,8 @@ class N {
     var e;
     return ((e = this._$AM) == null ? void 0 : e._$AU) ?? this._$Cv;
   }
-  constructor(e, t, r, i) {
-    this.type = 2, this._$AH = g, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = r, this.options = i, this._$Cv = (i == null ? void 0 : i.isConnected) ?? !0;
+  constructor(e, t, s, i) {
+    this.type = 2, this._$AH = g, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = s, this.options = i, this._$Cv = (i == null ? void 0 : i.isConnected) ?? !0;
   }
   get parentNode() {
     let e = this._$AA.parentNode;
@@ -395,7 +395,7 @@ class N {
     return this._$AB;
   }
   _$AI(e, t = this) {
-    e = M(this, e, t), F(e) ? e === g || e == null || e === "" ? (this._$AH !== g && this._$AR(), this._$AH = g) : e !== this._$AH && e !== E && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Pe(e) ? this.k(e) : this._(e);
+    e = M(this, e, t), F(e) ? e === g || e == null || e === "" ? (this._$AH !== g && this._$AR(), this._$AH = g) : e !== this._$AH && e !== E && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Ve(e) ? this.k(e) : this._(e);
   }
   O(e) {
     return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -408,7 +408,7 @@ class N {
   }
   $(e) {
     var n;
-    const { values: t, _$litType$: r } = e, i = typeof r == "number" ? this._$AC(e) : (r.el === void 0 && (r.el = U.createElement(be(r.h, r.h[0]), this.options)), r);
+    const { values: t, _$litType$: s } = e, i = typeof s == "number" ? this._$AC(e) : (s.el === void 0 && (s.el = U.createElement(be(s.h, s.h[0]), this.options)), s);
     if (((n = this._$AH) == null ? void 0 : n._$AD) === i) this._$AH.p(t);
     else {
       const o = new ze(i, this), a = o.u(this.options);
@@ -422,13 +422,13 @@ class N {
   k(e) {
     ee(this._$AH) || (this._$AH = [], this._$AR());
     const t = this._$AH;
-    let r, i = 0;
-    for (const n of e) i === t.length ? t.push(r = new N(this.O(q()), this.O(q()), this, this.options)) : r = t[i], r._$AI(n), i++;
-    i < t.length && (this._$AR(r && r._$AB.nextSibling, i), t.length = i);
+    let s, i = 0;
+    for (const n of e) i === t.length ? t.push(s = new N(this.O(q()), this.O(q()), this, this.options)) : s = t[i], s._$AI(n), i++;
+    i < t.length && (this._$AR(s && s._$AB.nextSibling, i), t.length = i);
   }
   _$AR(e = this._$AA.nextSibling, t) {
-    var r;
-    for ((r = this._$AP) == null ? void 0 : r.call(this, !1, !0, t); e !== this._$AB; ) {
+    var s;
+    for ((s = this._$AP) == null ? void 0 : s.call(this, !1, !0, t); e !== this._$AB; ) {
       const i = ae(e).nextSibling;
       ae(e).remove(), e = i;
     }
@@ -445,17 +445,17 @@ class Y {
   get _$AU() {
     return this._$AM._$AU;
   }
-  constructor(e, t, r, i, n) {
-    this.type = 1, this._$AH = g, this._$AN = void 0, this.element = e, this.name = t, this._$AM = i, this.options = n, r.length > 2 || r[0] !== "" || r[1] !== "" ? (this._$AH = Array(r.length - 1).fill(new String()), this.strings = r) : this._$AH = g;
+  constructor(e, t, s, i, n) {
+    this.type = 1, this._$AH = g, this._$AN = void 0, this.element = e, this.name = t, this._$AM = i, this.options = n, s.length > 2 || s[0] !== "" || s[1] !== "" ? (this._$AH = Array(s.length - 1).fill(new String()), this.strings = s) : this._$AH = g;
   }
-  _$AI(e, t = this, r, i) {
+  _$AI(e, t = this, s, i) {
     const n = this.strings;
     let o = !1;
     if (n === void 0) e = M(this, e, t, 0), o = !F(e) || e !== this._$AH && e !== E, o && (this._$AH = e);
     else {
       const a = e;
       let l, f;
-      for (e = n[0], l = 0; l < n.length - 1; l++) f = M(this, a[r + l], t, l), f === E && (f = this._$AH[l]), o || (o = !F(f) || f !== this._$AH[l]), f === g ? e = g : e !== g && (e += (f ?? "") + n[l + 1]), this._$AH[l] = f;
+      for (e = n[0], l = 0; l < n.length - 1; l++) f = M(this, a[s + l], t, l), f === E && (f = this._$AH[l]), o || (o = !F(f) || f !== this._$AH[l]), f === g ? e = g : e !== g && (e += (f ?? "") + n[l + 1]), this._$AH[l] = f;
     }
     o && !i && this.j(e);
   }
@@ -480,13 +480,13 @@ class qe extends Y {
   }
 }
 class Fe extends Y {
-  constructor(e, t, r, i, n) {
-    super(e, t, r, i, n), this.type = 5;
+  constructor(e, t, s, i, n) {
+    super(e, t, s, i, n), this.type = 5;
   }
   _$AI(e, t = this) {
     if ((e = M(this, e, t, 0) ?? g) === E) return;
-    const r = this._$AH, i = e === g && r !== g || e.capture !== r.capture || e.once !== r.once || e.passive !== r.passive, n = e !== g && (r === g || i);
-    i && this.element.removeEventListener(this.name, this, r), n && this.element.addEventListener(this.name, this, e), this._$AH = e;
+    const s = this._$AH, i = e === g && s !== g || e.capture !== s.capture || e.once !== s.once || e.passive !== s.passive, n = e !== g && (s === g || i);
+    i && this.element.removeEventListener(this.name, this, s), n && this.element.addEventListener(this.name, this, e), this._$AH = e;
   }
   handleEvent(e) {
     var t;
@@ -494,8 +494,8 @@ class Fe extends Y {
   }
 }
 class Ue {
-  constructor(e, t, r) {
-    this.element = e, this.type = 6, this._$AN = void 0, this._$AM = t, this.options = r;
+  constructor(e, t, s) {
+    this.element = e, this.type = 6, this._$AN = void 0, this._$AM = t, this.options = s;
   }
   get _$AU() {
     return this._$AM._$AU;
@@ -506,14 +506,14 @@ class Ue {
 }
 const W = z.litHtmlPolyfillSupport;
 W == null || W(U, N), (z.litHtmlVersions ?? (z.litHtmlVersions = [])).push("3.3.2");
-const Ne = (s, e, t) => {
-  const r = (t == null ? void 0 : t.renderBefore) ?? e;
-  let i = r._$litPart$;
+const Ne = (r, e, t) => {
+  const s = (t == null ? void 0 : t.renderBefore) ?? e;
+  let i = s._$litPart$;
   if (i === void 0) {
     const n = (t == null ? void 0 : t.renderBefore) ?? null;
-    r._$litPart$ = i = new N(e.insertBefore(q(), n), n, void 0, t ?? {});
+    s._$litPart$ = i = new N(e.insertBefore(q(), n), n, void 0, t ?? {});
   }
-  return i._$AI(s), i;
+  return i._$AI(r), i;
 };
 /**
  * @license
@@ -556,50 +556,50 @@ K == null || K({ LitElement: T });
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const He = (s) => (e, t) => {
+const He = (r) => (e, t) => {
   t !== void 0 ? t.addInitializer(() => {
-    customElements.define(s, e);
-  }) : customElements.define(s, e);
+    customElements.define(r, e);
+  }) : customElements.define(r, e);
 };
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const Le = { attribute: !0, type: String, converter: D, reflect: !1, hasChanged: X }, De = (s = Le, e, t) => {
-  const { kind: r, metadata: i } = t;
+const Le = { attribute: !0, type: String, converter: D, reflect: !1, hasChanged: X }, De = (r = Le, e, t) => {
+  const { kind: s, metadata: i } = t;
   let n = globalThis.litPropertyMetadata.get(i);
-  if (n === void 0 && globalThis.litPropertyMetadata.set(i, n = /* @__PURE__ */ new Map()), r === "setter" && ((s = Object.create(s)).wrapped = !0), n.set(t.name, s), r === "accessor") {
+  if (n === void 0 && globalThis.litPropertyMetadata.set(i, n = /* @__PURE__ */ new Map()), s === "setter" && ((r = Object.create(r)).wrapped = !0), n.set(t.name, r), s === "accessor") {
     const { name: o } = t;
     return { set(a) {
       const l = e.get.call(this);
-      e.set.call(this, a), this.requestUpdate(o, l, s, !0, a);
+      e.set.call(this, a), this.requestUpdate(o, l, r, !0, a);
     }, init(a) {
-      return a !== void 0 && this.C(o, void 0, s, a), a;
+      return a !== void 0 && this.C(o, void 0, r, a), a;
     } };
   }
-  if (r === "setter") {
+  if (s === "setter") {
     const { name: o } = t;
     return function(a) {
       const l = this[o];
-      e.call(this, a), this.requestUpdate(o, l, s, !0, a);
+      e.call(this, a), this.requestUpdate(o, l, r, !0, a);
     };
   }
-  throw Error("Unsupported decorator location: " + r);
+  throw Error("Unsupported decorator location: " + s);
 };
-function I(s) {
-  return (e, t) => typeof t == "object" ? De(s, e, t) : ((r, i, n) => {
+function I(r) {
+  return (e, t) => typeof t == "object" ? De(r, e, t) : ((s, i, n) => {
     const o = i.hasOwnProperty(n);
-    return i.constructor.createProperty(n, r), o ? Object.getOwnPropertyDescriptor(i, n) : void 0;
-  })(s, e, t);
+    return i.constructor.createProperty(n, s), o ? Object.getOwnPropertyDescriptor(i, n) : void 0;
+  })(r, e, t);
 }
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-function k(s) {
-  return I({ ...s, state: !0, attribute: !1 });
+function k(r) {
+  return I({ ...r, state: !0, attribute: !1 });
 }
 class $ {
   constructor(e, t = {}) {
@@ -625,12 +625,12 @@ class $ {
    */
   buildDefsMap() {
     if (this.schema.$defs)
-      for (const [t, r] of Object.entries(this.schema.$defs))
-        this.defsMap.set(`#/$defs/${t}`, r);
+      for (const [t, s] of Object.entries(this.schema.$defs))
+        this.defsMap.set(`#/$defs/${t}`, s);
     const e = this.schema.definitions;
     if (e && typeof e == "object")
-      for (const [t, r] of Object.entries(e))
-        this.defsMap.set(`#/definitions/${t}`, r);
+      for (const [t, s] of Object.entries(e))
+        this.defsMap.set(`#/definitions/${t}`, s);
   }
   /**
    * Resolve a $ref to its target schema
@@ -697,9 +697,9 @@ class $ {
   resolveJsonPointer(e, t) {
     if (!t || t === "/")
       return e;
-    const r = t.split("/").slice(1);
+    const s = t.split("/").slice(1);
     let i = e;
-    for (const n of r) {
+    for (const n of s) {
       const o = n.replace(/~1/g, "/").replace(/~0/g, "~");
       if (i === null || typeof i != "object")
         return null;
@@ -754,8 +754,8 @@ class Be {
    * Validate a value against the schema
    */
   validate(e, t) {
-    const r = t || this.parser.getSchema();
-    return this.validateValue(e, r, "", "#");
+    const s = t || this.parser.getSchema();
+    return this.validateValue(e, s, "", "#");
   }
   /**
    * Check if a value is valid against the schema
@@ -766,11 +766,11 @@ class Be {
   /**
    * Validate a value against a schema at a specific path
    */
-  validateValue(e, t, r, i) {
+  validateValue(e, t, s, i) {
     const n = [];
     if (typeof t == "boolean")
       return t || n.push({
-        instancePath: r,
+        instancePath: s,
         schemaPath: i,
         keyword: "false schema",
         message: "Schema is false, no value is valid"
@@ -781,7 +781,7 @@ class Be {
         ...this.validateValue(
           e,
           o,
-          r,
+          s,
           `${i}/$ref`
         )
       );
@@ -790,52 +790,52 @@ class Be {
       const o = this.validateType(
         e,
         t,
-        r,
+        s,
         i
       );
       n.push(...o);
     }
     return t.enum !== void 0 && (t.enum.some((o) => this.deepEqual(o, e)) || n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/enum`,
       keyword: "enum",
       message: `Value must be one of: ${JSON.stringify(t.enum)}`,
       params: { allowedValues: t.enum }
     })), t.const !== void 0 && (this.deepEqual(t.const, e) || n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/const`,
       keyword: "const",
       message: `Value must be: ${JSON.stringify(t.const)}`,
       params: { allowedValue: t.const }
     })), typeof e == "string" ? n.push(
-      ...this.validateString(e, t, r, i)
+      ...this.validateString(e, t, s, i)
     ) : typeof e == "number" ? n.push(
-      ...this.validateNumber(e, t, r, i)
+      ...this.validateNumber(e, t, s, i)
     ) : Array.isArray(e) ? n.push(
-      ...this.validateArray(e, t, r, i)
+      ...this.validateArray(e, t, s, i)
     ) : typeof e == "object" && e !== null && n.push(
       ...this.validateObject(
         e,
         t,
-        r,
+        s,
         i
       )
     ), n.push(
-      ...this.validateComposition(e, t, r, i)
+      ...this.validateComposition(e, t, s, i)
     ), n.push(
-      ...this.validateConditional(e, t, r, i)
+      ...this.validateConditional(e, t, s, i)
     ), n;
   }
   /**
    * Validate the type of a value
    */
-  validateType(e, t, r, i) {
+  validateType(e, t, s, i) {
     const n = $.getTypes(t);
     if (n.length === 0) return [];
     const o = this.getValueType(e);
     return n.some((l) => l === "integer" ? typeof e == "number" && Number.isInteger(e) : l === o) ? [] : [
       {
-        instancePath: r,
+        instancePath: s,
         schemaPath: `${i}/type`,
         keyword: "type",
         message: `Expected type ${n.join(" or ")}, got ${o}`,
@@ -852,22 +852,22 @@ class Be {
   /**
    * Validate string-specific keywords
    */
-  validateString(e, t, r, i) {
+  validateString(e, t, s, i) {
     const n = [];
     if (t.minLength !== void 0 && e.length < t.minLength && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/minLength`,
       keyword: "minLength",
       message: `String must be at least ${t.minLength} characters`,
       params: { minLength: t.minLength, actualLength: e.length }
     }), t.maxLength !== void 0 && e.length > t.maxLength && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/maxLength`,
       keyword: "maxLength",
       message: `String must be at most ${t.maxLength} characters`,
       params: { maxLength: t.maxLength, actualLength: e.length }
     }), t.pattern !== void 0 && (new RegExp(t.pattern, "u").test(e) || n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/pattern`,
       keyword: "pattern",
       message: `String must match pattern: ${t.pattern}`,
@@ -875,7 +875,7 @@ class Be {
     })), t.format !== void 0 && e !== "") {
       const o = this.validateFormat(e, t.format);
       o && n.push({
-        instancePath: r,
+        instancePath: s,
         schemaPath: `${i}/format`,
         keyword: "format",
         message: o,
@@ -937,8 +937,8 @@ class Be {
   validateDateFormat(e) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(e))
       return "Must be a valid date (YYYY-MM-DD)";
-    const [r, i, n] = e.split("-").map(Number), o = new Date(r, i - 1, n);
-    return o.getFullYear() !== r || o.getMonth() !== i - 1 || o.getDate() !== n ? "Must be a valid date" : null;
+    const [s, i, n] = e.split("-").map(Number), o = new Date(s, i - 1, n);
+    return o.getFullYear() !== s || o.getMonth() !== i - 1 || o.getDate() !== n ? "Must be a valid date" : null;
   }
   /**
    * Validate RFC 3339 full-time format (HH:MM:SS or HH:MM:SS.sss with timezone)
@@ -952,7 +952,7 @@ class Be {
   validateDateTimeFormat(e) {
     if (!/^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})?$/i.test(e))
       return "Must be a valid date-time (YYYY-MM-DDTHH:MM:SS)";
-    const r = e.substring(0, 10), i = this.validateDateFormat(r);
+    const s = e.substring(0, 10), i = this.validateDateFormat(s);
     return i || null;
   }
   /**
@@ -978,11 +978,11 @@ class Be {
    */
   validateUriFormat(e, t) {
     try {
-      const r = new URL(
+      const s = new URL(
         e,
         t ? "http://example.com" : void 0
       );
-      return !t && !r.protocol ? "Must be a valid URI with scheme" : null;
+      return !t && !s.protocol ? "Must be a valid URI with scheme" : null;
     } catch {
       return t ? "Must be a valid URI or URI reference" : "Must be a valid URI";
     }
@@ -1003,11 +1003,11 @@ class Be {
    * Validate IPv4 address format (RFC 2673)
    */
   validateIpv4Format(e) {
-    const t = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/, r = e.match(t);
-    if (!r)
+    const t = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/, s = e.match(t);
+    if (!s)
       return "Must be a valid IPv4 address";
     for (let i = 1; i <= 4; i++) {
-      const n = parseInt(r[i], 10);
+      const n = parseInt(s[i], 10);
       if (n < 0 || n > 255)
         return "Must be a valid IPv4 address (each octet must be 0-255)";
     }
@@ -1032,10 +1032,10 @@ class Be {
     if (e.length > 253)
       return "Hostname must be at most 253 characters";
     const t = e.split(".");
-    for (const r of t) {
-      if (r.length === 0 || r.length > 63)
+    for (const s of t) {
+      if (s.length === 0 || s.length > 63)
         return "Each label must be 1-63 characters";
-      if (r.startsWith("-") || r.endsWith("-"))
+      if (s.startsWith("-") || s.endsWith("-"))
         return "Labels cannot start or end with hyphen";
     }
     return null;
@@ -1059,11 +1059,11 @@ class Be {
     if (!e.startsWith("/"))
       return "JSON Pointer must start with / or be empty";
     const t = e.split("/").slice(1);
-    for (const r of t) {
+    for (const s of t) {
       let i = 0;
-      for (; i < r.length; )
-        if (r[i] === "~") {
-          if (i + 1 >= r.length || r[i + 1] !== "0" && r[i + 1] !== "1")
+      for (; i < s.length; )
+        if (s[i] === "~") {
+          if (i + 1 >= s.length || s[i + 1] !== "0" && s[i + 1] !== "1")
             return "Invalid escape sequence in JSON Pointer (~ must be followed by 0 or 1)";
           i += 2;
         } else
@@ -1077,24 +1077,24 @@ class Be {
   validateRelativeJsonPointerFormat(e) {
     if (!/^\d+(#|\/.*)?$/.test(e))
       return "Must be a valid relative JSON Pointer";
-    const r = e.match(/^\d+(\/.*)?$/);
-    return r && r[1] ? this.validateJsonPointerFormat(r[1]) : null;
+    const s = e.match(/^\d+(\/.*)?$/);
+    return s && s[1] ? this.validateJsonPointerFormat(s[1]) : null;
   }
   /**
    * Validate URI template format (RFC 6570)
    */
   validateUriTemplateFormat(e) {
-    let t = 0, r = !1;
+    let t = 0, s = !1;
     for (let i = 0; i < e.length; i++) {
       const n = e[i];
       if (n === "{") {
-        if (r)
+        if (s)
           return "Nested braces are not allowed in URI templates";
-        r = !0, t++;
+        s = !0, t++;
       } else if (n === "}") {
-        if (!r)
+        if (!s)
           return "Unmatched closing brace in URI template";
-        r = !1, t--;
+        s = !1, t--;
       }
     }
     return t !== 0 ? "Unmatched opening brace in URI template" : null;
@@ -1102,34 +1102,34 @@ class Be {
   /**
    * Validate number-specific keywords
    */
-  validateNumber(e, t, r, i) {
+  validateNumber(e, t, s, i) {
     const n = [];
     return t.minimum !== void 0 && e < t.minimum && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/minimum`,
       keyword: "minimum",
       message: `Value must be >= ${t.minimum}`,
       params: { minimum: t.minimum, actual: e }
     }), t.maximum !== void 0 && e > t.maximum && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/maximum`,
       keyword: "maximum",
       message: `Value must be <= ${t.maximum}`,
       params: { maximum: t.maximum, actual: e }
     }), t.exclusiveMinimum !== void 0 && e <= t.exclusiveMinimum && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/exclusiveMinimum`,
       keyword: "exclusiveMinimum",
       message: `Value must be > ${t.exclusiveMinimum}`,
       params: { exclusiveMinimum: t.exclusiveMinimum, actual: e }
     }), t.exclusiveMaximum !== void 0 && e >= t.exclusiveMaximum && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/exclusiveMaximum`,
       keyword: "exclusiveMaximum",
       message: `Value must be < ${t.exclusiveMaximum}`,
       params: { exclusiveMaximum: t.exclusiveMaximum, actual: e }
     }), t.multipleOf !== void 0 && e % t.multipleOf !== 0 && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/multipleOf`,
       keyword: "multipleOf",
       message: `Value must be a multiple of ${t.multipleOf}`,
@@ -1139,22 +1139,22 @@ class Be {
   /**
    * Validate array-specific keywords
    */
-  validateArray(e, t, r, i) {
+  validateArray(e, t, s, i) {
     const n = [];
     if (t.minItems !== void 0 && e.length < t.minItems && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/minItems`,
       keyword: "minItems",
       message: `Array must have at least ${t.minItems} items`,
       params: { minItems: t.minItems, actualItems: e.length }
     }), t.maxItems !== void 0 && e.length > t.maxItems && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/maxItems`,
       keyword: "maxItems",
       message: `Array must have at most ${t.maxItems} items`,
       params: { maxItems: t.maxItems, actualItems: e.length }
     }), t.uniqueItems && !this.areItemsUnique(e) && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/uniqueItems`,
       keyword: "uniqueItems",
       message: "Array items must be unique"
@@ -1165,7 +1165,7 @@ class Be {
           ...this.validateValue(
             e[o],
             a,
-            `${r}/${o}`,
+            `${s}/${o}`,
             `${i}/prefixItems/${o}`
           )
         );
@@ -1177,7 +1177,7 @@ class Be {
           ...this.validateValue(
             e[a],
             t.items,
-            `${r}/${a}`,
+            `${s}/${a}`,
             `${i}/items`
           )
         );
@@ -1187,19 +1187,19 @@ class Be {
   /**
    * Validate object-specific keywords
    */
-  validateObject(e, t, r, i) {
+  validateObject(e, t, s, i) {
     const n = [], o = Object.keys(e);
     if (t.required)
       for (const l of t.required)
         l in e || n.push({
-          instancePath: r,
+          instancePath: s,
           schemaPath: `${i}/required`,
           keyword: "required",
           message: `Missing required property: ${l}`,
           params: { missingProperty: l }
         });
     t.minProperties !== void 0 && o.length < t.minProperties && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/minProperties`,
       keyword: "minProperties",
       message: `Object must have at least ${t.minProperties} properties`,
@@ -1208,7 +1208,7 @@ class Be {
         actualProperties: o.length
       }
     }), t.maxProperties !== void 0 && o.length > t.maxProperties && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/maxProperties`,
       keyword: "maxProperties",
       message: `Object must have at most ${t.maxProperties} properties`,
@@ -1224,7 +1224,7 @@ class Be {
           ...this.validateValue(
             e[l],
             f,
-            `${r}/${l}`,
+            `${s}/${l}`,
             `${i}/properties/${l}`
           )
         ));
@@ -1238,7 +1238,7 @@ class Be {
             ...this.validateValue(
               e[u],
               f,
-              `${r}/${u}`,
+              `${s}/${u}`,
               `${i}/patternProperties/${l}`
             )
           ));
@@ -1246,7 +1246,7 @@ class Be {
     if (t.additionalProperties !== void 0)
       for (const l of o)
         a.has(l) || (t.additionalProperties === !1 ? n.push({
-          instancePath: `${r}/${l}`,
+          instancePath: `${s}/${l}`,
           schemaPath: `${i}/additionalProperties`,
           keyword: "additionalProperties",
           message: `Additional property not allowed: ${l}`,
@@ -1255,7 +1255,7 @@ class Be {
           ...this.validateValue(
             e[l],
             t.additionalProperties,
-            `${r}/${l}`,
+            `${s}/${l}`,
             `${i}/additionalProperties`
           )
         ));
@@ -1266,7 +1266,7 @@ class Be {
         if (l in e)
           for (const c of f)
             c in e || n.push({
-              instancePath: r,
+              instancePath: s,
               schemaPath: `${i}/dependentRequired`,
               keyword: "dependentRequired",
               message: `Property "${c}" is required when "${l}" is present`,
@@ -1284,7 +1284,7 @@ class Be {
           ...this.validateValue(
             e,
             f,
-            r,
+            s,
             `${i}/dependentSchemas/${l}`
           )
         );
@@ -1293,7 +1293,7 @@ class Be {
   /**
    * Validate composition keywords (allOf, anyOf, oneOf, not)
    */
-  validateComposition(e, t, r, i) {
+  validateComposition(e, t, s, i) {
     const n = [];
     if (t.allOf)
       for (let o = 0; o < t.allOf.length; o++)
@@ -1301,23 +1301,23 @@ class Be {
           ...this.validateValue(
             e,
             t.allOf[o],
-            r,
+            s,
             `${i}/allOf/${o}`
           )
         );
     if (t.anyOf && (t.anyOf.some(
-      (a) => this.validateValue(e, a, r, i).length === 0
+      (a) => this.validateValue(e, a, s, i).length === 0
     ) || n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/anyOf`,
       keyword: "anyOf",
       message: "Value must match at least one schema in anyOf"
     })), t.oneOf) {
       const o = t.oneOf.filter(
-        (a) => this.validateValue(e, a, r, i).length === 0
+        (a) => this.validateValue(e, a, s, i).length === 0
       ).length;
       o !== 1 && n.push({
-        instancePath: r,
+        instancePath: s,
         schemaPath: `${i}/oneOf`,
         keyword: "oneOf",
         message: `Value must match exactly one schema in oneOf (matched ${o})`,
@@ -1327,10 +1327,10 @@ class Be {
     return t.not && this.validateValue(
       e,
       t.not,
-      r,
+      s,
       `${i}/not`
     ).length === 0 && n.push({
-      instancePath: r,
+      instancePath: s,
       schemaPath: `${i}/not`,
       keyword: "not",
       message: "Value must NOT match the schema in not"
@@ -1339,28 +1339,28 @@ class Be {
   /**
    * Validate conditional keywords (if/then/else)
    */
-  validateConditional(e, t, r, i) {
+  validateConditional(e, t, s, i) {
     const n = [];
     if (t.if === void 0)
       return n;
     const a = this.validateValue(
       e,
       t.if,
-      r,
+      s,
       `${i}/if`
     ).length === 0;
     return a && t.then !== void 0 && n.push(
       ...this.validateValue(
         e,
         t.then,
-        r,
+        s,
         `${i}/then`
       )
     ), !a && t.else !== void 0 && n.push(
       ...this.validateValue(
         e,
         t.else,
-        r,
+        s,
         `${i}/else`
       )
     ), n;
@@ -1370,8 +1370,8 @@ class Be {
    */
   areItemsUnique(e) {
     for (let t = 0; t < e.length; t++)
-      for (let r = t + 1; r < e.length; r++)
-        if (this.deepEqual(e[t], e[r]))
+      for (let s = t + 1; s < e.length; s++)
+        if (this.deepEqual(e[t], e[s]))
           return !1;
     return !0;
   }
@@ -1383,10 +1383,10 @@ class Be {
     if (typeof e != typeof t) return !1;
     if (e === null || t === null) return e === t;
     if (Array.isArray(e) && Array.isArray(t))
-      return e.length !== t.length ? !1 : e.every((r, i) => this.deepEqual(r, t[i]));
+      return e.length !== t.length ? !1 : e.every((s, i) => this.deepEqual(s, t[i]));
     if (typeof e == "object" && typeof t == "object") {
-      const r = Object.keys(e), i = Object.keys(t);
-      return r.length !== i.length ? !1 : r.every(
+      const s = Object.keys(e), i = Object.keys(t);
+      return s.length !== i.length ? !1 : s.every(
         (n) => this.deepEqual(
           e[n],
           t[n]
@@ -2094,10 +2094,10 @@ const Ye = ge`
     animation: jsf-fade-in var(--jsf-transition-normal);
   }
 `;
-var Je = Object.defineProperty, Ze = Object.getOwnPropertyDescriptor, b = (s, e, t, r) => {
-  for (var i = r > 1 ? void 0 : r ? Ze(e, t) : e, n = s.length - 1, o; n >= 0; n--)
-    (o = s[n]) && (i = (r ? o(e, t, i) : o(i)) || i);
-  return r && i && Je(e, t, i), i;
+var Je = Object.defineProperty, Ze = Object.getOwnPropertyDescriptor, b = (r, e, t, s) => {
+  for (var i = s > 1 ? void 0 : s ? Ze(e, t) : e, n = r.length - 1, o; n >= 0; n--)
+    (o = r[n]) && (i = (s ? o(e, t, i) : o(i)) || i);
+  return s && i && Je(e, t, i), i;
 };
 let v = class extends T {
   constructor() {
@@ -2124,8 +2124,8 @@ let v = class extends T {
   connectedCallback() {
     super.connectedCallback(), this._parseSchema();
   }
-  updated(s) {
-    s.has("schema") && this._parseSchema(), s.has("value") && this.validateOnChange && this._validate();
+  updated(r) {
+    r.has("schema") && this._parseSchema(), r.has("value") && this.validateOnChange && this._validate();
   }
   /**
    * Parse the schema string
@@ -2139,28 +2139,38 @@ let v = class extends T {
       this._parsedSchema = $.parse(this.schema), this._parser = new $(this._parsedSchema), this._validator = new Be(this._parsedSchema), this._parseError = null, this.value === void 0 && (this.value = this._getDefaultValue(this._parsedSchema)), this._dispatchEvent("json-schema-form-ready", {
         schema: this._parsedSchema
       });
-    } catch (s) {
-      this._parseError = s instanceof Error ? s.message : "Failed to parse schema", this._parsedSchema = null, this._parser = null, this._validator = null;
+    } catch (r) {
+      this._parseError = r instanceof Error ? r.message : "Failed to parse schema", this._parsedSchema = null, this._parser = null, this._validator = null;
     }
   }
   /**
    * Get the default value for a schema
    */
-  _getDefaultValue(s) {
-    if (s.default !== void 0)
-      return s.default;
-    if (s.const !== void 0)
-      return s.const;
-    switch ($.getTypes(s)[0]) {
+  _getDefaultValue(r) {
+    if (r.default !== void 0)
+      return r.default;
+    if (r.const !== void 0)
+      return r.const;
+    if (r.oneOf && r.oneOf.length > 0) {
+      const s = r.oneOf[0];
+      if (typeof s != "boolean")
+        return this._getDefaultValue(s);
+    }
+    if (r.anyOf && r.anyOf.length > 0) {
+      const s = r.anyOf[0];
+      if (typeof s != "boolean")
+        return this._getDefaultValue(s);
+    }
+    switch ($.getTypes(r)[0] || this._inferTypeFromSchema(r)) {
       case "object":
-        return this._getDefaultObjectValue(s);
+        return this._getDefaultObjectValue(r);
       case "array":
         return [];
       case "string":
         return "";
       case "number":
       case "integer":
-        return s.minimum ?? 0;
+        return r.minimum ?? 0;
       case "boolean":
         return !1;
       case "null":
@@ -2170,14 +2180,27 @@ let v = class extends T {
     }
   }
   /**
+   * Infer type from schema keywords (without looking at value)
+   */
+  _inferTypeFromSchema(r) {
+    if (r.properties || r.additionalProperties || r.required)
+      return "object";
+    if (r.items || r.prefixItems)
+      return "array";
+    if (r.enum && r.enum.length > 0) {
+      const e = r.enum[0];
+      return e === null ? "null" : Array.isArray(e) ? "array" : typeof e;
+    }
+  }
+  /**
    * Get default value for an object schema
    */
-  _getDefaultObjectValue(s) {
+  _getDefaultObjectValue(r) {
     var t;
     const e = {};
-    if (s.properties)
-      for (const [r, i] of Object.entries(s.properties))
-        typeof i != "boolean" && ((t = s.required) != null && t.includes(r) || i.default !== void 0) && (e[r] = this._getDefaultValue(i));
+    if (r.properties)
+      for (const [s, i] of Object.entries(r.properties))
+        typeof i != "boolean" && ((t = r.required) != null && t.includes(s) || i.default !== void 0) && (e[s] = this._getDefaultValue(i));
     return e;
   }
   /**
@@ -2207,41 +2230,41 @@ let v = class extends T {
   /**
    * Handle form submission
    */
-  _handleSubmit(s) {
-    s.preventDefault(), this.validate() && this._dispatchEvent("json-schema-form-submit", { value: this.value });
+  _handleSubmit(r) {
+    r.preventDefault(), this.validate() && this._dispatchEvent("json-schema-form-submit", { value: this.value });
   }
   /**
    * Handle value changes from field renderers
    */
-  _handleValueChange(s, e) {
-    s === "" ? this.value = e : this.value = this._setNestedValue(this.value, s, e), this._dispatchEvent("json-schema-form-change", {
+  _handleValueChange(r, e) {
+    r === "" ? this.value = e : this.value = this._setNestedValue(this.value, r, e), this._dispatchEvent("json-schema-form-change", {
       value: this.value,
-      path: s,
+      path: r,
       changedValue: e
     }), (this.validateOnChange || this._submitted) && this._validate();
   }
   /**
    * Set a nested value in an object
    */
-  _setNestedValue(s, e, t) {
-    const r = e.split("/").filter((a) => a !== "");
-    if (r.length === 0)
+  _setNestedValue(r, e, t) {
+    const s = e.split("/").filter((a) => a !== "");
+    if (s.length === 0)
       return t;
-    const i = Array.isArray(s) ? [...s] : { ...s };
+    const i = Array.isArray(r) ? [...r] : { ...r };
     let n = i;
-    for (let a = 0; a < r.length - 1; a++) {
-      const l = r[a], f = Array.isArray(n) ? n[parseInt(l, 10)] : n[l], c = Array.isArray(f) ? [...f] : { ...f };
+    for (let a = 0; a < s.length - 1; a++) {
+      const l = s[a], f = Array.isArray(n) ? n[parseInt(l, 10)] : n[l], c = Array.isArray(f) ? [...f] : { ...f };
       Array.isArray(n) ? n[parseInt(l, 10)] = c : n[l] = c, n = c;
     }
-    const o = r[r.length - 1];
+    const o = s[s.length - 1];
     return Array.isArray(n) ? n[parseInt(o, 10)] = t : n[o] = t, i;
   }
   /**
    * Dispatch a custom event
    */
-  _dispatchEvent(s, e) {
+  _dispatchEvent(r, e) {
     this.dispatchEvent(
-      new CustomEvent(s, {
+      new CustomEvent(r, {
         detail: e,
         bubbles: !0,
         composed: !0
@@ -2281,12 +2304,12 @@ let v = class extends T {
   /**
    * Render a schema at a given path
    */
-  _renderSchema(s, e, t) {
+  _renderSchema(r, e, t) {
     var a;
-    if (typeof s == "boolean")
-      return s ? d`` : d`<div class="jsf-error">This field is not allowed</div>`;
-    if (s.$ref && this._parser) {
-      const l = this._parser.resolveRef(s.$ref);
+    if (typeof r == "boolean")
+      return r ? d`` : d`<div class="jsf-error">This field is not allowed</div>`;
+    if (r.$ref && this._parser) {
+      const l = this._parser.resolveRef(r.$ref);
       return l ? l._isCircular ? d`
             <div class="jsf-circular-ref">
               <svg
@@ -2300,34 +2323,34 @@ let v = class extends T {
                   clip-rule="evenodd"
                 />
               </svg>
-              <span>Circular reference: ${s.$ref}</span>
+              <span>Circular reference: ${r.$ref}</span>
             </div>
           ` : this._renderSchema(l, e, t) : d`<div class="jsf-error">
-        Unable to resolve reference: ${s.$ref}
+        Unable to resolve reference: ${r.$ref}
       </div>`;
     }
-    if (s.anyOf && s.anyOf.length > 0)
-      return this._renderAnyOfOneOf(s, s.anyOf, "anyOf", e, t);
-    if (s.oneOf && s.oneOf.length > 0)
-      return this._renderAnyOfOneOf(s, s.oneOf, "oneOf", e, t);
-    if (s.if !== void 0)
-      return this._renderConditional(s, e, t);
-    const i = $.getTypes(s)[0] || this._inferType(s, t), n = this._errors.filter((l) => l.instancePath === e), o = this._getFieldLabel(s, e);
+    if (r.anyOf && r.anyOf.length > 0)
+      return this._renderAnyOfOneOf(r, r.anyOf, "anyOf", e, t);
+    if (r.oneOf && r.oneOf.length > 0)
+      return this._renderAnyOfOneOf(r, r.oneOf, "oneOf", e, t);
+    if (r.if !== void 0)
+      return this._renderConditional(r, e, t);
+    const i = $.getTypes(r)[0] || this._inferType(r, t), n = this._errors.filter((l) => l.instancePath === e), o = this._getFieldLabel(r, e);
     return d`
       <div
-        class="jsf-field ${s.deprecated ? "jsf-deprecated" : ""} ${s.readOnly ? "jsf-readonly" : ""}"
+        class="jsf-field ${r.deprecated ? "jsf-deprecated" : ""} ${r.readOnly ? "jsf-readonly" : ""}"
         part="field"
       >
         ${o ? d`
               <label
-                class="jsf-label ${(a = s.required) != null && a.length ? "jsf-label-required" : ""}"
+                class="jsf-label ${(a = r.required) != null && a.length ? "jsf-label-required" : ""}"
                 part="label"
               >
                 ${o}
               </label>
             ` : ""}
-        ${this._renderFieldByType(i, s, e, t)}
-        ${s.description ? d` <p class="jsf-description">${s.description}</p> ` : ""}
+        ${this._renderFieldByType(i, r, e, t)}
+        ${r.description ? d` <p class="jsf-description">${r.description}</p> ` : ""}
         ${n.map(
       (l) => d`
             <div class="jsf-error" part="error" role="alert">
@@ -2352,85 +2375,85 @@ let v = class extends T {
   /**
    * Infer type from schema keywords or value
    */
-  _inferType(s, e) {
-    return s.properties || s.additionalProperties || s.required ? "object" : s.items || s.prefixItems ? "array" : s.enum ? "string" : e === null ? "null" : Array.isArray(e) ? "array" : typeof e;
+  _inferType(r, e) {
+    return r.properties || r.additionalProperties || r.required ? "object" : r.items || r.prefixItems ? "array" : r.enum ? "string" : e === null ? "null" : Array.isArray(e) ? "array" : typeof e;
   }
   /**
    * Render a field based on its type
    */
-  _renderFieldByType(s, e, t, r) {
+  _renderFieldByType(r, e, t, s) {
     if (e.enum)
-      return this._renderEnum(e, t, r);
+      return this._renderEnum(e, t, s);
     if (e.const !== void 0)
       return this._renderConst(e);
-    switch (s) {
+    switch (r) {
       case "string":
-        return this._renderString(e, t, r);
+        return this._renderString(e, t, s);
       case "number":
       case "integer":
         return this._renderNumber(
           e,
           t,
-          r,
-          s === "integer"
+          s,
+          r === "integer"
         );
       case "boolean":
-        return this._renderBoolean(e, t, r);
+        return this._renderBoolean(e, t, s);
       case "object":
         return this._renderObject(
           e,
           t,
-          r
+          s
         );
       case "array":
-        return this._renderArray(e, t, r);
+        return this._renderArray(e, t, s);
       case "null":
         return this._renderNull();
       default:
-        return d`<div class="jsf-error">Unsupported type: ${s}</div>`;
+        return d`<div class="jsf-error">Unsupported type: ${r}</div>`;
     }
   }
   /**
    * Render a string field
    */
-  _renderString(s, e, t) {
+  _renderString(r, e, t) {
     var n, o;
-    const r = this._errors.some((a) => a.instancePath === e), i = this._errors.find(
+    const s = this._errors.some((a) => a.instancePath === e), i = this._errors.find(
       (a) => a.instancePath === e && a.keyword === "format"
     );
-    return s.maxLength && s.maxLength > 100 ? d`
+    return r.maxLength && r.maxLength > 100 ? d`
         <textarea
-          class="jsf-input jsf-textarea ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-textarea ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
-          placeholder=${((n = s.examples) == null ? void 0 : n[0]) ?? ""}
-          minlength=${s.minLength ?? ""}
-          maxlength=${s.maxLength ?? ""}
+          placeholder=${((n = r.examples) == null ? void 0 : n[0]) ?? ""}
+          minlength=${r.minLength ?? ""}
+          maxlength=${r.maxLength ?? ""}
           @input=${(a) => this._handleValueChange(
       e,
       a.target.value
     )}
         ></textarea>
-      ` : s.format ? this._renderFormatInput(
-      s,
+      ` : r.format ? this._renderFormatInput(
+      r,
       e,
       t,
-      r,
+      s,
       i == null ? void 0 : i.message
     ) : d`
       <input
         type="text"
-        class="jsf-input ${r ? "jsf-input--error" : ""}"
+        class="jsf-input ${s ? "jsf-input--error" : ""}"
         part="input"
         .value=${t ?? ""}
-        ?disabled=${s.readOnly}
+        ?disabled=${r.readOnly}
         ?required=${this._isRequired(e)}
-        placeholder=${((o = s.examples) == null ? void 0 : o[0]) ?? ""}
-        minlength=${s.minLength ?? ""}
-        maxlength=${s.maxLength ?? ""}
-        pattern=${s.pattern ?? ""}
+        placeholder=${((o = r.examples) == null ? void 0 : o[0]) ?? ""}
+        minlength=${r.minLength ?? ""}
+        maxlength=${r.maxLength ?? ""}
+        pattern=${r.pattern ?? ""}
         @input=${(a) => this._handleValueChange(e, a.target.value)}
       />
     `;
@@ -2438,22 +2461,22 @@ let v = class extends T {
   /**
    * Render format-specific input components
    */
-  _renderFormatInput(s, e, t, r, i) {
+  _renderFormatInput(r, e, t, s, i) {
     var l;
-    const n = s.format, o = (l = s.examples) == null ? void 0 : l[0], a = typeof o == "string" ? o : this._getFormatPlaceholder(n);
+    const n = r.format, o = (l = r.examples) == null ? void 0 : l[0], a = typeof o == "string" ? o : this._getFormatPlaceholder(n);
     switch (n) {
       case "date":
-        return this._renderDateInput(s, e, t, r);
+        return this._renderDateInput(r, e, t, s);
       case "time":
-        return this._renderTimeInput(s, e, t, r);
+        return this._renderTimeInput(r, e, t, s);
       case "date-time":
-        return this._renderDateTimeInput(s, e, t, r);
+        return this._renderDateTimeInput(r, e, t, s);
       case "email":
         return this._renderEmailInput(
-          s,
+          r,
           e,
           t,
-          r,
+          s,
           a
         );
       case "uri":
@@ -2461,49 +2484,49 @@ let v = class extends T {
       case "iri":
       case "iri-reference":
         return this._renderUriInput(
-          s,
+          r,
           e,
           t,
-          r,
+          s,
           a,
           n
         );
       case "uuid":
-        return this._renderUuidInput(s, e, t, r);
+        return this._renderUuidInput(r, e, t, s);
       case "ipv4":
-        return this._renderIpv4Input(s, e, t, r);
+        return this._renderIpv4Input(r, e, t, s);
       case "ipv6":
-        return this._renderIpv6Input(s, e, t, r);
+        return this._renderIpv6Input(r, e, t, s);
       case "hostname":
       case "idn-hostname":
         return this._renderHostnameInput(
-          s,
+          r,
           e,
           t,
-          r,
+          s,
           a
         );
       case "duration":
-        return this._renderDurationInput(s, e, t, r);
+        return this._renderDurationInput(r, e, t, s);
       case "regex":
-        return this._renderRegexInput(s, e, t, r);
+        return this._renderRegexInput(r, e, t, s);
       case "json-pointer":
       case "relative-json-pointer":
         return this._renderJsonPointerInput(
-          s,
+          r,
           e,
           t,
-          r,
+          s,
           n
         );
       default:
         return d`
           <input
             type="text"
-            class="jsf-input ${r ? "jsf-input--error" : ""}"
+            class="jsf-input ${s ? "jsf-input--error" : ""}"
             part="input"
             .value=${t ?? ""}
-            ?disabled=${s.readOnly}
+            ?disabled=${r.readOnly}
             ?required=${this._isRequired(e)}
             placeholder=${a}
             @input=${(f) => this._handleValueChange(
@@ -2517,8 +2540,8 @@ let v = class extends T {
   /**
    * Get placeholder text for a format
    */
-  _getFormatPlaceholder(s) {
-    switch (s) {
+  _getFormatPlaceholder(r) {
+    switch (r) {
       case "date":
         return "YYYY-MM-DD";
       case "time":
@@ -2557,15 +2580,15 @@ let v = class extends T {
   /**
    * Render date input with picker
    */
-  _renderDateInput(s, e, t, r) {
+  _renderDateInput(r, e, t, s) {
     return d`
       <div class="jsf-format-input jsf-format-date">
         <input
           type="date"
-          class="jsf-input ${r ? "jsf-input--error" : ""}"
+          class="jsf-input ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           @input=${(i) => this._handleValueChange(e, i.target.value)}
         />
@@ -2584,16 +2607,16 @@ let v = class extends T {
   /**
    * Render time input with picker
    */
-  _renderTimeInput(s, e, t, r) {
+  _renderTimeInput(r, e, t, s) {
     const i = t ? t.substring(0, 5) : "";
     return d`
       <div class="jsf-format-input jsf-format-time">
         <input
           type="time"
-          class="jsf-input ${r ? "jsf-input--error" : ""}"
+          class="jsf-input ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${i}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           step="1"
           @input=${(n) => {
@@ -2616,16 +2639,16 @@ let v = class extends T {
   /**
    * Render date-time input with picker
    */
-  _renderDateTimeInput(s, e, t, r) {
+  _renderDateTimeInput(r, e, t, s) {
     const i = t ? t.replace("Z", "").replace(/[+-]\d{2}:\d{2}$/, "").substring(0, 16) : "";
     return d`
       <div class="jsf-format-input jsf-format-datetime">
         <input
           type="datetime-local"
-          class="jsf-input ${r ? "jsf-input--error" : ""}"
+          class="jsf-input ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${i}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           @input=${(n) => {
       const o = n.target.value, a = o ? `${o}:00` : "";
@@ -2647,7 +2670,7 @@ let v = class extends T {
   /**
    * Render email input with icon
    */
-  _renderEmailInput(s, e, t, r, i) {
+  _renderEmailInput(r, e, t, s, i) {
     return d`
       <div class="jsf-format-input jsf-format-email">
         <span class="jsf-format-icon jsf-format-icon--left">
@@ -2660,10 +2683,10 @@ let v = class extends T {
         </span>
         <input
           type="email"
-          class="jsf-input jsf-input--with-icon ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--with-icon ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder=${i}
           @input=${(n) => this._handleValueChange(e, n.target.value)}
@@ -2674,7 +2697,7 @@ let v = class extends T {
   /**
    * Render URI input with icon
    */
-  _renderUriInput(s, e, t, r, i, n) {
+  _renderUriInput(r, e, t, s, i, n) {
     return d`
       <div class="jsf-format-input jsf-format-uri">
         <span class="jsf-format-icon jsf-format-icon--left">
@@ -2688,15 +2711,15 @@ let v = class extends T {
         </span>
         <input
           type="url"
-          class="jsf-input jsf-input--with-icon ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--with-icon ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder=${i}
           @input=${(o) => this._handleValueChange(e, o.target.value)}
         />
-        ${t && !r ? d`
+        ${t && !s ? d`
               <a
                 href=${t}
                 target="_blank"
@@ -2725,15 +2748,15 @@ let v = class extends T {
   /**
    * Render UUID input with generate button
    */
-  _renderUuidInput(s, e, t, r) {
+  _renderUuidInput(r, e, t, s) {
     return d`
       <div class="jsf-format-input jsf-format-uuid">
         <input
           type="text"
-          class="jsf-input jsf-input--monospace ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--monospace ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
           pattern="^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
@@ -2742,7 +2765,7 @@ let v = class extends T {
       i.target.value.toLowerCase()
     )}
         />
-        ${s.readOnly ? "" : d`
+        ${r.readOnly ? "" : d`
               <button
                 type="button"
                 class="jsf-format-action jsf-format-action--button"
@@ -2770,15 +2793,15 @@ let v = class extends T {
    * Generate a random UUID v4
    */
   _generateUuid() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (s) => {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (r) => {
       const e = Math.random() * 16 | 0;
-      return (s === "x" ? e : e & 3 | 8).toString(16);
+      return (r === "x" ? e : e & 3 | 8).toString(16);
     });
   }
   /**
    * Render IPv4 input with segmented display
    */
-  _renderIpv4Input(s, e, t, r) {
+  _renderIpv4Input(r, e, t, s) {
     return d`
       <div class="jsf-format-input jsf-format-ip">
         <span class="jsf-format-icon jsf-format-icon--left">
@@ -2792,10 +2815,10 @@ let v = class extends T {
         </span>
         <input
           type="text"
-          class="jsf-input jsf-input--with-icon jsf-input--monospace ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--with-icon jsf-input--monospace ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder="192.168.1.1"
           pattern="^(\\d{1,3}\\.){3}\\d{1,3}$"
@@ -2807,7 +2830,7 @@ let v = class extends T {
   /**
    * Render IPv6 input
    */
-  _renderIpv6Input(s, e, t, r) {
+  _renderIpv6Input(r, e, t, s) {
     return d`
       <div class="jsf-format-input jsf-format-ip">
         <span class="jsf-format-icon jsf-format-icon--left">
@@ -2821,10 +2844,10 @@ let v = class extends T {
         </span>
         <input
           type="text"
-          class="jsf-input jsf-input--with-icon jsf-input--monospace ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--with-icon jsf-input--monospace ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder="2001:0db8:85a3::8a2e:0370:7334"
           @input=${(i) => this._handleValueChange(
@@ -2838,7 +2861,7 @@ let v = class extends T {
   /**
    * Render hostname input
    */
-  _renderHostnameInput(s, e, t, r, i) {
+  _renderHostnameInput(r, e, t, s, i) {
     return d`
       <div class="jsf-format-input jsf-format-hostname">
         <span class="jsf-format-icon jsf-format-icon--left">
@@ -2852,10 +2875,10 @@ let v = class extends T {
         </span>
         <input
           type="text"
-          class="jsf-input jsf-input--with-icon ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--with-icon ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder=${i}
           @input=${(n) => this._handleValueChange(
@@ -2869,15 +2892,15 @@ let v = class extends T {
   /**
    * Render duration input with helper
    */
-  _renderDurationInput(s, e, t, r) {
+  _renderDurationInput(r, e, t, s) {
     return d`
       <div class="jsf-format-input jsf-format-duration">
         <input
           type="text"
-          class="jsf-input jsf-input--monospace ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--monospace ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder="P1Y2M3DT4H5M6S"
           @input=${(i) => this._handleValueChange(
@@ -2894,7 +2917,7 @@ let v = class extends T {
   /**
    * Render regex input with test functionality
    */
-  _renderRegexInput(s, e, t, r) {
+  _renderRegexInput(r, e, t, s) {
     return d`
       <div class="jsf-format-input jsf-format-regex">
         <span
@@ -2903,10 +2926,10 @@ let v = class extends T {
         >
         <input
           type="text"
-          class="jsf-input jsf-input--with-icon jsf-input--monospace ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--with-icon jsf-input--monospace ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder="^[a-z]+$"
           @input=${(i) => this._handleValueChange(e, i.target.value)}
@@ -2918,7 +2941,7 @@ let v = class extends T {
   /**
    * Render JSON Pointer input
    */
-  _renderJsonPointerInput(s, e, t, r, i) {
+  _renderJsonPointerInput(r, e, t, s, i) {
     const n = i === "relative-json-pointer" ? "1/path/to/value" : "/path/to/value";
     return d`
       <div class="jsf-format-input jsf-format-json-pointer">
@@ -2933,10 +2956,10 @@ let v = class extends T {
         </span>
         <input
           type="text"
-          class="jsf-input jsf-input--with-icon jsf-input--monospace ${r ? "jsf-input--error" : ""}"
+          class="jsf-input jsf-input--with-icon jsf-input--monospace ${s ? "jsf-input--error" : ""}"
           part="input"
           .value=${t ?? ""}
-          ?disabled=${s.readOnly}
+          ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           placeholder=${n}
           @input=${(o) => this._handleValueChange(e, o.target.value)}
@@ -2947,7 +2970,7 @@ let v = class extends T {
   /**
    * Render a number field
    */
-  _renderNumber(s, e, t, r) {
+  _renderNumber(r, e, t, s) {
     const i = this._errors.some((n) => n.instancePath === e);
     return d`
       <input
@@ -2955,13 +2978,13 @@ let v = class extends T {
         class="jsf-input ${i ? "jsf-input--error" : ""}"
         part="input"
         .value=${(t == null ? void 0 : t.toString()) ?? ""}
-        ?disabled=${s.readOnly}
+        ?disabled=${r.readOnly}
         ?required=${this._isRequired(e)}
-        min=${s.minimum ?? s.exclusiveMinimum ?? ""}
-        max=${s.maximum ?? s.exclusiveMaximum ?? ""}
-        step=${r ? "1" : s.multipleOf ?? "any"}
+        min=${r.minimum ?? r.exclusiveMinimum ?? ""}
+        max=${r.maximum ?? r.exclusiveMaximum ?? ""}
+        step=${s ? "1" : r.multipleOf ?? "any"}
         @input=${(n) => {
-      const o = n.target.value, a = r ? parseInt(o, 10) : parseFloat(o);
+      const o = n.target.value, a = s ? parseInt(o, 10) : parseFloat(o);
       this._handleValueChange(e, isNaN(a) ? void 0 : a);
     }}
       />
@@ -2970,7 +2993,7 @@ let v = class extends T {
   /**
    * Render a boolean field
    */
-  _renderBoolean(s, e, t) {
+  _renderBoolean(r, e, t) {
     return d`
       <div class="jsf-checkbox-wrapper">
         <input
@@ -2978,14 +3001,14 @@ let v = class extends T {
           class="jsf-checkbox"
           part="input"
           .checked=${t ?? !1}
-          ?disabled=${s.readOnly}
-          @change=${(r) => this._handleValueChange(
+          ?disabled=${r.readOnly}
+          @change=${(s) => this._handleValueChange(
       e,
-      r.target.checked
+      s.target.checked
     )}
         />
-        ${!s.title && s.description ? d`
-              <span class="jsf-checkbox-label">${s.description}</span>
+        ${!r.title && r.description ? d`
+              <span class="jsf-checkbox-label">${r.description}</span>
             ` : ""}
       </div>
     `;
@@ -2993,23 +3016,23 @@ let v = class extends T {
   /**
    * Render an enum field
    */
-  _renderEnum(s, e, t) {
+  _renderEnum(r, e, t) {
     var i;
-    const r = this._errors.some((n) => n.instancePath === e);
+    const s = this._errors.some((n) => n.instancePath === e);
     return d`
       <select
-        class="jsf-input jsf-select ${r ? "jsf-input--error" : ""}"
+        class="jsf-input jsf-select ${s ? "jsf-input--error" : ""}"
         part="input"
-        ?disabled=${s.readOnly}
+        ?disabled=${r.readOnly}
         ?required=${this._isRequired(e)}
         @change=${(n) => {
       var l;
-      const o = n.target.value, a = (l = s.enum) == null ? void 0 : l.find((f) => String(f) === o);
+      const o = n.target.value, a = (l = r.enum) == null ? void 0 : l.find((f) => String(f) === o);
       this._handleValueChange(e, a);
     }}
       >
         <option value="" ?selected=${t === void 0}>Select...</option>
-        ${(i = s.enum) == null ? void 0 : i.map(
+        ${(i = r.enum) == null ? void 0 : i.map(
       (n) => d`
             <option value=${String(n)} ?selected=${t === n}>
               ${String(n)}
@@ -3022,13 +3045,13 @@ let v = class extends T {
   /**
    * Render a const field (readonly display)
    */
-  _renderConst(s) {
+  _renderConst(r) {
     return d`
       <input
         type="text"
         class="jsf-input"
         part="input"
-        .value=${String(s.const)}
+        .value=${String(r.const)}
         disabled
         readonly
       />
@@ -3052,23 +3075,23 @@ let v = class extends T {
   /**
    * Render an object field
    */
-  _renderObject(s, e, t) {
-    const r = t || {}, i = this._getEffectiveObjectSchema(
-      s,
-      r
-    ), n = i.properties || {}, o = new Set(Object.keys(n)), a = Object.keys(r).filter(
+  _renderObject(r, e, t) {
+    const s = t || {}, i = this._getEffectiveObjectSchema(
+      r,
+      s
+    ), n = i.properties || {}, o = new Set(Object.keys(n)), a = Object.keys(s).filter(
       (p) => !o.has(p)
     ), l = this._canAddProperty(
-      s,
-      Object.keys(r).length
-    ), f = s.propertyNames, c = e !== "", u = !!s.title;
+      r,
+      Object.keys(s).length
+    ), f = r.propertyNames, c = e !== "", u = !!r.title;
     return d`
       <div class="jsf-object ${c && u ? "jsf-object--nested" : ""}">
         ${Object.entries(n).map(([p, m]) => {
       var re;
       if (typeof m == "boolean")
         return m ? d`` : d``;
-      const y = e ? `${e}/${p}` : p, P = r[p], $e = $.getTypes(m).includes("object") && m.properties, te = {
+      const y = e ? `${e}/${p}` : p, V = s[p], $e = $.getTypes(m).includes("object") && m.properties, te = {
         ...m,
         _isRequired: (re = i.required) == null ? void 0 : re.includes(p)
       };
@@ -3076,23 +3099,23 @@ let v = class extends T {
         const xe = this._renderSchema(
           { ...te, title: void 0 },
           y,
-          P
+          V
         );
         return this._renderCollapsible(
           y,
           m.title,
           xe,
-          this._getObjectSummary(P)
+          this._getObjectSummary(V)
         );
       }
-      return this._renderSchema(te, y, P);
+      return this._renderSchema(te, y, V);
     })}
         ${a.map((p) => {
-      const m = e ? `${e}/${p}` : p, y = r[p], P = this._getSchemaForProperty(
-        s,
+      const m = e ? `${e}/${p}` : p, y = s[p], V = this._getSchemaForProperty(
+        r,
         p,
         y
-      ), H = this._getMatchingPattern(s, p);
+      ), H = this._getMatchingPattern(r, p);
       return d`
             <div
               class="jsf-additional-property ${H ? "jsf-pattern-property" : ""}"
@@ -3126,7 +3149,7 @@ let v = class extends T {
                   </svg>
                 </button>
               </div>
-              ${this._renderSchema(P, m, y)}
+              ${this._renderSchema(V, m, y)}
             </div>
           `;
     })}
@@ -3144,11 +3167,11 @@ let v = class extends T {
       if (p.key === "Enter") {
         p.preventDefault();
         const m = p.target, y = this._validatePropertyName(
-          s,
+          r,
           m.value,
-          Object.keys(r)
+          Object.keys(s)
         );
-        y ? this._showPropertyNameError(m, y) : (this._addProperty(e, s, m.value), m.value = "");
+        y ? this._showPropertyNameError(m, y) : (this._addProperty(e, r, m.value), m.value = "");
       }
     }}
                 />
@@ -3159,11 +3182,11 @@ let v = class extends T {
       const m = p.target.previousElementSibling;
       if (m.value) {
         const y = this._validatePropertyName(
-          s,
+          r,
           m.value,
-          Object.keys(r)
+          Object.keys(s)
         );
-        y ? this._showPropertyNameError(m, y) : (this._addProperty(e, s, m.value), m.value = "");
+        y ? this._showPropertyNameError(m, y) : (this._addProperty(e, r, m.value), m.value = "");
       }
     }}
                 >
@@ -3189,30 +3212,30 @@ let v = class extends T {
   /**
    * Check if we can add more properties to an object
    */
-  _canAddProperty(s, e) {
-    return !(s.additionalProperties === !1 && !s.patternProperties || s.maxProperties !== void 0 && e >= s.maxProperties);
+  _canAddProperty(r, e) {
+    return !(r.additionalProperties === !1 && !r.patternProperties || r.maxProperties !== void 0 && e >= r.maxProperties);
   }
   /**
    * Get the schema for a property (checking patternProperties)
    */
-  _getSchemaForProperty(s, e, t) {
-    if (s.patternProperties)
-      for (const [r, i] of Object.entries(
-        s.patternProperties
+  _getSchemaForProperty(r, e, t) {
+    if (r.patternProperties)
+      for (const [s, i] of Object.entries(
+        r.patternProperties
       ))
         try {
-          if (new RegExp(r, "u").test(e))
+          if (new RegExp(s, "u").test(e))
             return typeof i == "boolean" ? i ? {} : { not: {} } : i;
         } catch {
         }
-    return typeof s.additionalProperties == "object" ? s.additionalProperties : this._inferSchemaFromValue(t);
+    return typeof r.additionalProperties == "object" ? r.additionalProperties : this._inferSchemaFromValue(t);
   }
   /**
    * Get the matching pattern for a property name
    */
-  _getMatchingPattern(s, e) {
-    if (!s.patternProperties) return null;
-    for (const t of Object.keys(s.patternProperties))
+  _getMatchingPattern(r, e) {
+    if (!r.patternProperties) return null;
+    for (const t of Object.keys(r.patternProperties))
       try {
         if (new RegExp(t, "u").test(e))
           return t;
@@ -3223,31 +3246,31 @@ let v = class extends T {
   /**
    * Get placeholder text for property name input
    */
-  _getPropertyNamePlaceholder(s) {
-    return !s || typeof s == "boolean" ? "New property name" : s.pattern ? `Property name (pattern: ${s.pattern})` : "New property name";
+  _getPropertyNamePlaceholder(r) {
+    return !r || typeof r == "boolean" ? "New property name" : r.pattern ? `Property name (pattern: ${r.pattern})` : "New property name";
   }
   /**
    * Get pattern attribute for property name input
    */
-  _getPropertyNamePattern(s) {
-    return !s || typeof s == "boolean" ? "" : s.pattern || "";
+  _getPropertyNamePattern(r) {
+    return !r || typeof r == "boolean" ? "" : r.pattern || "";
   }
   /**
    * Validate a property name against propertyNames schema
    */
-  _validatePropertyName(s, e, t) {
-    const r = e.trim();
-    if (!r)
+  _validatePropertyName(r, e, t) {
+    const s = e.trim();
+    if (!s)
       return "Property name cannot be empty";
-    if (t.includes(r))
+    if (t.includes(s))
       return "Property already exists";
-    if (s.propertyNames && typeof s.propertyNames != "boolean") {
-      const i = s.propertyNames;
-      if (i.pattern && !new RegExp(i.pattern, "u").test(r))
+    if (r.propertyNames && typeof r.propertyNames != "boolean") {
+      const i = r.propertyNames;
+      if (i.pattern && !new RegExp(i.pattern, "u").test(s))
         return `Property name must match pattern: ${i.pattern}`;
-      if (i.minLength && r.length < i.minLength)
+      if (i.minLength && s.length < i.minLength)
         return `Property name must be at least ${i.minLength} characters`;
-      if (i.maxLength && r.length > i.maxLength)
+      if (i.maxLength && s.length > i.maxLength)
         return `Property name must be at most ${i.maxLength} characters`;
     }
     return null;
@@ -3255,37 +3278,37 @@ let v = class extends T {
   /**
    * Show an error message for property name validation
    */
-  _showPropertyNameError(s, e) {
-    s.classList.add("jsf-input--error"), s.setCustomValidity(e), s.reportValidity(), setTimeout(() => {
-      s.classList.remove("jsf-input--error"), s.setCustomValidity("");
+  _showPropertyNameError(r, e) {
+    r.classList.add("jsf-input--error"), r.setCustomValidity(e), r.reportValidity(), setTimeout(() => {
+      r.classList.remove("jsf-input--error"), r.setCustomValidity("");
     }, 3e3);
   }
   /**
    * Toggle a collapsible section
    */
-  _toggleCollapsible(s) {
-    this._collapsedSections.has(s) ? this._collapsedSections.delete(s) : this._collapsedSections.add(s), this._collapsedSections = new Set(this._collapsedSections);
+  _toggleCollapsible(r) {
+    this._collapsedSections.has(r) ? this._collapsedSections.delete(r) : this._collapsedSections.add(r), this._collapsedSections = new Set(this._collapsedSections);
   }
   /**
    * Check if a section is expanded
    */
-  _isExpanded(s) {
-    return !this._collapsedSections.has(s);
+  _isExpanded(r) {
+    return !this._collapsedSections.has(r);
   }
   /**
    * Render a collapsible wrapper for nested content
    */
-  _renderCollapsible(s, e, t, r) {
-    const i = this._isExpanded(s);
+  _renderCollapsible(r, e, t, s) {
+    const i = this._isExpanded(r);
     return d`
       <div
         class="jsf-collapsible ${i ? "jsf-collapsible--expanded" : ""}"
       >
         <div
           class="jsf-collapsible-header"
-          @click=${() => this._toggleCollapsible(s)}
+          @click=${() => this._toggleCollapsible(r)}
           @keydown=${(n) => {
-      (n.key === "Enter" || n.key === " ") && (n.preventDefault(), this._toggleCollapsible(s));
+      (n.key === "Enter" || n.key === " ") && (n.preventDefault(), this._toggleCollapsible(r));
     }}
           tabindex="0"
           role="button"
@@ -3303,7 +3326,7 @@ let v = class extends T {
             />
           </svg>
           <span class="jsf-collapsible-title">${e}</span>
-          ${r ? d`<span class="jsf-collapsible-summary">${r}</span>` : ""}
+          ${s ? d`<span class="jsf-collapsible-summary">${s}</span>` : ""}
         </div>
         <div class="jsf-collapsible-content">${t}</div>
       </div>
@@ -3312,61 +3335,61 @@ let v = class extends T {
   /**
    * Get a summary of an object value for collapsed display
    */
-  _getObjectSummary(s) {
-    const e = Object.keys(s || {});
+  _getObjectSummary(r) {
+    const e = Object.keys(r || {});
     return e.length === 0 ? "Empty" : e.length <= 3 ? e.join(", ") : `${e.slice(0, 3).join(", ")} +${e.length - 3} more`;
   }
   /**
    * Infer a schema from a value (for additional properties)
    */
-  _inferSchemaFromValue(s) {
-    if (s === null) return { type: "null" };
-    if (Array.isArray(s)) return { type: "array" };
-    const e = typeof s;
-    return e === "number" && Number.isInteger(s) ? { type: "integer" } : e === "string" || e === "number" || e === "boolean" ? { type: e } : e === "object" ? { type: "object" } : { type: "string" };
+  _inferSchemaFromValue(r) {
+    if (r === null) return { type: "null" };
+    if (Array.isArray(r)) return { type: "array" };
+    const e = typeof r;
+    return e === "number" && Number.isInteger(r) ? { type: "integer" } : e === "string" || e === "number" || e === "boolean" ? { type: e } : e === "object" ? { type: "object" } : { type: "string" };
   }
   /**
    * Add a new property to an object
    */
-  _addProperty(s, e, t) {
+  _addProperty(r, e, t) {
     if (!t.trim()) return;
-    const r = t.trim(), i = (s ? this._getNestedValue(this.value, s) : this.value) || {};
-    if (r in i) return;
+    const s = t.trim(), i = (r ? this._getNestedValue(this.value, r) : this.value) || {};
+    if (s in i) return;
     const n = this._getSchemaForProperty(
       e,
-      r,
+      s,
       void 0
-    ), o = this._getDefaultValue(n), a = { ...i, [r]: o };
-    this._handleValueChange(s, a);
+    ), o = this._getDefaultValue(n), a = { ...i, [s]: o };
+    this._handleValueChange(r, a);
   }
   /**
    * Remove a property from an object
    */
-  _removeProperty(s, e) {
-    const t = (s ? this._getNestedValue(this.value, s) : this.value) || {}, { [e]: r, ...i } = t;
-    this._handleValueChange(s, i);
+  _removeProperty(r, e) {
+    const t = (r ? this._getNestedValue(this.value, r) : this.value) || {}, { [e]: s, ...i } = t;
+    this._handleValueChange(r, i);
   }
   /**
    * Get effective object schema after applying dependentSchemas
    */
-  _getEffectiveObjectSchema(s, e) {
-    let t = { ...s };
-    if (s.dependentSchemas)
-      for (const [r, i] of Object.entries(
-        s.dependentSchemas
+  _getEffectiveObjectSchema(r, e) {
+    let t = { ...r };
+    if (r.dependentSchemas)
+      for (const [s, i] of Object.entries(
+        r.dependentSchemas
       ))
-        r in e && e[r] !== void 0 && typeof i != "boolean" && i && (t = this._mergeSchemas(t, i));
+        s in e && e[s] !== void 0 && typeof i != "boolean" && i && (t = this._mergeSchemas(t, i));
     return t;
   }
   /**
    * Render an array field
    */
-  _renderArray(s, e, t) {
-    const r = t || [], i = s.prefixItems || [], n = i.length > 0, o = this._canAddArrayItem(s, r.length), a = (l) => this._canRemoveArrayItem(s, r.length, l);
+  _renderArray(r, e, t) {
+    const s = t || [], i = r.prefixItems || [], n = i.length > 0, o = this._canAddArrayItem(r, s.length), a = (l) => this._canRemoveArrayItem(r, s.length, l);
     return d`
       <div class="jsf-array ${n ? "jsf-array--tuple" : ""}">
-        ${r.map((l, f) => {
-      const c = this._getArrayItemSchema(s, f), u = f < i.length;
+        ${s.map((l, f) => {
+      const c = this._getArrayItemSchema(r, f), u = f < i.length;
       return d`
             <div
               class="jsf-array-item ${u ? "jsf-array-item--prefix" : ""}"
@@ -3405,7 +3428,7 @@ let v = class extends T {
               <button
                 type="button"
                 class="jsf-button jsf-button--secondary jsf-array-add"
-                @click=${() => this._addArrayItem(e, s)}
+                @click=${() => this._addArrayItem(e, r)}
               >
                 <svg
                   width="16"
@@ -3429,46 +3452,46 @@ let v = class extends T {
    * Get the schema for an array item at a specific index
    * Handles prefixItems (tuple validation) and items
    */
-  _getArrayItemSchema(s, e) {
-    const t = s.prefixItems || [];
-    return e < t.length ? t[e] : s.items !== void 0 ? s.items : {};
+  _getArrayItemSchema(r, e) {
+    const t = r.prefixItems || [];
+    return e < t.length ? t[e] : r.items !== void 0 ? r.items : {};
   }
   /**
    * Check if we can add more items to an array
    */
-  _canAddArrayItem(s, e) {
-    var r;
-    if (s.maxItems !== void 0 && e >= s.maxItems)
+  _canAddArrayItem(r, e) {
+    var s;
+    if (r.maxItems !== void 0 && e >= r.maxItems)
       return !1;
-    const t = ((r = s.prefixItems) == null ? void 0 : r.length) || 0;
-    return !(e >= t && s.items === !1);
+    const t = ((s = r.prefixItems) == null ? void 0 : s.length) || 0;
+    return !(e >= t && r.items === !1);
   }
   /**
    * Check if we can remove an item at a specific index
    */
-  _canRemoveArrayItem(s, e, t) {
+  _canRemoveArrayItem(r, e, t) {
     var i;
-    if (s.minItems !== void 0 && e <= s.minItems)
+    if (r.minItems !== void 0 && e <= r.minItems)
       return !1;
-    const r = ((i = s.prefixItems) == null ? void 0 : i.length) || 0;
-    return !(t < r && e <= r);
+    const s = ((i = r.prefixItems) == null ? void 0 : i.length) || 0;
+    return !(t < s && e <= s);
   }
   /**
    * Render anyOf/oneOf with a schema selector
    */
-  _renderAnyOfOneOf(s, e, t, r, i) {
+  _renderAnyOfOneOf(r, e, t, s, i) {
     const n = e.map((u, h) => ({ schema: u, index: h })).filter((u) => typeof u.schema != "boolean" || u.schema);
     if (n.length === 0)
       return d`<div class="jsf-error">No valid schemas in ${t}</div>`;
-    let o = this._schemaSelections.get(r);
-    o === void 0 && (o = this._detectMatchingSchema(n, i), this._schemaSelections.set(r, o));
+    let o = this._schemaSelections.get(s);
+    o === void 0 && (o = this._detectMatchingSchema(n, i), this._schemaSelections.set(s, o));
     const a = n[o] || n[0], l = typeof a.schema == "boolean" ? {} : a.schema, f = n.map((u, h) => {
       var j;
       return typeof u.schema == "boolean" ? `Option ${h + 1}` : u.schema.title || ((j = u.schema.description) == null ? void 0 : j.slice(0, 30)) || this._getSchemaTypeLabel(u.schema) || `Option ${h + 1}`;
-    }), c = this._errors.some((u) => u.instancePath === r);
+    }), c = this._errors.some((u) => u.instancePath === s);
     return d`
       <div class="jsf-composition">
-        ${s.title ? d`<label class="jsf-label">${s.title}</label>` : ""}
+        ${r.title ? d`<label class="jsf-label">${r.title}</label>` : ""}
         <div class="jsf-composition-selector">
           <select
             class="jsf-input jsf-select ${c ? "jsf-input--error" : ""}"
@@ -3478,7 +3501,7 @@ let v = class extends T {
         u.target.value,
         10
       );
-      this._handleSchemaSelection(r, h, n);
+      this._handleSchemaSelection(s, h, n);
     }}
           >
             ${n.map(
@@ -3491,25 +3514,25 @@ let v = class extends T {
           </select>
         </div>
         <div class="jsf-composition-content">
-          ${this._renderSchema(l, r, i)}
+          ${this._renderSchema(l, s, i)}
         </div>
-        ${s.description ? d`<p class="jsf-description">${s.description}</p>` : ""}
+        ${r.description ? d`<p class="jsf-description">${r.description}</p>` : ""}
       </div>
     `;
   }
   /**
    * Try to detect which schema in an anyOf/oneOf matches the current value
    */
-  _detectMatchingSchema(s, e) {
+  _detectMatchingSchema(r, e) {
     if (e == null)
       return 0;
-    for (let t = 0; t < s.length; t++) {
-      const r = s[t].schema;
-      if (typeof r == "boolean") continue;
-      const i = $.getTypes(r), n = this._getValueType(e);
+    for (let t = 0; t < r.length; t++) {
+      const s = r[t].schema;
+      if (typeof s == "boolean") continue;
+      const i = $.getTypes(s), n = this._getValueType(e);
       if (i.length === 0 || i.includes(n))
         if (this._validator) {
-          if (this._validator.validate(e, r).length === 0)
+          if (this._validator.validate(e, s).length === 0)
             return t;
         } else
           return t;
@@ -3519,42 +3542,42 @@ let v = class extends T {
   /**
    * Get the JSON type of a value
    */
-  _getValueType(s) {
-    if (s === null) return "null";
-    if (Array.isArray(s)) return "array";
-    const e = typeof s;
-    return e === "number" && Number.isInteger(s) ? "integer" : e;
+  _getValueType(r) {
+    if (r === null) return "null";
+    if (Array.isArray(r)) return "array";
+    const e = typeof r;
+    return e === "number" && Number.isInteger(r) ? "integer" : e;
   }
   /**
    * Get a label describing a schema's type
    */
-  _getSchemaTypeLabel(s) {
-    const e = $.getTypes(s);
-    return e.length > 0 ? e.join(" | ") : s.enum ? "enum" : s.const !== void 0 ? `const: ${JSON.stringify(s.const)}` : s.properties ? "object" : s.items ? "array" : "";
+  _getSchemaTypeLabel(r) {
+    const e = $.getTypes(r);
+    return e.length > 0 ? e.join(" | ") : r.enum ? "enum" : r.const !== void 0 ? `const: ${JSON.stringify(r.const)}` : r.properties ? "object" : r.items ? "array" : "";
   }
   /**
    * Handle schema selection change in anyOf/oneOf
    */
-  _handleSchemaSelection(s, e, t) {
+  _handleSchemaSelection(r, e, t) {
     var i;
-    this._schemaSelections.set(s, e);
-    const r = (i = t[e]) == null ? void 0 : i.schema;
-    if (r && typeof r != "boolean") {
-      const n = this._getDefaultValue(r);
-      this._handleValueChange(s, n);
+    this._schemaSelections.set(r, e);
+    const s = (i = t[e]) == null ? void 0 : i.schema;
+    if (s && typeof s != "boolean") {
+      const n = this._getDefaultValue(s);
+      this._handleValueChange(r, n);
     }
     this.requestUpdate();
   }
   /**
    * Render conditional schema (if/then/else)
    */
-  _renderConditional(s, e, t) {
-    const r = s.if;
+  _renderConditional(r, e, t) {
+    const s = r.if;
     let i = !0;
-    r !== void 0 && this._validator && (typeof r == "boolean" ? i = r : i = this._validator.validate(t, r).length === 0);
-    const n = { ...s };
+    s !== void 0 && this._validator && (typeof s == "boolean" ? i = s : i = this._validator.validate(t, s).length === 0);
+    const n = { ...r };
     delete n.if, delete n.then, delete n.else;
-    const o = i ? s.then : s.else;
+    const o = i ? r.then : r.else;
     if (o === void 0)
       return this._renderSchemaContent(n, e, t);
     const a = typeof o == "boolean" ? n : this._mergeSchemas(n, o);
@@ -3563,36 +3586,36 @@ let v = class extends T {
   /**
    * Merge two schemas together (simple shallow merge)
    */
-  _mergeSchemas(s, e) {
-    const t = { ...s };
-    e.properties && (t.properties = { ...s.properties, ...e.properties }), e.required && (t.required = [
-      .../* @__PURE__ */ new Set([...s.required || [], ...e.required])
+  _mergeSchemas(r, e) {
+    const t = { ...r };
+    e.properties && (t.properties = { ...r.properties, ...e.properties }), e.required && (t.required = [
+      .../* @__PURE__ */ new Set([...r.required || [], ...e.required])
     ]);
-    for (const r of Object.keys(e))
-      r !== "properties" && r !== "required" && (t[r] = e[r]);
+    for (const s of Object.keys(e))
+      s !== "properties" && s !== "required" && (t[s] = e[s]);
     return t;
   }
   /**
    * Render schema content (called after resolving refs, composition, conditions)
    */
-  _renderSchemaContent(s, e, t) {
+  _renderSchemaContent(r, e, t) {
     var a;
-    const i = $.getTypes(s)[0] || this._inferType(s, t), n = this._errors.filter((l) => l.instancePath === e), o = this._getFieldLabel(s, e);
+    const i = $.getTypes(r)[0] || this._inferType(r, t), n = this._errors.filter((l) => l.instancePath === e), o = this._getFieldLabel(r, e);
     return d`
       <div
-        class="jsf-field ${s.deprecated ? "jsf-deprecated" : ""} ${s.readOnly ? "jsf-readonly" : ""}"
+        class="jsf-field ${r.deprecated ? "jsf-deprecated" : ""} ${r.readOnly ? "jsf-readonly" : ""}"
         part="field"
       >
         ${o ? d`
               <label
-                class="jsf-label ${(a = s.required) != null && a.length ? "jsf-label-required" : ""}"
+                class="jsf-label ${(a = r.required) != null && a.length ? "jsf-label-required" : ""}"
                 part="label"
               >
                 ${o}
               </label>
             ` : ""}
-        ${this._renderFieldByType(i, s, e, t)}
-        ${s.description ? d` <p class="jsf-description">${s.description}</p> ` : ""}
+        ${this._renderFieldByType(i, r, e, t)}
+        ${r.description ? d` <p class="jsf-description">${r.description}</p> ` : ""}
         ${n.map(
       (l) => d`
             <div class="jsf-error" part="error" role="alert">
@@ -3617,63 +3640,63 @@ let v = class extends T {
   /**
    * Add an item to an array
    */
-  _addArrayItem(s, e) {
-    const t = (s ? this._getNestedValue(this.value, s) : this.value) || [], r = t.length, i = this._getArrayItemSchema(e, r), n = i && typeof i != "boolean" ? this._getDefaultValue(i) : void 0;
-    this._handleValueChange(s, [...t, n]);
+  _addArrayItem(r, e) {
+    const t = (r ? this._getNestedValue(this.value, r) : this.value) || [], s = t.length, i = this._getArrayItemSchema(e, s), n = i && typeof i != "boolean" ? this._getDefaultValue(i) : void 0;
+    this._handleValueChange(r, [...t, n]);
   }
   /**
    * Remove an item from an array
    */
-  _removeArrayItem(s, e) {
-    const r = ((s ? this._getNestedValue(this.value, s) : this.value) || []).filter((i, n) => n !== e);
-    this._handleValueChange(s, r);
+  _removeArrayItem(r, e) {
+    const s = ((r ? this._getNestedValue(this.value, r) : this.value) || []).filter((i, n) => n !== e);
+    this._handleValueChange(r, s);
   }
   /**
    * Get a nested value from an object
    */
-  _getNestedValue(s, e) {
+  _getNestedValue(r, e) {
     const t = e.split("/").filter((i) => i !== "");
-    let r = s;
+    let s = r;
     for (const i of t) {
-      if (r == null)
+      if (s == null)
         return;
-      if (Array.isArray(r))
-        r = r[parseInt(i, 10)];
-      else if (typeof r == "object")
-        r = r[i];
+      if (Array.isArray(s))
+        s = s[parseInt(i, 10)];
+      else if (typeof s == "object")
+        s = s[i];
       else
         return;
     }
-    return r;
+    return s;
   }
   /**
    * Check if a field at a path is required
    */
-  _isRequired(s) {
-    var r, i;
-    const e = s.split("/").filter((n) => n !== "");
+  _isRequired(r) {
+    var s, i;
+    const e = r.split("/").filter((n) => n !== "");
     if (e.length === 0) return !1;
     const t = e[e.length - 1];
-    return !!((i = (r = this._parsedSchema) == null ? void 0 : r.required) != null && i.includes(t));
+    return !!((i = (s = this._parsedSchema) == null ? void 0 : s.required) != null && i.includes(t));
   }
   /**
    * Get the label for a field - uses title if available, otherwise derives from path
    */
-  _getFieldLabel(s, e) {
-    if (s.title)
-      return s.title;
+  _getFieldLabel(r, e) {
+    if (r.title)
+      return r.title;
     const t = e.split("/").filter((i) => i !== "");
     if (t.length === 0)
       return null;
-    const r = t[t.length - 1];
-    return /^\d+$/.test(r) ? null : this._fieldNameToLabel(r);
+    const s = t[t.length - 1];
+    return /^\d+$/.test(s) ? null : this._fieldNameToLabel(s);
   }
   /**
    * Convert a field name to a human-readable label
    * e.g., "firstName" -> "First Name", "user_email" -> "User Email"
    */
-  _fieldNameToLabel(s) {
-    return s.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]/g, " ").replace(/\b\w/g, (e) => e.toUpperCase()).trim();
+  _fieldNameToLabel(r) {
+    return r.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]/g, " ").replace(/\b\w/g, (e) => e.toUpperCase()).trim();
   }
 };
 v.styles = [

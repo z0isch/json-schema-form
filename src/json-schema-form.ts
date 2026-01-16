@@ -214,9 +214,24 @@ export class JsonSchemaForm extends LitElement {
       return schema.const;
     }
 
+    // Handle oneOf/anyOf - generate default based on first subschema
+    if (schema.oneOf && schema.oneOf.length > 0) {
+      const firstSchema = schema.oneOf[0];
+      if (typeof firstSchema !== "boolean") {
+        return this._getDefaultValue(firstSchema);
+      }
+    }
+
+    if (schema.anyOf && schema.anyOf.length > 0) {
+      const firstSchema = schema.anyOf[0];
+      if (typeof firstSchema !== "boolean") {
+        return this._getDefaultValue(firstSchema);
+      }
+    }
+
     // Generate default based on type
     const types = SchemaParser.getTypes(schema);
-    const primaryType = types[0];
+    const primaryType = types[0] || this._inferTypeFromSchema(schema);
 
     switch (primaryType) {
       case "object":
@@ -235,6 +250,26 @@ export class JsonSchemaForm extends LitElement {
       default:
         return undefined;
     }
+  }
+
+  /**
+   * Infer type from schema keywords (without looking at value)
+   */
+  private _inferTypeFromSchema(schema: JSONSchema): string | undefined {
+    if (schema.properties || schema.additionalProperties || schema.required) {
+      return "object";
+    }
+    if (schema.items || schema.prefixItems) {
+      return "array";
+    }
+    if (schema.enum && schema.enum.length > 0) {
+      // Infer from first enum value
+      const firstVal = schema.enum[0];
+      if (firstVal === null) return "null";
+      if (Array.isArray(firstVal)) return "array";
+      return typeof firstVal;
+    }
+    return undefined;
   }
 
   /**
