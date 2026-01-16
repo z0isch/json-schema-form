@@ -8,13 +8,13 @@ A web component that generates HTML forms from JSON Schema documents. Built with
 
 ```bash
 # npm
-npm install github:YOUR_USERNAME/json-schema-form
+npm install github:z0isch/json-schema-form
 
 # pnpm
-pnpm add github:YOUR_USERNAME/json-schema-form
+pnpm add github:z0isch/json-schema-form
 
 # yarn
-yarn add github:YOUR_USERNAME/json-schema-form
+yarn add github:z0isch/json-schema-form
 ```
 
 ### CDN (via jsDelivr)
