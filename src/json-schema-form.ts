@@ -2301,15 +2301,33 @@ export class JsonSchemaForm extends LitElement {
 
     // Get the currently selected schema index, defaulting to first option or auto-detect
     let selectedIndex = this._schemaSelections.get(path);
+    let shouldInitializeValue = false;
     if (selectedIndex === undefined) {
       // Try to auto-detect which schema matches the current value
       selectedIndex = this._detectMatchingSchema(validSchemas, value);
       this._schemaSelections.set(path, selectedIndex);
+      // If value is undefined/null or empty object, we should initialize it
+      shouldInitializeValue =
+        value === undefined ||
+        value === null ||
+        (typeof value === "object" &&
+          !Array.isArray(value) &&
+          Object.keys(value as object).length === 0);
     }
 
     const selectedOption = validSchemas[selectedIndex] || validSchemas[0];
     const selectedSchema =
       typeof selectedOption.schema === "boolean" ? {} : selectedOption.schema;
+
+    // Initialize value with defaults from selected schema if needed
+    // This ensures required properties with const values are populated
+    if (shouldInitializeValue && typeof selectedOption.schema !== "boolean") {
+      const defaultValue = this._getDefaultValue(selectedOption.schema);
+      // Use setTimeout to avoid updating state during render
+      setTimeout(() => this._handleValueChange(path, defaultValue), 0);
+      // Use the default value for rendering
+      value = defaultValue;
+    }
 
     // Get labels for options
     const optionLabels = validSchemas.map((opt, idx) => {

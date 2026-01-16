@@ -45,7 +45,7 @@ const xe = (r) => new me(typeof r == "string" ? r : r + "", void 0, Q), ge = (r,
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: Se, defineProperty: Ae, getOwnPropertyDescriptor: Oe, getOwnPropertyNames: Ee, getOwnPropertySymbols: Ie, getPrototypeOf: Ce } = Object, x = globalThis, ne = x.trustedTypes, Me = ne ? ne.emptyScript : "", Y = x.reactiveElementPolyfillSupport, R = (r, e) => r, L = { toAttribute(r, e) {
+const { is: Se, defineProperty: Ae, getOwnPropertyDescriptor: Oe, getOwnPropertyNames: Ie, getOwnPropertySymbols: Ee, getPrototypeOf: Ce } = Object, x = globalThis, ne = x.trustedTypes, Me = ne ? ne.emptyScript : "", Y = x.reactiveElementPolyfillSupport, R = (r, e) => r, L = { toAttribute(r, e) {
   switch (e) {
     case Boolean:
       r = r ? Me : null;
@@ -95,8 +95,8 @@ let C = class extends HTMLElement {
       this[t] = o;
     } };
     return { get: s, set(o) {
-      const a = s == null ? void 0 : s.call(this);
-      n == null || n.call(this, o), this.requestUpdate(e, a, i);
+      const l = s == null ? void 0 : s.call(this);
+      n == null || n.call(this, o), this.requestUpdate(e, l, i);
     }, configurable: !0, enumerable: !0 };
   }
   static getPropertyOptions(e) {
@@ -110,7 +110,7 @@ let C = class extends HTMLElement {
   static finalize() {
     if (this.hasOwnProperty(R("finalized"))) return;
     if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(R("properties"))) {
-      const t = this.properties, i = [...Ee(t), ...Ie(t)];
+      const t = this.properties, i = [...Ie(t), ...Ee(t)];
       for (const s of i) this.createProperty(s, t[s]);
     }
     const e = this[Symbol.metadata];
@@ -192,17 +192,17 @@ let C = class extends HTMLElement {
     var n, o;
     const i = this.constructor, s = i._$Eh.get(e);
     if (s !== void 0 && this._$Em !== s) {
-      const a = i.getPropertyOptions(s), l = typeof a.converter == "function" ? { fromAttribute: a.converter } : ((n = a.converter) == null ? void 0 : n.fromAttribute) !== void 0 ? a.converter : L;
+      const l = i.getPropertyOptions(s), a = typeof l.converter == "function" ? { fromAttribute: l.converter } : ((n = l.converter) == null ? void 0 : n.fromAttribute) !== void 0 ? l.converter : L;
       this._$Em = s;
-      const f = l.fromAttribute(t, a.type);
+      const f = a.fromAttribute(t, l.type);
       this[s] = f ?? ((o = this._$Ej) == null ? void 0 : o.get(s)) ?? f, this._$Em = null;
     }
   }
   requestUpdate(e, t, i, s = !1, n) {
     var o;
     if (e !== void 0) {
-      const a = this.constructor;
-      if (s === !1 && (n = this[e]), i ?? (i = a.getPropertyOptions(e)), !((i.hasChanged ?? X)(n, t) || i.useDefault && i.reflect && n === ((o = this._$Ej) == null ? void 0 : o.get(e)) && !this.hasAttribute(a._$Eu(e, i)))) return;
+      const l = this.constructor;
+      if (s === !1 && (n = this[e]), i ?? (i = l.getPropertyOptions(e)), !((i.hasChanged ?? X)(n, t) || i.useDefault && i.reflect && n === ((o = this._$Ej) == null ? void 0 : o.get(e)) && !this.hasAttribute(l._$Eu(e, i)))) return;
       this.C(e, t, i);
     }
     this.isUpdatePending === !1 && (this._$ES = this._$EP());
@@ -233,8 +233,8 @@ let C = class extends HTMLElement {
       }
       const s = this.constructor.elementProperties;
       if (s.size > 0) for (const [n, o] of s) {
-        const { wrapped: a } = o, l = this[n];
-        a !== !0 || this._$AL.has(n) || l === void 0 || this.C(n, void 0, o, l);
+        const { wrapped: l } = o, a = this[n];
+        l !== !0 || this._$AL.has(n) || a === void 0 || this.C(n, void 0, o, a);
       }
     }
     let e = !1;
@@ -284,9 +284,9 @@ C.elementStyles = [], C.shadowRootOptions = { mode: "open" }, C[R("elementProper
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const z = globalThis, ae = (r) => r, B = z.trustedTypes, le = B ? B.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, ve = "$lit$", _ = `lit$${Math.random().toFixed(9).slice(2)}$`, ye = "?" + _, ke = `<${ye}>`, O = document, D = () => O.createComment(""), N = (r) => r === null || typeof r != "object" && typeof r != "function", ee = Array.isArray, Ve = (r) => ee(r) || typeof (r == null ? void 0 : r[Symbol.iterator]) == "function", Z = `[ 	
+const z = globalThis, ae = (r) => r, B = z.trustedTypes, le = B ? B.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, ve = "$lit$", _ = `lit$${Math.random().toFixed(9).slice(2)}$`, ye = "?" + _, Ve = `<${ye}>`, O = document, D = () => O.createComment(""), N = (r) => r === null || typeof r != "object" && typeof r != "function", ee = Array.isArray, ke = (r) => ee(r) || typeof (r == null ? void 0 : r[Symbol.iterator]) == "function", Z = `[ 	
 \f\r]`, P = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, de = /-->/g, fe = />/g, w = RegExp(`>|${Z}(?:([^\\s"'>=/]+)(${Z}*=${Z}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), ue = /'/g, pe = /"/g, je = /^(?:script|style|textarea|title)$/i, Pe = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), d = Pe(1), M = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), ce = /* @__PURE__ */ new WeakMap(), S = O.createTreeWalker(O, 129);
+\f\r"'\`<>=]|("|')|))|$)`, "g"), ue = /'/g, ce = /"/g, je = /^(?:script|style|textarea|title)$/i, Pe = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), d = Pe(1), M = Symbol.for("lit-noChange"), v = Symbol.for("lit-nothing"), pe = /* @__PURE__ */ new WeakMap(), S = O.createTreeWalker(O, 129);
 function be(r, e) {
   if (!ee(r) || !r.hasOwnProperty("raw")) throw Error("invalid template strings array");
   return le !== void 0 ? le.createHTML(e) : e;
@@ -294,12 +294,12 @@ function be(r, e) {
 const Re = (r, e) => {
   const t = r.length - 1, i = [];
   let s, n = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", o = P;
-  for (let a = 0; a < t; a++) {
-    const l = r[a];
-    let f, p, u = -1, h = 0;
-    for (; h < l.length && (o.lastIndex = h, p = o.exec(l), p !== null); ) h = o.lastIndex, o === P ? p[1] === "!--" ? o = de : p[1] !== void 0 ? o = fe : p[2] !== void 0 ? (je.test(p[2]) && (s = RegExp("</" + p[2], "g")), o = w) : p[3] !== void 0 && (o = w) : o === w ? p[0] === ">" ? (o = s ?? P, u = -1) : p[1] === void 0 ? u = -2 : (u = o.lastIndex - p[2].length, f = p[1], o = p[3] === void 0 ? w : p[3] === '"' ? pe : ue) : o === pe || o === ue ? o = w : o === de || o === fe ? o = P : (o = w, s = void 0);
-    const j = o === w && r[a + 1].startsWith("/>") ? " " : "";
-    n += o === P ? l + ke : u >= 0 ? (i.push(f), l.slice(0, u) + ve + l.slice(u) + _ + j) : l + _ + (u === -2 ? a : j);
+  for (let l = 0; l < t; l++) {
+    const a = r[l];
+    let f, c, u = -1, p = 0;
+    for (; p < a.length && (o.lastIndex = p, c = o.exec(a), c !== null); ) p = o.lastIndex, o === P ? c[1] === "!--" ? o = de : c[1] !== void 0 ? o = fe : c[2] !== void 0 ? (je.test(c[2]) && (s = RegExp("</" + c[2], "g")), o = w) : c[3] !== void 0 && (o = w) : o === w ? c[0] === ">" ? (o = s ?? P, u = -1) : c[1] === void 0 ? u = -2 : (u = o.lastIndex - c[2].length, f = c[1], o = c[3] === void 0 ? w : c[3] === '"' ? ce : ue) : o === ce || o === ue ? o = w : o === de || o === fe ? o = P : (o = w, s = void 0);
+    const m = o === w && r[l + 1].startsWith("/>") ? " " : "";
+    n += o === P ? a + Ve : u >= 0 ? (i.push(f), a.slice(0, u) + ve + a.slice(u) + _ + m) : a + _ + (u === -2 ? l : m);
   }
   return [be(r, n + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), i];
 };
@@ -308,29 +308,29 @@ class F {
     let s;
     this.parts = [];
     let n = 0, o = 0;
-    const a = e.length - 1, l = this.parts, [f, p] = Re(e, t);
+    const l = e.length - 1, a = this.parts, [f, c] = Re(e, t);
     if (this.el = F.createElement(f, i), S.currentNode = this.el.content, t === 2 || t === 3) {
       const u = this.el.content.firstChild;
       u.replaceWith(...u.childNodes);
     }
-    for (; (s = S.nextNode()) !== null && l.length < a; ) {
+    for (; (s = S.nextNode()) !== null && a.length < l; ) {
       if (s.nodeType === 1) {
         if (s.hasAttributes()) for (const u of s.getAttributeNames()) if (u.endsWith(ve)) {
-          const h = p[o++], j = s.getAttribute(u).split(_), c = /([.?@])?(.*)/.exec(h);
-          l.push({ type: 1, index: n, name: c[2], strings: j, ctor: c[1] === "." ? Te : c[1] === "?" ? De : c[1] === "@" ? Ne : J }), s.removeAttribute(u);
-        } else u.startsWith(_) && (l.push({ type: 6, index: n }), s.removeAttribute(u));
+          const p = c[o++], m = s.getAttribute(u).split(_), h = /([.?@])?(.*)/.exec(p);
+          a.push({ type: 1, index: n, name: h[2], strings: m, ctor: h[1] === "." ? Te : h[1] === "?" ? De : h[1] === "@" ? Ne : J }), s.removeAttribute(u);
+        } else u.startsWith(_) && (a.push({ type: 6, index: n }), s.removeAttribute(u));
         if (je.test(s.tagName)) {
-          const u = s.textContent.split(_), h = u.length - 1;
-          if (h > 0) {
+          const u = s.textContent.split(_), p = u.length - 1;
+          if (p > 0) {
             s.textContent = B ? B.emptyScript : "";
-            for (let j = 0; j < h; j++) s.append(u[j], D()), S.nextNode(), l.push({ type: 2, index: ++n });
-            s.append(u[h], D());
+            for (let m = 0; m < p; m++) s.append(u[m], D()), S.nextNode(), a.push({ type: 2, index: ++n });
+            s.append(u[p], D());
           }
         }
-      } else if (s.nodeType === 8) if (s.data === ye) l.push({ type: 2, index: n });
+      } else if (s.nodeType === 8) if (s.data === ye) a.push({ type: 2, index: n });
       else {
         let u = -1;
-        for (; (u = s.data.indexOf(_, u + 1)) !== -1; ) l.push({ type: 7, index: n }), u += _.length - 1;
+        for (; (u = s.data.indexOf(_, u + 1)) !== -1; ) a.push({ type: 7, index: n }), u += _.length - 1;
       }
       n++;
     }
@@ -340,12 +340,12 @@ class F {
     return i.innerHTML = e, i;
   }
 }
-function k(r, e, t = r, i) {
-  var o, a;
+function V(r, e, t = r, i) {
+  var o, l;
   if (e === M) return e;
   let s = i !== void 0 ? (o = t._$Co) == null ? void 0 : o[i] : t._$Cl;
   const n = N(e) ? void 0 : e._$litDirective$;
-  return (s == null ? void 0 : s.constructor) !== n && ((a = s == null ? void 0 : s._$AO) == null || a.call(s, !1), n === void 0 ? s = void 0 : (s = new n(r), s._$AT(r, t, i)), i !== void 0 ? (t._$Co ?? (t._$Co = []))[i] = s : t._$Cl = s), s !== void 0 && (e = k(r, s._$AS(r, e.values), s, i)), e;
+  return (s == null ? void 0 : s.constructor) !== n && ((l = s == null ? void 0 : s._$AO) == null || l.call(s, !1), n === void 0 ? s = void 0 : (s = new n(r), s._$AT(r, t, i)), i !== void 0 ? (t._$Co ?? (t._$Co = []))[i] = s : t._$Cl = s), s !== void 0 && (e = V(r, s._$AS(r, e.values), s, i)), e;
 }
 class ze {
   constructor(e, t) {
@@ -360,13 +360,13 @@ class ze {
   u(e) {
     const { el: { content: t }, parts: i } = this._$AD, s = ((e == null ? void 0 : e.creationScope) ?? O).importNode(t, !0);
     S.currentNode = s;
-    let n = S.nextNode(), o = 0, a = 0, l = i[0];
-    for (; l !== void 0; ) {
-      if (o === l.index) {
+    let n = S.nextNode(), o = 0, l = 0, a = i[0];
+    for (; a !== void 0; ) {
+      if (o === a.index) {
         let f;
-        l.type === 2 ? f = new q(n, n.nextSibling, this, e) : l.type === 1 ? f = new l.ctor(n, l.name, l.strings, this, e) : l.type === 6 && (f = new Fe(n, this, e)), this._$AV.push(f), l = i[++a];
+        a.type === 2 ? f = new q(n, n.nextSibling, this, e) : a.type === 1 ? f = new a.ctor(n, a.name, a.strings, this, e) : a.type === 6 && (f = new Fe(n, this, e)), this._$AV.push(f), a = i[++l];
       }
-      o !== (l == null ? void 0 : l.index) && (n = S.nextNode(), o++);
+      o !== (a == null ? void 0 : a.index) && (n = S.nextNode(), o++);
     }
     return S.currentNode = O, s;
   }
@@ -381,7 +381,7 @@ class q {
     return ((e = this._$AM) == null ? void 0 : e._$AU) ?? this._$Cv;
   }
   constructor(e, t, i, s) {
-    this.type = 2, this._$AH = g, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = i, this.options = s, this._$Cv = (s == null ? void 0 : s.isConnected) ?? !0;
+    this.type = 2, this._$AH = v, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = i, this.options = s, this._$Cv = (s == null ? void 0 : s.isConnected) ?? !0;
   }
   get parentNode() {
     let e = this._$AA.parentNode;
@@ -395,7 +395,7 @@ class q {
     return this._$AB;
   }
   _$AI(e, t = this) {
-    e = k(this, e, t), N(e) ? e === g || e == null || e === "" ? (this._$AH !== g && this._$AR(), this._$AH = g) : e !== this._$AH && e !== M && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Ve(e) ? this.k(e) : this._(e);
+    e = V(this, e, t), N(e) ? e === v || e == null || e === "" ? (this._$AH !== v && this._$AR(), this._$AH = v) : e !== this._$AH && e !== M && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : ke(e) ? this.k(e) : this._(e);
   }
   O(e) {
     return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -404,20 +404,20 @@ class q {
     this._$AH !== e && (this._$AR(), this._$AH = this.O(e));
   }
   _(e) {
-    this._$AH !== g && N(this._$AH) ? this._$AA.nextSibling.data = e : this.T(O.createTextNode(e)), this._$AH = e;
+    this._$AH !== v && N(this._$AH) ? this._$AA.nextSibling.data = e : this.T(O.createTextNode(e)), this._$AH = e;
   }
   $(e) {
     var n;
     const { values: t, _$litType$: i } = e, s = typeof i == "number" ? this._$AC(e) : (i.el === void 0 && (i.el = F.createElement(be(i.h, i.h[0]), this.options)), i);
     if (((n = this._$AH) == null ? void 0 : n._$AD) === s) this._$AH.p(t);
     else {
-      const o = new ze(s, this), a = o.u(this.options);
-      o.p(t), this.T(a), this._$AH = o;
+      const o = new ze(s, this), l = o.u(this.options);
+      o.p(t), this.T(l), this._$AH = o;
     }
   }
   _$AC(e) {
-    let t = ce.get(e.strings);
-    return t === void 0 && ce.set(e.strings, t = new F(e)), t;
+    let t = pe.get(e.strings);
+    return t === void 0 && pe.set(e.strings, t = new F(e)), t;
   }
   k(e) {
     ee(this._$AH) || (this._$AH = [], this._$AR());
@@ -446,21 +446,21 @@ class J {
     return this._$AM._$AU;
   }
   constructor(e, t, i, s, n) {
-    this.type = 1, this._$AH = g, this._$AN = void 0, this.element = e, this.name = t, this._$AM = s, this.options = n, i.length > 2 || i[0] !== "" || i[1] !== "" ? (this._$AH = Array(i.length - 1).fill(new String()), this.strings = i) : this._$AH = g;
+    this.type = 1, this._$AH = v, this._$AN = void 0, this.element = e, this.name = t, this._$AM = s, this.options = n, i.length > 2 || i[0] !== "" || i[1] !== "" ? (this._$AH = Array(i.length - 1).fill(new String()), this.strings = i) : this._$AH = v;
   }
   _$AI(e, t = this, i, s) {
     const n = this.strings;
     let o = !1;
-    if (n === void 0) e = k(this, e, t, 0), o = !N(e) || e !== this._$AH && e !== M, o && (this._$AH = e);
+    if (n === void 0) e = V(this, e, t, 0), o = !N(e) || e !== this._$AH && e !== M, o && (this._$AH = e);
     else {
-      const a = e;
-      let l, f;
-      for (e = n[0], l = 0; l < n.length - 1; l++) f = k(this, a[i + l], t, l), f === M && (f = this._$AH[l]), o || (o = !N(f) || f !== this._$AH[l]), f === g ? e = g : e !== g && (e += (f ?? "") + n[l + 1]), this._$AH[l] = f;
+      const l = e;
+      let a, f;
+      for (e = n[0], a = 0; a < n.length - 1; a++) f = V(this, l[i + a], t, a), f === M && (f = this._$AH[a]), o || (o = !N(f) || f !== this._$AH[a]), f === v ? e = v : e !== v && (e += (f ?? "") + n[a + 1]), this._$AH[a] = f;
     }
     o && !s && this.j(e);
   }
   j(e) {
-    e === g ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
+    e === v ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
   }
 }
 class Te extends J {
@@ -468,7 +468,7 @@ class Te extends J {
     super(...arguments), this.type = 3;
   }
   j(e) {
-    this.element[this.name] = e === g ? void 0 : e;
+    this.element[this.name] = e === v ? void 0 : e;
   }
 }
 class De extends J {
@@ -476,7 +476,7 @@ class De extends J {
     super(...arguments), this.type = 4;
   }
   j(e) {
-    this.element.toggleAttribute(this.name, !!e && e !== g);
+    this.element.toggleAttribute(this.name, !!e && e !== v);
   }
 }
 class Ne extends J {
@@ -484,8 +484,8 @@ class Ne extends J {
     super(e, t, i, s, n), this.type = 5;
   }
   _$AI(e, t = this) {
-    if ((e = k(this, e, t, 0) ?? g) === M) return;
-    const i = this._$AH, s = e === g && i !== g || e.capture !== i.capture || e.once !== i.once || e.passive !== i.passive, n = e !== g && (i === g || s);
+    if ((e = V(this, e, t, 0) ?? v) === M) return;
+    const i = this._$AH, s = e === v && i !== v || e.capture !== i.capture || e.once !== i.once || e.passive !== i.passive, n = e !== v && (i === v || s);
     s && this.element.removeEventListener(this.name, this, i), n && this.element.addEventListener(this.name, this, e), this._$AH = e;
   }
   handleEvent(e) {
@@ -501,7 +501,7 @@ class Fe {
     return this._$AM._$AU;
   }
   _$AI(e) {
-    k(this, e);
+    V(this, e);
   }
 }
 const W = z.litHtmlPolyfillSupport;
@@ -571,23 +571,23 @@ const He = { attribute: !0, type: String, converter: L, reflect: !1, hasChanged:
   let n = globalThis.litPropertyMetadata.get(s);
   if (n === void 0 && globalThis.litPropertyMetadata.set(s, n = /* @__PURE__ */ new Map()), i === "setter" && ((r = Object.create(r)).wrapped = !0), n.set(t.name, r), i === "accessor") {
     const { name: o } = t;
-    return { set(a) {
-      const l = e.get.call(this);
-      e.set.call(this, a), this.requestUpdate(o, l, r, !0, a);
-    }, init(a) {
-      return a !== void 0 && this.C(o, void 0, r, a), a;
+    return { set(l) {
+      const a = e.get.call(this);
+      e.set.call(this, l), this.requestUpdate(o, a, r, !0, l);
+    }, init(l) {
+      return l !== void 0 && this.C(o, void 0, r, l), l;
     } };
   }
   if (i === "setter") {
     const { name: o } = t;
-    return function(a) {
-      const l = this[o];
-      e.call(this, a), this.requestUpdate(o, l, r, !0, a);
+    return function(l) {
+      const a = this[o];
+      e.call(this, l), this.requestUpdate(o, a, r, !0, l);
     };
   }
   throw Error("Unsupported decorator location: " + i);
 };
-function E(r) {
+function I(r) {
   return (e, t) => typeof t == "object" ? Le(r, e, t) : ((i, s, n) => {
     const o = s.hasOwnProperty(n);
     return s.constructor.createProperty(n, i), o ? Object.getOwnPropertyDescriptor(s, n) : void 0;
@@ -598,8 +598,8 @@ function E(r) {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-function I(r) {
-  return E({ ...r, state: !0, attribute: !1 });
+function E(r) {
+  return I({ ...r, state: !0, attribute: !1 });
 }
 class $ {
   constructor(e, t = {}) {
@@ -704,10 +704,10 @@ class $ {
       if (s === null || typeof s != "object")
         return null;
       if (Array.isArray(s)) {
-        const a = parseInt(o, 10);
-        if (isNaN(a) || a < 0 || a >= s.length)
+        const l = parseInt(o, 10);
+        if (isNaN(l) || l < 0 || l >= s.length)
           return null;
-        s = s[a];
+        s = s[l];
       } else
         s = s[o];
       if (s === void 0)
@@ -833,7 +833,7 @@ class Be {
     const n = $.getTypes(t);
     if (n.length === 0) return [];
     const o = this.getValueType(e);
-    return n.some((l) => l === "integer" ? typeof e == "number" && Number.isInteger(e) : l === o) ? [] : [
+    return n.some((a) => a === "integer" ? typeof e == "number" && Number.isInteger(e) : a === o) ? [] : [
       {
         instancePath: i,
         schemaPath: `${s}/type`,
@@ -1160,11 +1160,11 @@ class Be {
       message: "Array items must be unique"
     }), t.prefixItems)
       for (let o = 0; o < t.prefixItems.length && o < e.length; o++) {
-        const a = t.prefixItems[o];
+        const l = t.prefixItems[o];
         n.push(
           ...this.validateValue(
             e[o],
-            a,
+            l,
             `${i}/${o}`,
             `${s}/prefixItems/${o}`
           )
@@ -1172,12 +1172,12 @@ class Be {
       }
     if (t.items !== void 0) {
       const o = t.prefixItems ? t.prefixItems.length : 0;
-      for (let a = o; a < e.length; a++)
+      for (let l = o; l < e.length; l++)
         n.push(
           ...this.validateValue(
-            e[a],
+            e[l],
             t.items,
-            `${i}/${a}`,
+            `${i}/${l}`,
             `${s}/items`
           )
         );
@@ -1190,13 +1190,13 @@ class Be {
   validateObject(e, t, i, s) {
     const n = [], o = Object.keys(e);
     if (t.required)
-      for (const l of t.required)
-        l in e || n.push({
+      for (const a of t.required)
+        a in e || n.push({
           instancePath: i,
           schemaPath: `${s}/required`,
           keyword: "required",
-          message: `Missing required property: ${l}`,
-          params: { missingProperty: l }
+          message: `Missing required property: ${a}`,
+          params: { missingProperty: a }
         });
     t.minProperties !== void 0 && o.length < t.minProperties && n.push({
       instancePath: i,
@@ -1217,75 +1217,75 @@ class Be {
         actualProperties: o.length
       }
     });
-    const a = /* @__PURE__ */ new Set();
+    const l = /* @__PURE__ */ new Set();
     if (t.properties)
-      for (const [l, f] of Object.entries(t.properties))
-        l in e && (a.add(l), n.push(
+      for (const [a, f] of Object.entries(t.properties))
+        a in e && (l.add(a), n.push(
           ...this.validateValue(
-            e[l],
+            e[a],
             f,
-            `${i}/${l}`,
-            `${s}/properties/${l}`
+            `${i}/${a}`,
+            `${s}/properties/${a}`
           )
         ));
     if (t.patternProperties)
-      for (const [l, f] of Object.entries(
+      for (const [a, f] of Object.entries(
         t.patternProperties
       )) {
-        const p = new RegExp(l, "u");
+        const c = new RegExp(a, "u");
         for (const u of o)
-          p.test(u) && (a.add(u), n.push(
+          c.test(u) && (l.add(u), n.push(
             ...this.validateValue(
               e[u],
               f,
               `${i}/${u}`,
-              `${s}/patternProperties/${l}`
+              `${s}/patternProperties/${a}`
             )
           ));
       }
     if (t.additionalProperties !== void 0)
-      for (const l of o)
-        a.has(l) || (t.additionalProperties === !1 ? n.push({
-          instancePath: `${i}/${l}`,
+      for (const a of o)
+        l.has(a) || (t.additionalProperties === !1 ? n.push({
+          instancePath: `${i}/${a}`,
           schemaPath: `${s}/additionalProperties`,
           keyword: "additionalProperties",
-          message: `Additional property not allowed: ${l}`,
-          params: { additionalProperty: l }
+          message: `Additional property not allowed: ${a}`,
+          params: { additionalProperty: a }
         }) : typeof t.additionalProperties == "object" && n.push(
           ...this.validateValue(
-            e[l],
+            e[a],
             t.additionalProperties,
-            `${i}/${l}`,
+            `${i}/${a}`,
             `${s}/additionalProperties`
           )
         ));
     if (t.dependentRequired) {
-      for (const [l, f] of Object.entries(
+      for (const [a, f] of Object.entries(
         t.dependentRequired
       ))
-        if (l in e)
-          for (const p of f)
-            p in e || n.push({
+        if (a in e)
+          for (const c of f)
+            c in e || n.push({
               instancePath: i,
               schemaPath: `${s}/dependentRequired`,
               keyword: "dependentRequired",
-              message: `Property "${p}" is required when "${l}" is present`,
+              message: `Property "${c}" is required when "${a}" is present`,
               params: {
-                property: l,
-                missingProperty: p
+                property: a,
+                missingProperty: c
               }
             });
     }
     if (t.dependentSchemas)
-      for (const [l, f] of Object.entries(
+      for (const [a, f] of Object.entries(
         t.dependentSchemas
       ))
-        l in e && f && n.push(
+        a in e && f && n.push(
           ...this.validateValue(
             e,
             f,
             i,
-            `${s}/dependentSchemas/${l}`
+            `${s}/dependentSchemas/${a}`
           )
         );
     return n;
@@ -1306,7 +1306,7 @@ class Be {
           )
         );
     if (t.anyOf && (t.anyOf.some(
-      (a) => this.validateValue(e, a, i, s).length === 0
+      (l) => this.validateValue(e, l, i, s).length === 0
     ) || n.push({
       instancePath: i,
       schemaPath: `${s}/anyOf`,
@@ -1314,7 +1314,7 @@ class Be {
       message: "Value must match at least one schema in anyOf"
     })), t.oneOf) {
       const o = t.oneOf.filter(
-        (a) => this.validateValue(e, a, i, s).length === 0
+        (l) => this.validateValue(e, l, i, s).length === 0
       ).length;
       o !== 1 && n.push({
         instancePath: i,
@@ -1343,20 +1343,20 @@ class Be {
     const n = [];
     if (t.if === void 0)
       return n;
-    const a = this.validateValue(
+    const l = this.validateValue(
       e,
       t.if,
       i,
       `${s}/if`
     ).length === 0;
-    return a && t.then !== void 0 && n.push(
+    return l && t.then !== void 0 && n.push(
       ...this.validateValue(
         e,
         t.then,
         i,
         `${s}/then`
       )
-    ), !a && t.else !== void 0 && n.push(
+    ), !l && t.else !== void 0 && n.push(
       ...this.validateValue(
         e,
         t.else,
@@ -2094,12 +2094,12 @@ const Je = ge`
     animation: jsf-fade-in var(--jsf-transition-normal);
   }
 `;
-var Ye = Object.defineProperty, Ze = Object.getOwnPropertyDescriptor, y = (r, e, t, i) => {
+var Ye = Object.defineProperty, Ze = Object.getOwnPropertyDescriptor, j = (r, e, t, i) => {
   for (var s = i > 1 ? void 0 : i ? Ze(e, t) : e, n = r.length - 1, o; n >= 0; n--)
     (o = r[n]) && (s = (i ? o(e, t, s) : o(s)) || s);
   return i && s && Ye(e, t, s), s;
 };
-let v = class extends T {
+let y = class extends T {
   constructor() {
     super(...arguments), this.schema = "", this.value = void 0, this.validateOnChange = !1, this.showSubmit = !0, this.submitText = "Submit", this.initialData = "", this._parsedSchema = null, this._parseError = null, this._errors = [], this._submitted = !1, this._schemaSelections = /* @__PURE__ */ new Map(), this._collapsedSections = /* @__PURE__ */ new Set(), this._parsedInitialData = void 0, this._initialDataError = null, this._parser = null, this._validator = null;
   }
@@ -2267,14 +2267,14 @@ let v = class extends T {
    * Set a nested value in an object
    */
   _setNestedValue(r, e, t) {
-    const i = e.split("/").filter((a) => a !== "");
+    const i = e.split("/").filter((l) => l !== "");
     if (i.length === 0)
       return t;
     const s = Array.isArray(r) ? [...r] : { ...r };
     let n = s;
-    for (let a = 0; a < i.length - 1; a++) {
-      const l = i[a], f = Array.isArray(n) ? n[parseInt(l, 10)] : n[l], p = Array.isArray(f) ? [...f] : { ...f };
-      Array.isArray(n) ? n[parseInt(l, 10)] = p : n[l] = p, n = p;
+    for (let l = 0; l < i.length - 1; l++) {
+      const a = i[l], f = Array.isArray(n) ? n[parseInt(a, 10)] : n[a], c = Array.isArray(f) ? [...f] : { ...f };
+      Array.isArray(n) ? n[parseInt(a, 10)] = c : n[a] = c, n = c;
     }
     const o = i[i.length - 1];
     return Array.isArray(n) ? n[parseInt(o, 10)] = t : n[o] = t, s;
@@ -2329,12 +2329,12 @@ let v = class extends T {
    * Render a schema at a given path
    */
   _renderSchema(r, e, t) {
-    var a;
+    var l;
     if (typeof r == "boolean")
       return r ? d`` : d`<div class="jsf-error">This field is not allowed</div>`;
     if (r.$ref && this._parser) {
-      const l = this._parser.resolveRef(r.$ref);
-      return l ? l._isCircular ? d`
+      const a = this._parser.resolveRef(r.$ref);
+      return a ? a._isCircular ? d`
             <div class="jsf-circular-ref">
               <svg
                 class="jsf-circular-ref-icon"
@@ -2349,7 +2349,7 @@ let v = class extends T {
               </svg>
               <span>Circular reference: ${r.$ref}</span>
             </div>
-          ` : this._renderSchema(l, e, t) : d`<div class="jsf-error">
+          ` : this._renderSchema(a, e, t) : d`<div class="jsf-error">
         Unable to resolve reference: ${r.$ref}
       </div>`;
     }
@@ -2359,7 +2359,7 @@ let v = class extends T {
       return this._renderAnyOfOneOf(r, r.oneOf, "oneOf", e, t);
     if (r.if !== void 0)
       return this._renderConditional(r, e, t);
-    const s = $.getTypes(r)[0] || this._inferType(r, t), n = this._errors.filter((l) => l.instancePath === e), o = this._getFieldLabel(r, e);
+    const s = $.getTypes(r)[0] || this._inferType(r, t), n = this._errors.filter((a) => a.instancePath === e), o = this._getFieldLabel(r, e);
     return d`
       <div
         class="jsf-field ${r.deprecated ? "jsf-deprecated" : ""} ${r.readOnly ? "jsf-readonly" : ""}"
@@ -2367,7 +2367,7 @@ let v = class extends T {
       >
         ${o ? d`
               <label
-                class="jsf-label ${(a = r.required) != null && a.length ? "jsf-label-required" : ""}"
+                class="jsf-label ${(l = r.required) != null && l.length ? "jsf-label-required" : ""}"
                 part="label"
               >
                 ${o}
@@ -2376,7 +2376,7 @@ let v = class extends T {
         ${this._renderFieldByType(s, r, e, t)}
         ${r.description ? d` <p class="jsf-description">${r.description}</p> ` : ""}
         ${n.map(
-      (l) => d`
+      (a) => d`
             <div class="jsf-error" part="error" role="alert">
               <svg
                 class="jsf-error-icon"
@@ -2389,7 +2389,7 @@ let v = class extends T {
                   clip-rule="evenodd"
                 />
               </svg>
-              ${l.message}
+              ${a.message}
             </div>
           `
     )}
@@ -2442,8 +2442,8 @@ let v = class extends T {
    */
   _renderString(r, e, t) {
     var n, o;
-    const i = this._errors.some((a) => a.instancePath === e), s = this._errors.find(
-      (a) => a.instancePath === e && a.keyword === "format"
+    const i = this._errors.some((l) => l.instancePath === e), s = this._errors.find(
+      (l) => l.instancePath === e && l.keyword === "format"
     );
     return r.maxLength && r.maxLength > 100 ? d`
         <textarea
@@ -2455,9 +2455,9 @@ let v = class extends T {
           placeholder=${((n = r.examples) == null ? void 0 : n[0]) ?? ""}
           minlength=${r.minLength ?? ""}
           maxlength=${r.maxLength ?? ""}
-          @input=${(a) => this._handleValueChange(
+          @input=${(l) => this._handleValueChange(
       e,
-      a.target.value
+      l.target.value
     )}
         ></textarea>
       ` : r.format ? this._renderFormatInput(
@@ -2478,7 +2478,7 @@ let v = class extends T {
         minlength=${r.minLength ?? ""}
         maxlength=${r.maxLength ?? ""}
         pattern=${r.pattern ?? ""}
-        @input=${(a) => this._handleValueChange(e, a.target.value)}
+        @input=${(l) => this._handleValueChange(e, l.target.value)}
       />
     `;
   }
@@ -2486,8 +2486,8 @@ let v = class extends T {
    * Render format-specific input components
    */
   _renderFormatInput(r, e, t, i, s) {
-    var l;
-    const n = r.format, o = (l = r.examples) == null ? void 0 : l[0], a = typeof o == "string" ? o : this._getFormatPlaceholder(n);
+    var a;
+    const n = r.format, o = (a = r.examples) == null ? void 0 : a[0], l = typeof o == "string" ? o : this._getFormatPlaceholder(n);
     switch (n) {
       case "date":
         return this._renderDateInput(r, e, t, i);
@@ -2501,7 +2501,7 @@ let v = class extends T {
           e,
           t,
           i,
-          a
+          l
         );
       case "uri":
       case "uri-reference":
@@ -2512,7 +2512,7 @@ let v = class extends T {
           e,
           t,
           i,
-          a,
+          l,
           n
         );
       case "uuid":
@@ -2528,7 +2528,7 @@ let v = class extends T {
           e,
           t,
           i,
-          a
+          l
         );
       case "duration":
         return this._renderDurationInput(r, e, t, i);
@@ -2552,7 +2552,7 @@ let v = class extends T {
             .value=${t ?? ""}
             ?disabled=${r.readOnly}
             ?required=${this._isRequired(e)}
-            placeholder=${a}
+            placeholder=${l}
             @input=${(f) => this._handleValueChange(
           e,
           f.target.value
@@ -2644,8 +2644,8 @@ let v = class extends T {
           ?required=${this._isRequired(e)}
           step="1"
           @input=${(n) => {
-      const o = n.target.value, a = o ? `${o}:00` : "";
-      this._handleValueChange(e, a);
+      const o = n.target.value, l = o ? `${o}:00` : "";
+      this._handleValueChange(e, l);
     }}
         />
         <span class="jsf-format-icon">
@@ -2675,8 +2675,8 @@ let v = class extends T {
           ?disabled=${r.readOnly}
           ?required=${this._isRequired(e)}
           @input=${(n) => {
-      const o = n.target.value, a = o ? `${o}:00` : "";
-      this._handleValueChange(e, a);
+      const o = n.target.value, l = o ? `${o}:00` : "";
+      this._handleValueChange(e, l);
     }}
         />
         <span class="jsf-format-icon">
@@ -3008,8 +3008,8 @@ let v = class extends T {
         max=${r.maximum ?? r.exclusiveMaximum ?? ""}
         step=${i ? "1" : r.multipleOf ?? "any"}
         @input=${(n) => {
-      const o = n.target.value, a = i ? parseInt(o, 10) : parseFloat(o);
-      this._handleValueChange(e, isNaN(a) ? void 0 : a);
+      const o = n.target.value, l = i ? parseInt(o, 10) : parseFloat(o);
+      this._handleValueChange(e, isNaN(l) ? void 0 : l);
     }}
       />
     `;
@@ -3050,9 +3050,9 @@ let v = class extends T {
         ?disabled=${r.readOnly}
         ?required=${this._isRequired(e)}
         @change=${(n) => {
-      var l;
-      const o = n.target.value, a = (l = r.enum) == null ? void 0 : l.find((f) => String(f) === o);
-      this._handleValueChange(e, a);
+      var a;
+      const o = n.target.value, l = (a = r.enum) == null ? void 0 : a.find((f) => String(f) === o);
+      this._handleValueChange(e, l);
     }}
       >
         <option value="" ?selected=${t === void 0}>Select...</option>
@@ -3103,50 +3103,50 @@ let v = class extends T {
     const i = t || {}, s = this._getEffectiveObjectSchema(
       r,
       i
-    ), n = s.properties || {}, o = new Set(Object.keys(n)), a = Object.keys(i).filter(
-      (c) => !o.has(c)
-    ), l = this._canAddProperty(
+    ), n = s.properties || {}, o = new Set(Object.keys(n)), l = Object.keys(i).filter(
+      (h) => !o.has(h)
+    ), a = this._canAddProperty(
       r,
       Object.keys(i).length
-    ), f = r.propertyNames, p = e !== "", u = !!r.title;
+    ), f = r.propertyNames, c = e !== "", u = !!r.title;
     return d`
-      <div class="jsf-object ${p && u ? "jsf-object--nested" : ""}">
-        ${Object.entries(n).map(([c, m]) => {
+      <div class="jsf-object ${c && u ? "jsf-object--nested" : ""}">
+        ${Object.entries(n).map(([h, g]) => {
       var re;
-      if (typeof m == "boolean")
-        return m ? d`` : d``;
-      const b = e ? `${e}/${c}` : c, V = i[c], $e = $.getTypes(m).includes("object") && m.properties, te = {
-        ...m,
-        _isRequired: (re = s.required) == null ? void 0 : re.includes(c)
+      if (typeof g == "boolean")
+        return g ? d`` : d``;
+      const b = e ? `${e}/${h}` : h, k = i[h], $e = $.getTypes(g).includes("object") && g.properties, te = {
+        ...g,
+        _isRequired: (re = s.required) == null ? void 0 : re.includes(h)
       };
-      if ($e && m.title) {
+      if ($e && g.title) {
         const _e = this._renderSchema(
           { ...te, title: void 0 },
           b,
-          V
+          k
         );
         return this._renderCollapsible(
           b,
-          m.title,
+          g.title,
           _e,
-          this._getObjectSummary(V)
+          this._getObjectSummary(k)
         );
       }
-      return this._renderSchema(te, b, V);
+      return this._renderSchema(te, b, k);
     })}
-        ${a.map((c) => {
-      const m = e ? `${e}/${c}` : c, b = i[c], V = this._getSchemaForProperty(
+        ${l.map((h) => {
+      const g = e ? `${e}/${h}` : h, b = i[h], k = this._getSchemaForProperty(
         r,
-        c,
+        h,
         b
-      ), U = this._getMatchingPattern(r, c);
+      ), U = this._getMatchingPattern(r, h);
       return d`
             <div
               class="jsf-additional-property ${U ? "jsf-pattern-property" : ""}"
             >
               <div class="jsf-additional-property-header">
                 <span class="jsf-additional-property-name">
-                  ${c}
+                  ${h}
                   ${U ? d`<span
                         class="jsf-pattern-badge"
                         title="Matches pattern: ${U}"
@@ -3157,7 +3157,7 @@ let v = class extends T {
                   type="button"
                   class="jsf-icon-button jsf-icon-button--danger"
                   title="Remove property"
-                  @click=${() => this._removeProperty(e, c)}
+                  @click=${() => this._removeProperty(e, h)}
                 >
                   <svg
                     width="16"
@@ -3173,11 +3173,11 @@ let v = class extends T {
                   </svg>
                 </button>
               </div>
-              ${this._renderSchema(V, m, b)}
+              ${this._renderSchema(k, g, b)}
             </div>
           `;
     })}
-        ${l ? d`
+        ${a ? d`
               <div class="jsf-add-property">
                 <input
                   type="text"
@@ -3187,30 +3187,30 @@ let v = class extends T {
       f
     )}
                   pattern=${this._getPropertyNamePattern(f)}
-                  @keydown=${(c) => {
-      if (c.key === "Enter") {
-        c.preventDefault();
-        const m = c.target, b = this._validatePropertyName(
+                  @keydown=${(h) => {
+      if (h.key === "Enter") {
+        h.preventDefault();
+        const g = h.target, b = this._validatePropertyName(
           r,
-          m.value,
+          g.value,
           Object.keys(i)
         );
-        b ? this._showPropertyNameError(m, b) : (this._addProperty(e, r, m.value), m.value = "");
+        b ? this._showPropertyNameError(g, b) : (this._addProperty(e, r, g.value), g.value = "");
       }
     }}
                 />
                 <button
                   type="button"
                   class="jsf-button jsf-button--secondary"
-                  @click=${(c) => {
-      const m = c.target.previousElementSibling;
-      if (m.value) {
+                  @click=${(h) => {
+      const g = h.target.previousElementSibling;
+      if (g.value) {
         const b = this._validatePropertyName(
           r,
-          m.value,
+          g.value,
           Object.keys(i)
         );
-        b ? this._showPropertyNameError(m, b) : (this._addProperty(e, r, m.value), m.value = "");
+        b ? this._showPropertyNameError(g, b) : (this._addProperty(e, r, g.value), g.value = "");
       }
     }}
                 >
@@ -3383,8 +3383,8 @@ let v = class extends T {
       e,
       i,
       void 0
-    ), o = this._getDefaultValue(n), a = { ...s, [i]: o };
-    this._handleValueChange(r, a);
+    ), o = this._getDefaultValue(n), l = { ...s, [i]: o };
+    this._handleValueChange(r, l);
   }
   /**
    * Remove a property from an object
@@ -3409,21 +3409,21 @@ let v = class extends T {
    * Render an array field
    */
   _renderArray(r, e, t) {
-    const i = t || [], s = r.prefixItems || [], n = s.length > 0, o = this._canAddArrayItem(r, i.length), a = (l) => this._canRemoveArrayItem(r, i.length, l);
+    const i = t || [], s = r.prefixItems || [], n = s.length > 0, o = this._canAddArrayItem(r, i.length), l = (a) => this._canRemoveArrayItem(r, i.length, a);
     return d`
       <div class="jsf-array ${n ? "jsf-array--tuple" : ""}">
-        ${i.map((l, f) => {
-      const p = this._getArrayItemSchema(r, f), u = f < s.length;
+        ${i.map((a, f) => {
+      const c = this._getArrayItemSchema(r, f), u = f < s.length;
       return d`
             <div
               class="jsf-array-item ${u ? "jsf-array-item--prefix" : ""}"
             >
               ${u ? d`<span class="jsf-array-item-index">${f + 1}</span>` : ""}
               <div class="jsf-array-item-content">
-                ${this._renderSchema(p, `${e}/${f}`, l)}
+                ${this._renderSchema(c, `${e}/${f}`, a)}
               </div>
               <div class="jsf-array-item-actions">
-                ${a(f) ? d`
+                ${l(f) ? d`
                       <button
                         type="button"
                         class="jsf-icon-button jsf-icon-button--danger"
@@ -3504,41 +3504,46 @@ let v = class extends T {
    * Render anyOf/oneOf with a schema selector
    */
   _renderAnyOfOneOf(r, e, t, i, s) {
-    const n = e.map((u, h) => ({ schema: u, index: h })).filter((u) => typeof u.schema != "boolean" || u.schema);
+    const n = e.map((p, m) => ({ schema: p, index: m })).filter((p) => typeof p.schema != "boolean" || p.schema);
     if (n.length === 0)
       return d`<div class="jsf-error">No valid schemas in ${t}</div>`;
-    let o = this._schemaSelections.get(i);
-    o === void 0 && (o = this._detectMatchingSchema(n, s), this._schemaSelections.set(i, o));
-    const a = n[o] || n[0], l = typeof a.schema == "boolean" ? {} : a.schema, f = n.map((u, h) => {
-      var j;
-      return typeof u.schema == "boolean" ? `Option ${h + 1}` : u.schema.title || ((j = u.schema.description) == null ? void 0 : j.slice(0, 30)) || this._getSchemaTypeLabel(u.schema) || `Option ${h + 1}`;
-    }), p = this._errors.some((u) => u.instancePath === i);
+    let o = this._schemaSelections.get(i), l = !1;
+    o === void 0 && (o = this._detectMatchingSchema(n, s), this._schemaSelections.set(i, o), l = s == null || typeof s == "object" && !Array.isArray(s) && Object.keys(s).length === 0);
+    const a = n[o] || n[0], f = typeof a.schema == "boolean" ? {} : a.schema;
+    if (l && typeof a.schema != "boolean") {
+      const p = this._getDefaultValue(a.schema);
+      setTimeout(() => this._handleValueChange(i, p), 0), s = p;
+    }
+    const c = n.map((p, m) => {
+      var h;
+      return typeof p.schema == "boolean" ? `Option ${m + 1}` : p.schema.title || ((h = p.schema.description) == null ? void 0 : h.slice(0, 30)) || this._getSchemaTypeLabel(p.schema) || `Option ${m + 1}`;
+    }), u = this._errors.some((p) => p.instancePath === i);
     return d`
       <div class="jsf-composition">
         ${r.title ? d`<label class="jsf-label">${r.title}</label>` : ""}
         <div class="jsf-composition-selector">
           <select
-            class="jsf-input jsf-select ${p ? "jsf-input--error" : ""}"
+            class="jsf-input jsf-select ${u ? "jsf-input--error" : ""}"
             part="input"
-            @change=${(u) => {
-      const h = parseInt(
-        u.target.value,
+            @change=${(p) => {
+      const m = parseInt(
+        p.target.value,
         10
       );
-      this._handleSchemaSelection(i, h, n);
+      this._handleSchemaSelection(i, m, n);
     }}
           >
             ${n.map(
-      (u, h) => d`
-                <option value=${h} ?selected=${h === o}>
-                  ${f[h]}
+      (p, m) => d`
+                <option value=${m} ?selected=${m === o}>
+                  ${c[m]}
                 </option>
               `
     )}
           </select>
         </div>
         <div class="jsf-composition-content">
-          ${this._renderSchema(l, i, s)}
+          ${this._renderSchema(f, i, s)}
         </div>
         ${r.description ? d`<p class="jsf-description">${r.description}</p>` : ""}
       </div>
@@ -3604,8 +3609,8 @@ let v = class extends T {
     const o = s ? r.then : r.else;
     if (o === void 0)
       return this._renderSchemaContent(n, e, t);
-    const a = typeof o == "boolean" ? n : this._mergeSchemas(n, o);
-    return this._renderSchemaContent(a, e, t);
+    const l = typeof o == "boolean" ? n : this._mergeSchemas(n, o);
+    return this._renderSchemaContent(l, e, t);
   }
   /**
    * Merge two schemas together (simple shallow merge)
@@ -3623,8 +3628,8 @@ let v = class extends T {
    * Render schema content (called after resolving refs, composition, conditions)
    */
   _renderSchemaContent(r, e, t) {
-    var a;
-    const s = $.getTypes(r)[0] || this._inferType(r, t), n = this._errors.filter((l) => l.instancePath === e), o = this._getFieldLabel(r, e);
+    var l;
+    const s = $.getTypes(r)[0] || this._inferType(r, t), n = this._errors.filter((a) => a.instancePath === e), o = this._getFieldLabel(r, e);
     return d`
       <div
         class="jsf-field ${r.deprecated ? "jsf-deprecated" : ""} ${r.readOnly ? "jsf-readonly" : ""}"
@@ -3632,7 +3637,7 @@ let v = class extends T {
       >
         ${o ? d`
               <label
-                class="jsf-label ${(a = r.required) != null && a.length ? "jsf-label-required" : ""}"
+                class="jsf-label ${(l = r.required) != null && l.length ? "jsf-label-required" : ""}"
                 part="label"
               >
                 ${o}
@@ -3641,7 +3646,7 @@ let v = class extends T {
         ${this._renderFieldByType(s, r, e, t)}
         ${r.description ? d` <p class="jsf-description">${r.description}</p> ` : ""}
         ${n.map(
-      (l) => d`
+      (a) => d`
             <div class="jsf-error" part="error" role="alert">
               <svg
                 class="jsf-error-icon"
@@ -3654,7 +3659,7 @@ let v = class extends T {
                   clip-rule="evenodd"
                 />
               </svg>
-              ${l.message}
+              ${a.message}
             </div>
           `
     )}
@@ -3723,7 +3728,7 @@ let v = class extends T {
     return r.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]/g, " ").replace(/\b\w/g, (e) => e.toUpperCase()).trim();
   }
 };
-v.styles = [
+y.styles = [
   Je,
   ge`
       :host {
@@ -3747,49 +3752,49 @@ v.styles = [
       }
     `
 ];
-y([
-  E({ type: String })
-], v.prototype, "schema", 2);
-y([
-  E({ type: Object, attribute: !1 })
-], v.prototype, "value", 2);
-y([
-  E({ type: Boolean, attribute: "validate-on-change" })
-], v.prototype, "validateOnChange", 2);
-y([
-  E({ type: Boolean, attribute: "show-submit" })
-], v.prototype, "showSubmit", 2);
-y([
-  E({ type: String, attribute: "submit-text" })
-], v.prototype, "submitText", 2);
-y([
-  E({ type: String, attribute: "initial-data" })
-], v.prototype, "initialData", 2);
-y([
-  I()
-], v.prototype, "_parsedSchema", 2);
-y([
-  I()
-], v.prototype, "_parseError", 2);
-y([
-  I()
-], v.prototype, "_errors", 2);
-y([
-  I()
-], v.prototype, "_submitted", 2);
-y([
-  I()
-], v.prototype, "_schemaSelections", 2);
-y([
-  I()
-], v.prototype, "_collapsedSections", 2);
-y([
-  I()
-], v.prototype, "_initialDataError", 2);
-v = y([
+j([
+  I({ type: String })
+], y.prototype, "schema", 2);
+j([
+  I({ type: Object, attribute: !1 })
+], y.prototype, "value", 2);
+j([
+  I({ type: Boolean, attribute: "validate-on-change" })
+], y.prototype, "validateOnChange", 2);
+j([
+  I({ type: Boolean, attribute: "show-submit" })
+], y.prototype, "showSubmit", 2);
+j([
+  I({ type: String, attribute: "submit-text" })
+], y.prototype, "submitText", 2);
+j([
+  I({ type: String, attribute: "initial-data" })
+], y.prototype, "initialData", 2);
+j([
+  E()
+], y.prototype, "_parsedSchema", 2);
+j([
+  E()
+], y.prototype, "_parseError", 2);
+j([
+  E()
+], y.prototype, "_errors", 2);
+j([
+  E()
+], y.prototype, "_submitted", 2);
+j([
+  E()
+], y.prototype, "_schemaSelections", 2);
+j([
+  E()
+], y.prototype, "_collapsedSections", 2);
+j([
+  E()
+], y.prototype, "_initialDataError", 2);
+y = j([
   Ue("json-schema-form")
-], v);
+], y);
 export {
-  v as JsonSchemaForm
+  y as JsonSchemaForm
 };
 //# sourceMappingURL=json-schema-form.js.map
