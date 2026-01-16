@@ -640,11 +640,13 @@ export const formStyles = css`
   }
 
   /* Valid format indicator */
-  .jsf-format-input .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid {
+  .jsf-format-input
+    .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid {
     border-color: var(--jsf-color-success);
   }
 
-  .jsf-format-input .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid:focus {
+  .jsf-format-input
+    .jsf-input:not(.jsf-input--error):not(:placeholder-shown):valid:focus {
     box-shadow: 0 0 0 3px rgb(34 197 94 / 0.2);
   }
 
@@ -700,5 +702,73 @@ export const formStyles = css`
   .jsf-collapsible--expanded .jsf-collapsible-content {
     display: block;
     animation: jsf-fade-in var(--jsf-transition-normal);
+  }
+
+  /* Optional field toggle */
+  .jsf-optional-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--jsf-spacing-xs);
+  }
+
+  .jsf-optional-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--jsf-spacing-sm);
+    padding: var(--jsf-spacing-sm) var(--jsf-spacing-md);
+    background-color: var(--jsf-color-bg-secondary);
+    border: 1px solid var(--jsf-color-border);
+    border-radius: var(--jsf-radius-md);
+    cursor: pointer;
+    transition: background-color var(--jsf-transition-fast),
+      border-color var(--jsf-transition-fast);
+  }
+
+  .jsf-optional-toggle:hover {
+    background-color: var(--jsf-color-bg-disabled);
+  }
+
+  .jsf-optional-toggle--enabled {
+    border-color: var(--jsf-color-primary);
+    background-color: var(--jsf-color-bg);
+  }
+
+  .jsf-optional-toggle-checkbox {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--jsf-color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .jsf-optional-toggle-label {
+    flex: 1;
+    font-weight: var(--jsf-font-weight-medium);
+    color: var(--jsf-color-text);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .jsf-optional-toggle-hint {
+    font-size: var(--jsf-font-size-sm);
+    color: var(--jsf-color-text-muted);
+    font-style: italic;
+  }
+
+  .jsf-optional-field-content {
+    display: none;
+    padding-left: var(--jsf-spacing-lg);
+    border-left: 2px solid var(--jsf-color-primary);
+    margin-left: var(--jsf-spacing-sm);
+    animation: jsf-fade-in var(--jsf-transition-normal);
+  }
+
+  .jsf-optional-field--enabled .jsf-optional-field-content {
+    display: block;
+  }
+
+  /* When optional toggle is inside an object, adjust spacing */
+  .jsf-object > .jsf-optional-field {
+    margin-bottom: 0;
   }
 `;

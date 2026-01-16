@@ -1624,6 +1624,8 @@ export class JsonSchemaForm extends LitElement {
 
           const propPath = path ? `${path}/${propName}` : propName;
           const propValue = currentValue[propName];
+          const isRequired = effectiveSchema.required?.includes(propName);
+          const isOptional = !isRequired;
 
           // Check if this property is a nested object that should be collapsible
           const propTypes = SchemaParser.getTypes(propSchema);
@@ -1633,8 +1635,38 @@ export class JsonSchemaForm extends LitElement {
           // Add required indicator to schema for rendering
           const schemaWithRequired = {
             ...propSchema,
-            _isRequired: effectiveSchema.required?.includes(propName),
+            _isRequired: isRequired,
           };
+
+          // For optional fields, wrap with toggle
+          if (isOptional) {
+            const isEnabled = propName in currentValue && propValue !== undefined;
+            const fieldLabel = propSchema.title || this._fieldNameToLabel(propName);
+            
+            return html`
+              <div class="jsf-optional-field ${isEnabled ? 'jsf-optional-field--enabled' : ''}">
+                <label class="jsf-optional-toggle ${isEnabled ? 'jsf-optional-toggle--enabled' : ''}">
+                  <input
+                    type="checkbox"
+                    class="jsf-optional-toggle-checkbox"
+                    .checked=${isEnabled}
+                    @change=${(e: Event) => {
+                      const checked = (e.target as HTMLInputElement).checked;
+                      this._toggleOptionalProperty(path, propName, propSchema, checked);
+                    }}
+                  />
+                  <span class="jsf-optional-toggle-label">${fieldLabel}</span>
+                  <span class="jsf-optional-toggle-hint">${isEnabled ? '' : '(optional, not set)'}</span>
+                </label>
+                <div class="jsf-optional-field-content">
+                  ${isEnabled ? this._renderSchema({ ...schemaWithRequired, title: undefined }, propPath, propValue) : ''}
+                </div>
+                ${propSchema.description && !isEnabled
+                  ? html`<p class="jsf-description">${propSchema.description}</p>`
+                  : ''}
+              </div>
+            `;
+          }
 
           // Render nested objects with collapsible wrapper
           if (isNestedObject && propSchema.title) {
@@ -2094,6 +2126,35 @@ export class JsonSchemaForm extends LitElement {
 
     const { [propName]: _, ...rest } = currentValue;
     this._handleValueChange(path, rest);
+  }
+
+  /**
+   * Toggle an optional property on or off
+   * When enabled, initializes with default value
+   * When disabled, removes the property (sets to undefined)
+   */
+  private _toggleOptionalProperty(
+    parentPath: string,
+    propName: string,
+    propSchema: JSONSchema,
+    enabled: boolean
+  ): void {
+    const currentValue =
+      ((parentPath ? this._getNestedValue(this.value, parentPath) : this.value) as Record<
+        string,
+        unknown
+      >) || {};
+
+    if (enabled) {
+      // Enable: add property with default value
+      const defaultValue = this._getDefaultValue(propSchema);
+      const newValue = { ...currentValue, [propName]: defaultValue };
+      this._handleValueChange(parentPath, newValue);
+    } else {
+      // Disable: remove property from object
+      const { [propName]: _, ...rest } = currentValue;
+      this._handleValueChange(parentPath, rest);
+    }
   }
 
   /**
