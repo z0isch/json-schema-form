@@ -2,7 +2,7 @@
 node_modules/
 
 # Build output
-dist/
+# dist/ is committed for GitHub installs
 dist-site/
 
 # Environment files
